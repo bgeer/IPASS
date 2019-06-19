@@ -9,10 +9,10 @@
 #############################################################################
 
 # source files in this project (main.cpp is automatically assumed)
-SOURCES := MFRC522.cpp
+SOURCES := MFRC522.cpp spiSetup.cpp
 
 # header files in this project
-HEADERS := MFRC522.hpp
+HEADERS := MFRC522.hpp spiSetup.hpp
 
 # other places to look for files for this project
 SEARCH  := 
