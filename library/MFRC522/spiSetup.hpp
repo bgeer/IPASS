@@ -9,6 +9,7 @@ private:
     const uint8_t WRITE_MASK = 0x7E; // 0111 1110
     uint8_t getReadByte(const uint8_t chipRegAddress);
     uint8_t getWriteByte(const uint8_t chipRegAdress);
+    void printByte(uint8_t &byte);
 public:
     spiSetup(hwlib::pin_out &scl, hwlib::pin_out &mosi, hwlib::pin_in &miso);
 
