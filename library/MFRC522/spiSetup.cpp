@@ -31,7 +31,8 @@ uint8_t spiSetup::getByteFromRegister(const uint8_t regAddress, hwlib::pin_out& 
 }
 
 void spiSetup::getBytesFromRegister(const uint8_t regAddress, uint8_t data[], int amountOfBytes, hwlib::pin_out& slaveSel){
-
+    transaction(slaveSel).write(getReadByte(regAddress));
+    transaction(slaveSel).read(amountOfBytes, data);
 }
 
 void spiSetup::writeByteInRegister(const uint8_t regAddress, uint8_t writeByte, hwlib::pin_out& slaveSel) {

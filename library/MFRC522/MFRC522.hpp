@@ -121,14 +121,19 @@ public:
     //constructor
     MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset);
 
-    //read one register
+    //read one byte out of a register
     uint8_t readRegister(REG regAddress);
 
-    uint8_t readRegister(uint8_t address);
+    //read multiple bytes out of a register
+    void readRegister(REG regAddress, int amountOfBytes, uint8_t data[]);
 
-    //write one register
+    //write one byte toregister
     void writeRegister(REG regAddress, uint8_t newByte);
 
+    //write multiple bytes to registers
+    void writeRegister(REG regAddress, uint8_t writeBytes[], int amountOfBytes);
+
+    //bit masks
     void setBitMask(REG regAddress, uint8_t mask);
     void clearBitMask(REG regAddress, uint8_t mask);
 
@@ -150,7 +155,7 @@ public:
     void clearFIFOBuffer(const uint8_t amntOfBytes = 64);
 
     void clearInternalBuffer();
-    
+
     //initialize
     void initialize();
 

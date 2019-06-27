@@ -21,8 +21,9 @@ int main(){
 
     MFRC522 rfid(bus, ss, reset);
 
-    bool y = rfid.selfTest();
-    hwlib::cout<<y;
+    rfid.selfTest();
+
+    
 
 return 0;
 

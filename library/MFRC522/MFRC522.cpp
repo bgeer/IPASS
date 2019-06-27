@@ -1,5 +1,11 @@
 #include "MFRC522.hpp"
-
+void printByte2(uint8_t &byte){
+    hwlib::cout<<"Byte: ";
+    for(int i = 7; i >= 0; i--){
+        hwlib::cout<<((byte & (1<<i)) !=0);
+    }
+    hwlib::cout<<'\n';
+}
 
 MFRC522::MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset):
     bus( bus ),
@@ -11,12 +17,16 @@ uint8_t MFRC522::readRegister(REG regAddress){
     return bus.getByteFromRegister((uint8_t)regAddress, slaveSel);
 }
 
-uint8_t MFRC522::readRegister(uint8_t address){
-    return bus.getByteFromRegister(address, slaveSel);
+void MFRC522::readRegister(REG regAddress, int amountOfBytes, uint8_t data[]){
+    bus.getBytesFromRegister(regAddress, data, amountOfBytes, slaveSel);
 }
 
 void MFRC522::writeRegister(REG regAddress, uint8_t newByte){
     bus.writeByteInRegister(regAddress, newByte, slaveSel);
+}
+
+void MFRC522::writeRegister(REG regAddress, uint8_t writeBytes[], int amountOfBytes){
+    bus.writeBytesinRegister(regAddress, writeBytes, amountOfBytes, slaveSel);
 }
 
 void MFRC522::setBitMask(REG regAddress, uint8_t mask){
@@ -81,6 +91,19 @@ void MFRC522::initialize(){
 
 }
 
+void MFRC522::clearFIFOBuffer(const uint8_t amntOfBytes){
+    writeRegister(FIFOLevelReg, 0x80);  //clears internal fifo buffer read and write pointer.
+    uint8_t newFIFOBytes[amntOfBytes] = {0};
+    writeRegister(FIFODataReg, newFIFOBytes, amntOfBytes);  //write amount of 0x00 to fifo buffer
+
+}
+
+void MFRC522::clearInternalBuffer(){
+    clearFIFOBuffer(25);
+    writeRegister(CommandReg, 0x01);
+}
+
+
 bool MFRC522::selfTest(){
     //get version
     uint8_t firmwareVersion = getVersion();
@@ -90,16 +113,48 @@ bool MFRC522::selfTest(){
     //1 perform a softreset
     softReset();
     //2 clear internal buffer by writing 25 bytes of 00h and implement the config command
-    
+    clearInternalBuffer();
     //3 enable self test by writing 0x09 to the autotest register
-
+    writeRegister(AutoTestReg, 0x09);
     //4 write 00h to the fifo buffer
-
+    writeRegister(FIFODataReg, 0x00);
     //5 start sefttest with the CalcCRC command
-
+    writeRegister(CommandReg, 0x03);
     //6 the self test in initiated
-
+    uint8_t amount;
+    for(uint8_t i = 0; i < 0xFF; i++){
+        amount = readRegister(FIFOLevelReg);
+        if( amount >= 64){
+            break;
+        }
+    }
+    uint8_t result[64];
+    readRegister(FIFODataReg, 64, result);
     //control fifo bytes with the given bytes in datasheet
 
-    return true;
+    writeRegister(AutoTestReg, 0x00);
+
+    for(uint8_t i = 0; i < 64; i++){
+        hwlib::cout<<result[i] <<" :: " << i << "\n";
+    }
+    if(firmwareVersion == 0x91){
+        for(uint8_t i = 0; i < 64; i++){
+            if(result[i] != selfTestFIFOBufferV1[i]){
+                hwlib::cout<<"v1 wrong";
+                return false;
+            }
+        }
+        return true;
+    }else if(firmwareVersion == 0x92){
+        for(uint8_t i = 0; i < 64; i++){
+            hwlib::cout<<result[i]<<"  ::  " << selfTestFIFOBufferV2[i] << "\n";
+            if(result[i] != selfTestFIFOBufferV2[i]){
+                hwlib::cout<<"v2 wrong";
+                return false;
+            }
+        }
+        return true;
+    }else{
+        return false;
+    }
 }
