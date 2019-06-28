@@ -13,28 +13,28 @@ MFRC522::MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset)
     reset ( reset )
     {}
 
-uint8_t MFRC522::readRegister(REG regAddress){
+uint8_t MFRC522::readRegister(uint8_t regAddress){
     return bus.getByteFromRegister((uint8_t)regAddress, slaveSel);
 }
 
-void MFRC522::readRegister(REG regAddress, int amountOfBytes, uint8_t data[]){
+void MFRC522::readRegister(uint8_t regAddress, int amountOfBytes, uint8_t data[]){
     bus.getBytesFromRegister(regAddress, data, amountOfBytes, slaveSel);
 }
 
-void MFRC522::writeRegister(REG regAddress, uint8_t newByte){
+void MFRC522::writeRegister(uint8_t regAddress, uint8_t newByte){
     bus.writeByteInRegister(regAddress, newByte, slaveSel);
 }
 
-void MFRC522::writeRegister(REG regAddress, uint8_t writeBytes[], int amountOfBytes){
+void MFRC522::writeRegister(uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes){
     bus.writeBytesinRegister(regAddress, writeBytes, amountOfBytes, slaveSel);
 }
 
-void MFRC522::setBitMask(REG regAddress, uint8_t mask){
+void MFRC522::setBitMask(uint8_t regAddress, uint8_t mask){
     uint8_t byteNow = readRegister(regAddress);
     writeRegister(regAddress, byteNow | mask);
 }
 
-void MFRC522::clearBitMask(REG regAddress, uint8_t mask){
+void MFRC522::clearBitMask(uint8_t regAddress, uint8_t mask){
     uint8_t byteNow = readRegister(regAddress);
     byteNow = byteNow & ~mask;
     writeRegister(regAddress, byteNow);
@@ -67,7 +67,7 @@ void MFRC522::hardReset(){
 
 
 void MFRC522::softReset(){
-    writeRegister(CommandReg, (uint8_t)SoftReset);
+    writeRegister(CommandReg, (uint8_t)cmdSoftReset);
     hwlib::wait_ms(150);
     waitForBootUp();
 }
@@ -81,8 +81,8 @@ void MFRC522::initialize(){
     writeRegister(RxModeReg, 0x00);
 
     writeRegister(TPrescalerReg, 0xA9); //169 for a 30khz timer = 25us
-    writeRegister(TReloadReg1, 0x03);   //169 in bits (0x03E8)
-    writeRegister(TReloadReg2, 0xE8);   //169 in bits (0x03E8)
+    writeRegister(TReloadRegH, 0x03);   //169 in bits (0x03E8)
+    writeRegister(TReloadRegL, 0xE8);   //169 in bits (0x03E8)
 
     writeRegister(TxASKReg, 0x40); //100%ask becuase we use mifare card and that is rfid and not nfc
     writeRegister(ModeReg, 0x3D);   //crc init value 0x6363

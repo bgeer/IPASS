@@ -13,83 +13,86 @@ private:
 
 
 public:
+    const static uint8_t CommandReg = 0x01;
+    const static uint8_t ComIEnReg = 0x02;
+    const static uint8_t DivIEnReg = 0x03;
+    const static uint8_t ComIrqReg = 0x04;
+    const static uint8_t DivIrqReg = 0x05;
+    const static uint8_t ErrorReg = 0x06;
+    const static uint8_t Status1Reg = 0x07;
+    const static uint8_t Status2Reg = 0x08;
+    const static uint8_t FIFODataReg = 0x09;
+    const static uint8_t FIFOLevelReg = 0x0A;
+    const static uint8_t WaterLevelReg = 0x0B;
+    const static uint8_t ControlReg = 0x0C;
+    const static uint8_t BitFramingReg = 0x0D;
+    const static uint8_t CollReg = 0x0E;
+    const static uint8_t ModeReg = 0x11;
+    const static uint8_t TxModeReg = 0x12;
+    const static uint8_t RxModeReg = 0x13;
+    const static uint8_t TxControlReg = 0x14;
+    const static uint8_t TxASKReg = 0x15;
+    const static uint8_t TxSelReg = 0x16;
+    const static uint8_t RxSelReg = 0x17;
+    const static uint8_t RxThresholdReg = 0x18;
+    const static uint8_t DemodReg = 0x19;
+    const static uint8_t MfTxReg = 0x1C;
+    const static uint8_t MfRxReg = 0x1D;
+    const static uint8_t SerialSpeedReg = 0x1F;
+    const static uint8_t CRCResultRegH = 0x21;
+    const static uint8_t CRCResultRegL = 0x22;
+    const static uint8_t ModWidthReg = 0x24;
+    const static uint8_t RFCfgReg = 0x26;
+    const static uint8_t GsNReg = 0x27;
+    const static uint8_t CWGsPReg = 0x28;
+    const static uint8_t ModGsPReg = 0x29;
+    const static uint8_t TModeReg = 0x2A;
+    const static uint8_t TPrescalerReg = 0x2B;
+    const static uint8_t TReloadRegH = 0x2C;
+    const static uint8_t TReloadRegL = 0x2D;
+    const static uint8_t TCounterValueRegH = 0x2E;
+    const static uint8_t TCounterValueRegL = 0x2F;
+    const static uint8_t TestSel1Reg = 0x31;
+    const static uint8_t TestSel2Reg = 0x32;
+    const static uint8_t TestPinEnReg = 0x33;
+    const static uint8_t TestPinValueReg = 0x34;
+    const static uint8_t TestBusReg = 0x35;
+    const static uint8_t AutoTestReg = 0x36;
+    const static uint8_t VersionReg = 0x37;
+    const static uint8_t AnalogTestReg = 0x38;
+    const static uint8_t TestDAC1Reg = 0x39;
+    const static uint8_t TestDAC2Reg = 0x3A;
+    const static uint8_t TestADCReg = 0x3B;
+    // chip commands
+    const static uint8_t cmdIdle = 0x00;
+    const static uint8_t cmdMem = 0x01;
+    const static uint8_t cmdGenerateRandomID = 0x02;
+    const static uint8_t cmdCalcCRC = 0x03;
+    const static uint8_t cmdTransmit = 0x04;
+    const static uint8_t cmdNoCmdChange = 0x07;
+    const static uint8_t cmdReceive = 0x08;
+    const static uint8_t cmdTransceive = 0x0C;
+    const static uint8_t cmdMFAuthent = 0x0E;
+    const static uint8_t cmdSoftReset = 0x0F;
 
-    //registers
-    enum REG : uint8_t {
-        //command and status
-        CommandReg = 0x01,
-        ComlEnReg,
-        DivlEnReg,
-        ComlrqReg,
-        DivlrqReg,
-        ErrorReg,
-        Status1Reg,
-        Status2Reg,
-        FIFODataReg,
-        FIFOLevelReg,
-        WaterLevelReg,
-        ControlReg,
-        BitFramingReg,
-        CollReg,
-        //commands
-        ModeReg = 0x11,
-        TxModeReg,
-        RxModeReg,
-        TxControlReg,
-        TxASKReg,
-        TxSelReg,
-        RxSelReg,
-        RxThresholdReg,
-        DemodReg,
-        MfTxReg = 0x1C,
-        MfRxReg,
-        SerialSpeedReg = 0x1F,
-        //configuration
-        CRCResultReg1 = 0x21,
-        CRCResultReg2,
-        ModWidthReg = 0x24,
-        RFCfgReg = 0x26,
-        CsNReg,
-        CWGsPReg,
-        ModGsPReg,
-        TModeReg,
-        TPrescalerReg,
-        TReloadReg1,
-        TReloadReg2,
-        TCounterValReg,
-        //Test register
-        TestSel1Reg = 0x31,
-        TestSel2Reg,
-        TestPinEnReg,
-        TestPinValueReg,
-        TestBusReg,
-        AutoTestReg,
-        VersionReg = 0x37,
-        AnalogTestReg,
-        TestDAC1Reg,
-        TestDAC2Reg,
-        TestADCReg
-    };
+    // MIFARE card commands
+    const static uint8_t apduREQA = 0x26;
+    const static uint8_t apduWUPA = 0x52;
+    const static uint8_t apduCT = 0x88;
+    const static uint8_t apduSelCL1 = 0x93;
+    const static uint8_t apduSelCL2 = 0x95;
+    const static uint8_t apduSelCL3 = 0x97;
+    const static uint8_t apduHLTA = 0x50;
+    const static uint8_t apduMF_AUTH_KEY_A = 0x60;
+    const static uint8_t apduMF_AUTH_KEY_B = 0x61;
+    const static uint8_t apduMF_READ = 0x30;
+    const static uint8_t apduMF_WRITE = 0xA0;
+    const static uint8_t apduMF_DECREMENT = 0xC0;
+    const static uint8_t apduMF_INCREMENT = 0xC1;
+    const static uint8_t apduMF_RESTORE = 0xC2;
+    const static uint8_t apduMF_TRANSFER = 0xB0;
+    const static uint8_t apduUL_WRITE = 0xA2;
 
-    enum CMD : uint8_t {
-        idle = 0x00,
-        mem,
-        generateRandomID,
-        calcCRC,
-        transmit,
-        noCmdChange = 0x07,
-        recieve,
-        transceive = 0x0C,
-        mfAuthent = 0x0E, 
-        SoftReset  
-    };
-
-    enum MF_CMD : uint8_t {
-        request = 0x26,
-        wakeUp = 0x52,
-        AntiCollisionCl1 = 0x93,
-        Selec
-    };
 
     const uint8_t FIFOAmountOfBytes = 64;
 
@@ -122,20 +125,20 @@ public:
     MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset);
 
     //read one byte out of a register
-    uint8_t readRegister(REG regAddress);
+    uint8_t readRegister(uint8_t regAddress);
 
     //read multiple bytes out of a register
-    void readRegister(REG regAddress, int amountOfBytes, uint8_t data[]);
+    void readRegister(uint8_t regAddress, int amountOfBytes, uint8_t data[]);
 
     //write one byte toregister
-    void writeRegister(REG regAddress, uint8_t newByte);
+    void writeRegister(uint8_t regAddress, uint8_t newByte);
 
     //write multiple bytes to registers
-    void writeRegister(REG regAddress, uint8_t writeBytes[], int amountOfBytes);
+    void writeRegister(uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes);
 
     //bit masks
-    void setBitMask(REG regAddress, uint8_t mask);
-    void clearBitMask(REG regAddress, uint8_t mask);
+    void setBitMask(uint8_t regAddress, uint8_t mask);
+    void clearBitMask(uint8_t regAddress, uint8_t mask);
 
     //turn the antennas on or off 8.6.3
     void stateAntennas(bool state);
