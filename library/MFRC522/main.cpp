@@ -10,7 +10,7 @@ void printByte(uint8_t &byte){
     hwlib::cout<<'\n';
 }
 int main(){
-    hwlib::wait_ms(1000); //Wait till terminal is started
+    hwlib::wait_ms(2000); //Wait till terminal is started
     auto miso = hwlib::target::pin_in(hwlib::target::pins::d50);
     auto sclk = hwlib::target::pin_out(hwlib::target::pins::d48);
     auto ss = hwlib::target::pin_out(hwlib::target::pins::d49);
@@ -21,7 +21,12 @@ int main(){
 
     MFRC522 rfid(bus, ss, reset);
 
+
+
+    rfid.hardReset();
+
     rfid.selfTest();
+
 
     
 

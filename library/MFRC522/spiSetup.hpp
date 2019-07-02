@@ -14,7 +14,7 @@ public:
     spiSetup(hwlib::pin_out &scl, hwlib::pin_out &mosi, hwlib::pin_in &miso);
 
     uint8_t getByteFromRegister(const uint8_t chipRegAddress, hwlib::pin_out& slaveSelect);
-    void getBytesFromRegister(const uint8_t chipRegAddress, uint8_t data[], int amountOfBytes, hwlib::pin_out& slaveSelect);
+    void getBytesFromRegister(const uint8_t chipRegAddress, uint8_t data[], uint8_t amountOfBytes, hwlib::pin_out& slaveSelect);
     void writeByteInRegister(const uint8_t chipRegAddress, uint8_t writeByte, hwlib::pin_out& slaveSelect);
     void writeBytesinRegister(const uint8_t chipRegAddress, uint8_t writeBytes[], int amountOfBytes, hwlib::pin_out& slaveSel);
 };

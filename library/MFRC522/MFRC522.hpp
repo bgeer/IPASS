@@ -13,6 +13,7 @@ private:
 
 
 public:
+    //const static uint8_t reserved = 0x00;
     const static uint8_t CommandReg = 0x01;
     const static uint8_t ComIEnReg = 0x02;
     const static uint8_t DivIEnReg = 0x03;
@@ -27,6 +28,8 @@ public:
     const static uint8_t ControlReg = 0x0C;
     const static uint8_t BitFramingReg = 0x0D;
     const static uint8_t CollReg = 0x0E;
+    //const static uint8_t reserved = 0x0F;
+    //const static uint8_t reserved = 0x10;
     const static uint8_t ModeReg = 0x11;
     const static uint8_t TxModeReg = 0x12;
     const static uint8_t RxModeReg = 0x13;
@@ -36,12 +39,18 @@ public:
     const static uint8_t RxSelReg = 0x17;
     const static uint8_t RxThresholdReg = 0x18;
     const static uint8_t DemodReg = 0x19;
+    //const static uint8_t reserved = 0x1A;
+    //const static uint8_t reserved = 0x1B;
     const static uint8_t MfTxReg = 0x1C;
     const static uint8_t MfRxReg = 0x1D;
+    //const static uint8_t reserved = 0x1E;
     const static uint8_t SerialSpeedReg = 0x1F;
+    //const static uint8_t reserved = 0x20;
     const static uint8_t CRCResultRegH = 0x21;
     const static uint8_t CRCResultRegL = 0x22;
+    //const static uint8_t reserved = 0x23;
     const static uint8_t ModWidthReg = 0x24;
+    //const static uint8_t reserved = 0x25;
     const static uint8_t RFCfgReg = 0x26;
     const static uint8_t GsNReg = 0x27;
     const static uint8_t CWGsPReg = 0x28;
@@ -52,6 +61,7 @@ public:
     const static uint8_t TReloadRegL = 0x2D;
     const static uint8_t TCounterValueRegH = 0x2E;
     const static uint8_t TCounterValueRegL = 0x2F;
+    //const static uint8_t reserved = 0x30;
     const static uint8_t TestSel1Reg = 0x31;
     const static uint8_t TestSel2Reg = 0x32;
     const static uint8_t TestPinEnReg = 0x33;
@@ -63,6 +73,10 @@ public:
     const static uint8_t TestDAC1Reg = 0x39;
     const static uint8_t TestDAC2Reg = 0x3A;
     const static uint8_t TestADCReg = 0x3B;
+    //const static uint8_t reserved = 0x3C;
+    //const static uint8_t reserved = 0x3D;
+    //const static uint8_t reserved = 0x3E;
+    //const static uint8_t reserved = 0x3F;
     // chip commands
     const static uint8_t cmdIdle = 0x00;
     const static uint8_t cmdMem = 0x01;
@@ -72,26 +86,27 @@ public:
     const static uint8_t cmdNoCmdChange = 0x07;
     const static uint8_t cmdReceive = 0x08;
     const static uint8_t cmdTransceive = 0x0C;
+    //const static uint8_t reserved = 0x0D;
     const static uint8_t cmdMFAuthent = 0x0E;
     const static uint8_t cmdSoftReset = 0x0F;
 
-    // MIFARE card commands
-    const static uint8_t apduREQA = 0x26;
-    const static uint8_t apduWUPA = 0x52;
-    const static uint8_t apduCT = 0x88;
-    const static uint8_t apduSelCL1 = 0x93;
-    const static uint8_t apduSelCL2 = 0x95;
-    const static uint8_t apduSelCL3 = 0x97;
-    const static uint8_t apduHLTA = 0x50;
-    const static uint8_t apduMF_AUTH_KEY_A = 0x60;
-    const static uint8_t apduMF_AUTH_KEY_B = 0x61;
-    const static uint8_t apduMF_READ = 0x30;
-    const static uint8_t apduMF_WRITE = 0xA0;
-    const static uint8_t apduMF_DECREMENT = 0xC0;
-    const static uint8_t apduMF_INCREMENT = 0xC1;
-    const static uint8_t apduMF_RESTORE = 0xC2;
-    const static uint8_t apduMF_TRANSFER = 0xB0;
-    const static uint8_t apduUL_WRITE = 0xA2;
+    // // MIFARE card commands
+    // const static uint8_t apduREQA = 0x26;
+    // const static uint8_t apduWUPA = 0x52;
+    // const static uint8_t apduCT = 0x88;
+    // const static uint8_t apduSelCL1 = 0x93;
+    // const static uint8_t apduSelCL2 = 0x95;
+    // const static uint8_t apduSelCL3 = 0x97;
+    // const static uint8_t apduHLTA = 0x50;
+    // const static uint8_t apduMF_AUTH_KEY_A = 0x60;
+    // const static uint8_t apduMF_AUTH_KEY_B = 0x61;
+    // const static uint8_t apduMF_READ = 0x30;
+    // const static uint8_t apduMF_WRITE = 0xA0;
+    // const static uint8_t apduMF_DECREMENT = 0xC0;
+    // const static uint8_t apduMF_INCREMENT = 0xC1;
+    // const static uint8_t apduMF_RESTORE = 0xC2;
+    // const static uint8_t apduMF_TRANSFER = 0xB0;
+    // const static uint8_t apduUL_WRITE = 0xA2;
 
 
     const uint8_t FIFOAmountOfBytes = 64;

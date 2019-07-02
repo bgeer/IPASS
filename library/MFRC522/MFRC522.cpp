@@ -1,4 +1,6 @@
 #include "MFRC522.hpp"
+
+
 void printByte2(uint8_t &byte){
     hwlib::cout<<"Byte: ";
     for(int i = 7; i >= 0; i--){
@@ -67,7 +69,7 @@ void MFRC522::hardReset(){
 
 
 void MFRC522::softReset(){
-    writeRegister(CommandReg, (uint8_t)cmdSoftReset);
+    writeRegister(CommandReg, cmdSoftReset);
     hwlib::wait_ms(150);
     waitForBootUp();
 }
@@ -93,14 +95,13 @@ void MFRC522::initialize(){
 
 void MFRC522::clearFIFOBuffer(const uint8_t amntOfBytes){
     writeRegister(FIFOLevelReg, 0x80);  //clears internal fifo buffer read and write pointer.
-    uint8_t newFIFOBytes[amntOfBytes] = {0};
+    uint8_t newFIFOBytes[amntOfBytes] = {0x00};
     writeRegister(FIFODataReg, newFIFOBytes, amntOfBytes);  //write amount of 0x00 to fifo buffer
-
 }
 
 void MFRC522::clearInternalBuffer(){
     clearFIFOBuffer(25);
-    writeRegister(CommandReg, 0x01);
+    writeRegister(CommandReg, cmdMem);
 }
 
 
@@ -119,7 +120,7 @@ bool MFRC522::selfTest(){
     //4 write 00h to the fifo buffer
     writeRegister(FIFODataReg, 0x00);
     //5 start sefttest with the CalcCRC command
-    writeRegister(CommandReg, 0x03);
+    writeRegister(CommandReg, cmdCalcCRC);
     //6 the self test in initiated
     uint8_t amount;
     for(uint8_t i = 0; i < 0xFF; i++){
@@ -128,15 +129,12 @@ bool MFRC522::selfTest(){
             break;
         }
     }
-    uint8_t result[64];
+    writeRegister(CommandReg, cmdIdle);
+    uint8_t result[64] = {0};
     readRegister(FIFODataReg, 64, result);
     //control fifo bytes with the given bytes in datasheet
 
     writeRegister(AutoTestReg, 0x00);
-
-    for(uint8_t i = 0; i < 64; i++){
-        hwlib::cout<<result[i] <<" :: " << i << "\n";
-    }
     if(firmwareVersion == 0x91){
         for(uint8_t i = 0; i < 64; i++){
             if(result[i] != selfTestFIFOBufferV1[i]){
@@ -144,6 +142,7 @@ bool MFRC522::selfTest(){
                 return false;
             }
         }
+        hwlib::cout<<"test passed\n";
         return true;
     }else if(firmwareVersion == 0x92){
         for(uint8_t i = 0; i < 64; i++){
@@ -153,8 +152,10 @@ bool MFRC522::selfTest(){
                 return false;
             }
         }
+        hwlib::cout<<"test passed\n";
         return true;
     }else{
+        hwlib::cout<<"no version\n";
         return false;
     }
 }

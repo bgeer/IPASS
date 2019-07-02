@@ -21,8 +21,6 @@ uint8_t spiSetup::getWriteByte(const uint8_t regAddress) {
 }
 
 uint8_t spiSetup::getByteFromRegister(const uint8_t regAddress, hwlib::pin_out& slaveSel) {
-    // auto x = getReadByte(regAddress);
-    // printByte(x);
 	const uint8_t amountOfBytes = 2;
 	uint8_t write[amountOfBytes] = {getReadByte(regAddress), 0};
 	uint8_t read[amountOfBytes] = {0, 0};
@@ -30,43 +28,35 @@ uint8_t spiSetup::getByteFromRegister(const uint8_t regAddress, hwlib::pin_out& 
 	return read[1];
 }
 
-void spiSetup::getBytesFromRegister(const uint8_t regAddress, uint8_t data[], int amountOfBytes, hwlib::pin_out& slaveSel){
-    transaction(slaveSel).write(getReadByte(regAddress));
-    transaction(slaveSel).read(amountOfBytes, data);
+void spiSetup::getBytesFromRegister(const uint8_t regAddress, uint8_t data[], uint8_t amountOfBytes, hwlib::pin_out& slaveSel) {
+	const uint16_t arraySize = amountOfBytes + 1;
+	uint8_t write[arraySize] = {0};
+	uint8_t readByte = getReadByte(regAddress);
+	for(auto & element : write) {
+		element = readByte;
+	}
+	uint8_t read[arraySize] = {0};
+	transaction(slaveSel).write_and_read(arraySize, write, read);
+	for(uint8_t i = 0; i < amountOfBytes; i++) {
+		data[i] = read[i + 1];
+	}
 }
 
 void spiSetup::writeByteInRegister(const uint8_t regAddress, uint8_t writeByte, hwlib::pin_out& slaveSel) {
-    // auto x = getWriteByte(regAddress);
-    // printByte(x);
 	uint8_t write[2] = {getWriteByte(regAddress), writeByte};
 	transaction(slaveSel).write_and_read(2, write, nullptr);
 }
 
 void spiSetup::writeBytesinRegister(const uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes, hwlib::pin_out& slaveSel){
     const uint8_t arraySize = amountOfBytes + 1;
-    uint8_t write[arraySize] = {0};
+    uint8_t write[arraySize] = {0x00};
     write[0] = getWriteByte(regAddress);
-    for(uint8_t i = 0; i < amountOfBytes; i++){
+    for(uint8_t i = 0; i < arraySize; i++){
         if(i + 1 < arraySize){
             write[i+1] = writeBytes[i];
         }
+
     }
+    printByte(write[0]);
     transaction(slaveSel).write_and_read(arraySize, write, nullptr);
 }
-
-// void spiSetup::writeByteInRegister(spiSetup& bus, const uint8_t regAddress, uint8_t writeByte, hwlib::pin_out& slaveSel){
-//     auto x = getWriteByte(regAddress);
-//     printByte(x);
-//     auto t = transaction(slaveSel);
-//     t.write(getWriteByte(regAddress));
-//     t.write(writeByte);
-// }
-
-
-// uint8_t spiSetup::getByteFromRegister(const uint8_t regAddress, hwlib::pin_out& slaveSel) {
-//     auto t = transaction(slaveSel);
-//     auto x = getReadByte(regAddress);
-//     printByte(x);
-//     t.write(getReadByte(regAddress));
-//     return t.read_byte();
-// }
