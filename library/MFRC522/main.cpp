@@ -23,7 +23,7 @@ int main(){
 
 
 
-    rfid.hardReset();
+    rfid.initialize();
 
     rfid.selfTest();
 

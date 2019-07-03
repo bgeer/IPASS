@@ -108,6 +108,17 @@ public:
     // const static uint8_t apduMF_TRANSFER = 0xB0;
     // const static uint8_t apduUL_WRITE = 0xA2;
 
+    //Com status
+    const static uint8_t OkStatus = 0x00;
+    const static uint8_t ProtocolErr = 0x01;
+    const static uint8_t ParityErr = 0x02;
+    const static uint8_t CRCErr = 0x03;
+    const static uint8_t CollErr = 0x04;
+    const static uint8_t BufferOvrlErr = 0x05;
+    const static uint8_t TempErr = 0x06;
+    const static uint8_t WrErr = 0x07;
+    const static uint8_t TimeOut = 0x08;
+
 
     const uint8_t FIFOAmountOfBytes = 64;
 
@@ -161,7 +172,7 @@ public:
     //get firmware version
     uint8_t getVersion();
 
-    
+    //wait till the chip is out of power down mode
     void waitForBootUp();
 
     //hard reset RST: must be low voor 100ns
@@ -170,14 +181,23 @@ public:
     //soft reset
     void softReset();
 
+    //clears the fifo buffe
     void clearFIFOBuffer(const uint8_t amntOfBytes = 64);
 
+    //clears the internal buffer
     void clearInternalBuffer();
 
     //initialize
     void initialize();
 
+    //does the self test 
     bool selfTest();
+
+    //checks the errorReg for errors else returns okStatus.
+    uint8_t checkError();
+
+    //this functions return a status of the communication
+    uint8_t communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength);
     
 
 

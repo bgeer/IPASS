@@ -51,7 +51,7 @@ void MFRC522::stateAntennas(bool state){
 }
 
 uint8_t MFRC522::getVersion(){
-    return readRegister(VersionReg);
+    return readRegister(VersionReg);        //this function returns the version of the MFRC522 Chip
 }
 
 void MFRC522::waitForBootUp(){
@@ -92,13 +92,14 @@ void MFRC522::initialize(){
     stateAntennas(true);
 
 }
-
+//clears the fifo buffer with amntOfbytes of zeroes
 void MFRC522::clearFIFOBuffer(const uint8_t amntOfBytes){
     writeRegister(FIFOLevelReg, 0x80);  //clears internal fifo buffer read and write pointer.
     uint8_t newFIFOBytes[amntOfBytes] = {0x00};
     writeRegister(FIFODataReg, newFIFOBytes, amntOfBytes);  //write amount of 0x00 to fifo buffer
 }
 
+//clears the internal buffer with 25 bytes of zeroes.
 void MFRC522::clearInternalBuffer(){
     clearFIFOBuffer(25);
     writeRegister(CommandReg, cmdMem);
@@ -124,12 +125,12 @@ bool MFRC522::selfTest(){
     //6 the self test in initiated
     uint8_t amount;
     for(uint8_t i = 0; i < 0xFF; i++){
-        amount = readRegister(FIFOLevelReg);
+        amount = readRegister(FIFOLevelReg);    //wait till the FIFO is filled with 64 bytes
         if( amount >= 64){
             break;
         }
     }
-    writeRegister(CommandReg, cmdIdle);
+    writeRegister(CommandReg, cmdIdle); //stop all cmd' s
     uint8_t result[64] = {0};
     readRegister(FIFODataReg, 64, result);
     //control fifo bytes with the given bytes in datasheet
@@ -158,4 +159,67 @@ bool MFRC522::selfTest(){
         hwlib::cout<<"no version\n";
         return false;
     }
+}
+
+uint8_t MFRC522::checkError(){
+    uint8_t errorReg = readRegister(ErrorReg);
+    if(errorReg & 0b00000001){
+        return ProtocolErr;
+    }else if(errorReg & 0b00000010){
+        return ParityErr;
+    }else if(errorReg & 0b00000100){
+        return CRCErr;
+    }else if(errorReg & 0b00001000){
+        return CollErr;
+    }else if(errorReg & 0b00010000){
+        return BufferOvrlErr;
+    }else if(errorReg & 0b01000000){
+        return TempErr;
+    }else if(errorReg & 0b10000000){
+        return WrErr;
+    }else{
+        return OkStatus;
+    }
+}
+
+uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength){
+    uint8_t irqEnable = 0x00;
+    uint8_t finishedIrq = 0x00;
+    if(cmd == cmdTransceive){
+        irqEnable = 0x77;
+        finishedIrq = 0x30;
+    }else if(cmd == cmdMFAuthent){
+        irqEnable = 0x12;
+        finishedIrq = 0x10;
+    }
+    writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
+    clearBitMask(ComIrqReg, 0x80); // clears the interupt request bits
+    setBitMask(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
+
+    writeRegister(CommandReg, cmdIdle); //stop any active command
+
+    //write data to the fifo
+    for(int i = 0; i < sendDataLength; i++){
+        writeRegister(FIFODataReg, sendData[i]);
+    }
+    //execute command
+    writeRegister(CommandReg, cmd);
+    if(cmd == cmdTransceive){
+        setBitMask(BitFramingReg, 0x80); //StartSend = 1, transmission starts
+    }
+    int timeOutMS = 30;
+    uint8_t curInterupt = readRegister(ComIrqReg);
+    for(int i = 0;!(curInterupt & finishedIrq); i++){
+        curInterupt = readRegister(ComIrqReg);
+        if((i > timeOutMS) || (curInterupt & 0x01)){
+            return TimeOut;
+        }
+        hwlib::wait_ms(1);
+    }
+    uint8_t error = checkError();   //check for errors else continue
+    if(error){
+        return error;
+    }
+    
+    return OkStatus;
 }

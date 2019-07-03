@@ -32,9 +32,9 @@ void spiSetup::getBytesFromRegister(const uint8_t regAddress, uint8_t data[], ui
 	const uint16_t arraySize = amountOfBytes + 1;
 	uint8_t write[arraySize] = {0};
 	uint8_t readByte = getReadByte(regAddress);
-	for(auto & element : write) {
-		element = readByte;
-	}
+    for(uint8_t i = 0; i < amountOfBytes; i++){
+        write[i] = readByte;
+    }
 	uint8_t read[arraySize] = {0};
 	transaction(slaveSel).write_and_read(arraySize, write, read);
 	for(uint8_t i = 0; i < amountOfBytes; i++) {
@@ -57,6 +57,5 @@ void spiSetup::writeBytesinRegister(const uint8_t regAddress, uint8_t writeBytes
         }
 
     }
-    printByte(write[0]);
     transaction(slaveSel).write_and_read(arraySize, write, nullptr);
 }
