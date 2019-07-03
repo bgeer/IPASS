@@ -1,7 +1,7 @@
 #include "MFRC522.hpp"
 
 
-void printByte2(uint8_t &byte){
+void printByte2(uint8_t &byte){     //a function to printbytes in the develop process
     hwlib::cout<<"Byte: ";
     for(int i = 7; i >= 0; i--){
         hwlib::cout<<((byte & (1<<i)) !=0);
@@ -9,40 +9,40 @@ void printByte2(uint8_t &byte){
     hwlib::cout<<'\n';
 }
 
-MFRC522::MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset):
+MFRC522::MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset):   //constructor for the class
     bus( bus ),
     slaveSel( slaveSel),
     reset ( reset )
     {}
 
-uint8_t MFRC522::readRegister(uint8_t regAddress){
+uint8_t MFRC522::readRegister(uint8_t regAddress){        //read a single byte out of a register
     return bus.getByteFromRegister((uint8_t)regAddress, slaveSel);
 }
 
-void MFRC522::readRegister(uint8_t regAddress, int amountOfBytes, uint8_t data[]){
+void MFRC522::readRegister(uint8_t regAddress, int amountOfBytes, uint8_t data[]){  //read multiple bytes out of a register
     bus.getBytesFromRegister(regAddress, data, amountOfBytes, slaveSel);
 }
 
-void MFRC522::writeRegister(uint8_t regAddress, uint8_t newByte){
+void MFRC522::writeRegister(uint8_t regAddress, uint8_t newByte){   //write a single byte to a register
     bus.writeByteInRegister(regAddress, newByte, slaveSel);
 }
 
-void MFRC522::writeRegister(uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes){
+void MFRC522::writeRegister(uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes){   //write multiple bytes to a register
     bus.writeBytesinRegister(regAddress, writeBytes, amountOfBytes, slaveSel);
 }
 
-void MFRC522::setBitMask(uint8_t regAddress, uint8_t mask){
+void MFRC522::setBitMask(uint8_t regAddress, uint8_t mask){         //turn certain bits on
     uint8_t byteNow = readRegister(regAddress);
     writeRegister(regAddress, byteNow | mask);
 }
 
-void MFRC522::clearBitMask(uint8_t regAddress, uint8_t mask){
+void MFRC522::clearBitMask(uint8_t regAddress, uint8_t mask){       //turn certain bits off
     uint8_t byteNow = readRegister(regAddress);
     byteNow = byteNow & ~mask;
     writeRegister(regAddress, byteNow);
 }
 
-void MFRC522::stateAntennas(bool state){
+void MFRC522::stateAntennas(bool state){    //turn the antenna's off or on with a boolean value
     if(state){
         setBitMask(TxControlReg, 0x03); //8.6.3
     }else{
@@ -55,10 +55,10 @@ uint8_t MFRC522::getVersion(){
 }
 
 void MFRC522::waitForBootUp(){
-    while(readRegister(CommandReg) & (1<<4)){}      //8.6.2
+    while(readRegister(CommandReg) & (1<<4)){}      //8.6.2. Checking this register to wait untill the powerdown bit is cleared
 }
 
-void MFRC522::hardReset(){
+void MFRC522::hardReset(){  //function to hardReset the MFRC522 by making the RST pin low for 105ns
     reset.write(0);
     reset.flush();
     hwlib::wait_ns(105); //105 to make sure its low long enough;
@@ -68,14 +68,14 @@ void MFRC522::hardReset(){
 }
 
 
-void MFRC522::softReset(){
+void MFRC522::softReset(){  //function to softReset the MFRC522 with a command
     writeRegister(CommandReg, cmdSoftReset);
     hwlib::wait_ms(150);
     waitForBootUp();
 }
 
 
-void MFRC522::initialize(){
+void MFRC522::initialize(){    //initialize the chip when you start it up 
     hardReset();
 
     writeRegister(TModeReg, 0x80); //start the auto time
@@ -107,7 +107,7 @@ void MFRC522::clearInternalBuffer(){
 
 
 bool MFRC522::selfTest(){
-    //get version
+    //get firmwareVersion
     uint8_t firmwareVersion = getVersion();
     if(firmwareVersion != 0x92 && firmwareVersion != 0x91){
         return false;
@@ -136,32 +136,31 @@ bool MFRC522::selfTest(){
     //control fifo bytes with the given bytes in datasheet
 
     writeRegister(AutoTestReg, 0x00);
-    if(firmwareVersion == 0x91){
+    if(firmwareVersion == 0x91){    //test for firwareversion 1
         for(uint8_t i = 0; i < 64; i++){
-            if(result[i] != selfTestFIFOBufferV1[i]){
-                hwlib::cout<<"v1 wrong";
+            if(result[i] != selfTestFIFOBufferV1[i]){   //checks the buffer with the given value's  out of datasheet
+                hwlib::cout<<"Test for firwareVersion 1 did not pass\n";
                 return false;
             }
         }
-        hwlib::cout<<"test passed\n";
+        hwlib::cout<<"Test for firwareVersion 1 passed\n";
         return true;
-    }else if(firmwareVersion == 0x92){
+    }else if(firmwareVersion == 0x92){  //test for firwareversion 2
         for(uint8_t i = 0; i < 64; i++){
-            hwlib::cout<<result[i]<<"  ::  " << selfTestFIFOBufferV2[i] << "\n";
-            if(result[i] != selfTestFIFOBufferV2[i]){
-                hwlib::cout<<"v2 wrong";
+            if(result[i] != selfTestFIFOBufferV2[i]){   //checks the buffer with the given value's  out of datasheet
+                hwlib::cout<<"Test for firwareVersion 2 did not pass\n";
                 return false;
             }
         }
-        hwlib::cout<<"test passed\n";
+        hwlib::cout<<"Test for firwareVersion 2 passed\n";
         return true;
     }else{
-        hwlib::cout<<"no version\n";
+        hwlib::cout<<"No version detected, is the MFRC522 connected correctly?";
         return false;
     }
 }
 
-uint8_t MFRC522::checkError(){
+uint8_t MFRC522::checkError(){          //fucntion to check the error register per bit. Each bit has his own error value
     uint8_t errorReg = readRegister(ErrorReg);
     if(errorReg & 0b00000001){
         return ProtocolErr;
@@ -183,43 +182,66 @@ uint8_t MFRC522::checkError(){
 }
 
 uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength){
-    uint8_t irqEnable = 0x00;
-    uint8_t finishedIrq = 0x00;
-    if(cmd == cmdTransceive){
+    uint8_t irqEnable = 0x00; //bits to set the right interrupts
+    uint8_t finishedIrq = 0x00; //value of interupts when finished or triggered
+    if(cmd == cmdTransceive){   //the right value's for the transceive command
         irqEnable = 0x77;
         finishedIrq = 0x30;
-    }else if(cmd == cmdMFAuthent){
-        irqEnable = 0x12;
-        finishedIrq = 0x10;
     }
     writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
+    uint8_t y = readRegister(ComIEnReg);
+    hwlib::cout<<"com\n";
+    printByte2(y);
     clearBitMask(ComIrqReg, 0x80); // clears the interupt request bits
     setBitMask(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
 
     writeRegister(CommandReg, cmdIdle); //stop any active command
-
     //write data to the fifo
-    for(int i = 0; i < sendDataLength; i++){
-        writeRegister(FIFODataReg, sendData[i]);
-    }
+    writeRegister(FIFODataReg, sendData, sendDataLength);
+    // for(int i = 0; i < sendDataLength; i++){        //maybe use other function in further development
+    //     writeRegister(FIFODataReg, sendData[i]);
+    // }
     //execute command
-    writeRegister(CommandReg, cmd);
+    writeRegister(CommandReg, cmd); //executes the given command as parameter
     if(cmd == cmdTransceive){
         setBitMask(BitFramingReg, 0x80); //StartSend = 1, transmission starts
     }
-    int timeOutMS = 30;
-    uint8_t curInterupt = readRegister(ComIrqReg);
-    for(int i = 0;!(curInterupt & finishedIrq); i++){
-        curInterupt = readRegister(ComIrqReg);
+    int timeOutMS = 30; //maximum timeout time in ms
+    uint8_t curInterupt = readRegister(ComIrqReg);  //get the currentinterupt status
+    for(int i = 0;!(curInterupt & finishedIrq); i++){   //loops until the time out is reached or triggered by the bit. Or the curInterupt is not equal
+        curInterupt = readRegister(ComIrqReg);  //to the finishedIRq anymore
         if((i > timeOutMS) || (curInterupt & 0x01)){
-            return TimeOut;
+            return TimeOut; //returns there is a timeout can be the interrupt or the ms timeout
         }
         hwlib::wait_ms(1);
     }
-    uint8_t error = checkError();   //check for errors else continue
+    uint8_t error = checkError();   //check for errors in the register and returns this else continue's
     if(error){
-        return error;
+        return error;   //returns the error given
     }
-    
-    return OkStatus;
+    //reading the result of the fifo
+    receivedDataLength = readRegister(FIFOLevelReg); //get the lenght of the received data in the FIFO buffer
+    readRegister(FIFODataReg, receivedDataLength, receivedData); //reads the received data out of the fifo buffer into the array
+    writeRegister(CommandReg, cmdIdle); //stop any commands
+    return OkStatus;    //if everything went well return okstatus
+}
+
+uint8_t MFRC522::isCardPresented(){
+    //REQA = 26h       both 7 bits 
+    //WUPA = 52h
+    writeRegister(BitFramingReg, 0x07); //0x07 00000111 indicates 7 bits of REQA and WUPA
+
+    const uint8_t sendDataLength = 1;   //one byte of data is send
+	uint8_t sendData[sendDataLength] = {0x26}; //send the request command
+
+	int receivedLength = 2;
+	uint8_t receivedData[receivedLength] = {0};
+
+    uint8_t status = communicate(cmdTransceive, sendData, sendDataLength, receivedData, receivedLength);
+
+    if(status != OkStatus){
+        return false;
+    }
+    return true;
+
 }

@@ -21,11 +21,25 @@ int main(){
 
     MFRC522 rfid(bus, ss, reset);
 
+    
 
 
+    // //init the rfid chip
+    // rfid.initialize();
+
+    // //perform self test
+    // rfid.selfTest();
+
+    // //after a soft reset in the selftest we need to init again
     rfid.initialize();
 
-    rfid.selfTest();
+    // rfid.hardReset();
+
+
+    while(true){
+        hwlib::wait_ms(500);
+        hwlib::cout<<rfid.isCardPresented();
+    }
 
 
     

@@ -77,6 +77,7 @@ public:
     //const static uint8_t reserved = 0x3D;
     //const static uint8_t reserved = 0x3E;
     //const static uint8_t reserved = 0x3F;
+
     // chip commands
     const static uint8_t cmdIdle = 0x00;
     const static uint8_t cmdMem = 0x01;
@@ -91,22 +92,20 @@ public:
     const static uint8_t cmdSoftReset = 0x0F;
 
     // // MIFARE card commands
-    // const static uint8_t apduREQA = 0x26;
-    // const static uint8_t apduWUPA = 0x52;
-    // const static uint8_t apduCT = 0x88;
-    // const static uint8_t apduSelCL1 = 0x93;
-    // const static uint8_t apduSelCL2 = 0x95;
-    // const static uint8_t apduSelCL3 = 0x97;
-    // const static uint8_t apduHLTA = 0x50;
-    // const static uint8_t apduMF_AUTH_KEY_A = 0x60;
-    // const static uint8_t apduMF_AUTH_KEY_B = 0x61;
-    // const static uint8_t apduMF_READ = 0x30;
-    // const static uint8_t apduMF_WRITE = 0xA0;
-    // const static uint8_t apduMF_DECREMENT = 0xC0;
-    // const static uint8_t apduMF_INCREMENT = 0xC1;
-    // const static uint8_t apduMF_RESTORE = 0xC2;
-    // const static uint8_t apduMF_TRANSFER = 0xB0;
-    // const static uint8_t apduUL_WRITE = 0xA2;
+    const static uint8_t mifareReqa = 0x26;
+    const static uint8_t mifareWupa = 0x52;
+    const static uint8_t mifareSelCL1 = 0x93;
+    const static uint8_t mifareSelCL2 = 0x95;
+    const static uint8_t mifareSelCL3 = 0x97;
+    const static uint8_t mifareHalt = 0x50;
+    const static uint8_t mifareAuthKeyA = 0x60;
+    const static uint8_t mifareAuthKeyB = 0x61;
+    const static uint8_t mifareRead = 0x30;
+    const static uint8_t mifareWrite = 0xA0;
+    const static uint8_t mifareDecrement = 0xC0;
+    const static uint8_t mifareIncrement = 0xC1;
+    const static uint8_t mifareRestire = 0xC2;
+    const static uint8_t mifareTransfer = 0xB0;
 
     //Com status
     const static uint8_t OkStatus = 0x00;
@@ -120,9 +119,10 @@ public:
     const static uint8_t TimeOut = 0x08;
 
 
+    //max fifo bytes
     const uint8_t FIFOAmountOfBytes = 64;
 
-
+    //self test result out of datasheet for version 1
 	const uint8_t selfTestFIFOBufferV1[64] {
 		0x00, 0xC6, 0x37, 0xD5, 0x32, 0xB7, 0x57, 0x5C,
 		0xC2, 0xD8, 0x7C, 0x4D, 0xD9, 0x70, 0xC7, 0x73,
@@ -134,7 +134,7 @@ public:
 		0xD9, 0x0F, 0xB5, 0x5E, 0x25, 0x1D, 0x29, 0x79
 	};
 
-
+    //self test result out of datasheet for version 2
 	const uint8_t selfTestFIFOBufferV2[64] {
 		0x00, 0xEB, 0x66, 0xBA, 0x57, 0xBF, 0x23, 0x95,
 		0xD0, 0xE3, 0x0D, 0x3D, 0x27, 0x89, 0x5C, 0xDE,
@@ -162,8 +162,10 @@ public:
     //write multiple bytes to registers
     void writeRegister(uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes);
 
-    //bit masks
+    //set certain bits
     void setBitMask(uint8_t regAddress, uint8_t mask);
+
+    //clear certain bits
     void clearBitMask(uint8_t regAddress, uint8_t mask);
 
     //turn the antennas on or off 8.6.3
@@ -198,6 +200,8 @@ public:
 
     //this functions return a status of the communication
     uint8_t communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength);
+
+    uint8_t isCardPresented();
     
 
 
