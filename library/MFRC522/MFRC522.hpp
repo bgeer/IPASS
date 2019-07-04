@@ -131,12 +131,14 @@ public:
     const static uint8_t mifareWupa         = 0x52;      
     const static uint8_t mifareHalt         = 0x50;     
     const static uint8_t mifareAuthKeyA     = 0x60;     
-    const static uint8_t mifareAuthKeyB     = 0x61;     
+    const static uint8_t mifareAuthKeyB     = 0x61;
+    const static uint8_t mifareCl1          = 0x93; 
+    //These commands can only be used after authenticate.    
     const static uint8_t mifareRead         = 0x30;     
     const static uint8_t mifareWrite        = 0xA0;     
     const static uint8_t mifareDecrement    = 0xC0;     
     const static uint8_t mifareIncrement    = 0xC1;     
-    const static uint8_t mifareRestire      = 0xC2;     
+    const static uint8_t mifareRestore      = 0xC2;     
     const static uint8_t mifareTransfer     = 0xB0;     
 
     /// \brief
@@ -312,6 +314,12 @@ public:
     /// It can only be called once or there needs to be antoher command in between.
     /// It returns an boolean value if the card is presented or not.
     bool isCardPresented();
+
+    bool cardCheck();
+
+    uint8_t getCardUID(uint8_t UID[5]);
+
+    void test();
 
 };
 

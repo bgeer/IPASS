@@ -208,6 +208,9 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
 
     writeRegister(CommandReg, cmdIdle); //stop any active command
     //write data to the fifo
+    // for(int i = 0; i < sendDataLength; i++){
+    //     writeRegister(FIFODataReg, sendData[i]);
+    // }
     writeRegister(FIFODataReg, sendData, sendDataLength);
     //execute command
     writeRegister(CommandReg, cmd); //executes the given command as parameter
@@ -218,7 +221,7 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
     uint8_t curInterupt = readRegister(ComIrqReg);  //get the currentinterupt status
     for(int i = 0;!(curInterupt & finishedIrq); i++){   //loops until the time out is reached or triggered by the bit. Or the curInterupt is not equal
         curInterupt = readRegister(ComIrqReg);  //to the finishedIRq anymore
-        if((i > timeOutMS) || (curInterupt & 0x01)){
+        if((i > timeOutMS) || (curInterupt & 0x01)){    //0x01 is interrupt
             return TimeOut; //returns there is a timeout can be the interrupt or the ms timeout
         }
         hwlib::wait_ms(1);
@@ -231,6 +234,7 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
     receivedDataLength = readRegister(FIFOLevelReg); //get the lenght of the received data in the FIFO buffer
     readRegister(FIFODataReg, receivedDataLength, receivedData); //reads the received data out of the fifo buffer into the array
     writeRegister(CommandReg, cmdIdle); //stop any commands
+    hwlib::cout<<"Everything went OK\n";
     return OkStatus;    //if everything went well return okstatus
 }
 
@@ -252,3 +256,65 @@ bool MFRC522::isCardPresented(){     //function does not work yet completly, can
     }
     return true;    //if card is presented
 }
+
+bool MFRC522::cardCheck(){
+    if(isCardPresented()){
+        stateAntennas(false);   //mfrc522 needs short pauses between transmitting so turning off antenna's and on again does this
+        stateAntennas(true);    //8.5 in https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf specifies it
+
+        return true;
+    }
+    return false;
+}
+//MIFARE DATA
+//https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf
+//UID HANDLING
+//https://www.nxp.com/docs/en/application-note/AN10927.pdf
+uint8_t MFRC522::getCardUID(uint8_t UID[5]){
+    uint8_t cmdCode[2] = {0x93, 0x20};  //anti coll command 
+
+    //no REQA or WUPA so 111b can be turned off
+    writeRegister(BitFramingReg, 0x07);
+    clearBitMask(CollReg, 0x80);
+
+    int lenght = 5;
+    hwlib::cout<<"Start communcation\n";
+    uint8_t status = communicate(cmdTransceive, cmdCode, 2, UID, lenght);
+    if(status != OkStatus){
+        if(status == TimeOut){
+            hwlib::cout<<"timeout\n";
+        }
+        printByte2(status);
+        printByte2(UID[0]);
+        return status;
+    }
+    return OkStatus;
+}
+
+
+void MFRC522::test() {
+	initialize();
+	//does an initialize at start up of program.
+	hwlib::cout << "MFRC522 test\n";
+
+	// self test
+    selfTest();
+	// Self test uses soft reset so need to initialize again
+	initialize();
+
+	// check card for a card.
+	hwlib::cout << "Waiting for card!\n";
+	for(int i = 0; i < 1000; i++) {
+		if(cardCheck()) {
+			break;
+		}
+		hwlib::wait_ms(50);
+	}
+	hwlib::wait_ms(100);
+
+    hwlib::cout<<cardCheck();
+	// get card UID
+	uint8_t UID[5] = {0};
+	getCardUID(UID);
+}
+
