@@ -1,0 +1,457 @@
+\hypertarget{classMFRC522}{}\section{M\+F\+R\+C522 Class Reference}
+\label{classMFRC522}\index{M\+F\+R\+C522@{M\+F\+R\+C522}}
+
+
+Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}.  
+
+
+
+
+{\ttfamily \#include $<$M\+F\+R\+C522.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMFRC522_a941f62373024077506c43cc67e73f6ae}{M\+F\+R\+C522} (\hyperlink{classspiSetup}{spi\+Setup} \&bus, hwlib\+::pin\+\_\+out \&slave\+Sel, hwlib\+::pin\+\_\+out \&reset)
+\begin{DoxyCompactList}\small\item\em Constructor for the \hyperlink{classMFRC522}{M\+F\+R\+C522} Class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_acf84c1c99926ebeffb31480c12492b31}\label{classMFRC522_acf84c1c99926ebeffb31480c12492b31}} 
+uint8\+\_\+t \hyperlink{classMFRC522_acf84c1c99926ebeffb31480c12492b31}{read\+Register} (uint8\+\_\+t reg\+Address)
+\begin{DoxyCompactList}\small\item\em Read one byte from register.  This method returns one byte fro the requested register in an uint8\+\_\+t type. This method uses spi\+Bus\+::get\+Byte\+From\+Register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}\label{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}} 
+void \hyperlink{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}{read\+Register} (uint8\+\_\+t reg\+Address, int amount\+Of\+Bytes, uint8\+\_\+t data\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Read multiple bytes from register.  This method returns a filled array that is given as parameter to the function with the reveived data. This method uses spi\+Bus\+::get\+Bytes\+From\+Register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a4998d808c32388f57089b5b1f6affea5}\label{classMFRC522_a4998d808c32388f57089b5b1f6affea5}} 
+void \hyperlink{classMFRC522_a4998d808c32388f57089b5b1f6affea5}{write\+Register} (uint8\+\_\+t reg\+Address, uint8\+\_\+t new\+Byte)
+\begin{DoxyCompactList}\small\item\em Write one byte to a register.  This method writes one byte to the specific register. It uses spi\+Bus\+::write\+Byte\+In\+Register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a302848dc6302753cf8a188b1f3c28ce1}\label{classMFRC522_a302848dc6302753cf8a188b1f3c28ce1}} 
+void \hyperlink{classMFRC522_a302848dc6302753cf8a188b1f3c28ce1}{write\+Register} (uint8\+\_\+t reg\+Address, uint8\+\_\+t write\+Bytes\mbox{[}$\,$\mbox{]}, int amount\+Of\+Bytes)
+\begin{DoxyCompactList}\small\item\em Write multiple bytes to a register.  This method writes multiple bytes given in an array as parameter of the method. It uses spi\+Bus\+::write\+Bytes\+In\+Register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}\label{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}} 
+void \hyperlink{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}{set\+Bit\+Mask} (uint8\+\_\+t reg\+Address, uint8\+\_\+t mask)
+\begin{DoxyCompactList}\small\item\em Set a bit mask.  This method set certain bits on in a registers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}\label{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}} 
+void \hyperlink{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}{clear\+Bit\+Mask} (uint8\+\_\+t reg\+Address, uint8\+\_\+t mask)
+\begin{DoxyCompactList}\small\item\em Clear a bit mask.  This method clears certain bits in a register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a7a9e65b7320721d0e823fd610cb22a84}\label{classMFRC522_a7a9e65b7320721d0e823fd610cb22a84}} 
+void \hyperlink{classMFRC522_a7a9e65b7320721d0e823fd610cb22a84}{state\+Antennas} (bool state)
+\begin{DoxyCompactList}\small\item\em State of Antennas  This method can turn the antennas of the \hyperlink{classMFRC522}{M\+F\+R\+C522} on or off. Bool value true is for on and false is for off. In the datasheet in chapter 8.\+6.\+3 is explained how. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a2854a3633ef04780f268f8c1030ac4b5}\label{classMFRC522_a2854a3633ef04780f268f8c1030ac4b5}} 
+uint8\+\_\+t \hyperlink{classMFRC522_a2854a3633ef04780f268f8c1030ac4b5}{get\+Version} ()
+\begin{DoxyCompactList}\small\item\em Firware version  This method return the firware version of the M\+R\+F\+C522. It returns an uint8\+\_\+t value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a6ccddf14dedf566cb8b19336984f0303}\label{classMFRC522_a6ccddf14dedf566cb8b19336984f0303}} 
+void \hyperlink{classMFRC522_a6ccddf14dedf566cb8b19336984f0303}{wait\+For\+Boot\+Up} ()
+\begin{DoxyCompactList}\small\item\em Wait for the M\+F\+RC to startup  This method wait untill the M\+R\+F\+C522 is booted. It checks the power\+Down bit in the right register and wait untill this bit is cleard. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a63a76a9e625b23db57612b1d1a832fc1}\label{classMFRC522_a63a76a9e625b23db57612b1d1a832fc1}} 
+void \hyperlink{classMFRC522_a63a76a9e625b23db57612b1d1a832fc1}{hard\+Reset} ()
+\begin{DoxyCompactList}\small\item\em Hard Reset  This method will hard reset the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It makes the R\+ST pin for 105ns low. In the datasheet is specified it needs to be atleast 100ns low. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_acb40bb9c1436570578bccee641b24aec}\label{classMFRC522_acb40bb9c1436570578bccee641b24aec}} 
+void \hyperlink{classMFRC522_acb40bb9c1436570578bccee641b24aec}{soft\+Reset} ()
+\begin{DoxyCompactList}\small\item\em Soft Reset  This method soft resets the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It sends the soft reset command and. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aa45277248a32ce30e7ded5fd305f2a15}\label{classMFRC522_aa45277248a32ce30e7ded5fd305f2a15}} 
+uint8\+\_\+t \hyperlink{classMFRC522_aa45277248a32ce30e7ded5fd305f2a15}{check\+Error} ()
+\begin{DoxyCompactList}\small\item\em Check for Errors  This method checks the Error\+Reg for certain errors. If there is an error in the register this error will be returned. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}\label{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}} 
+void \hyperlink{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}{clear\+F\+I\+F\+O\+Buffer} (const uint8\+\_\+t amnt\+Of\+Bytes=64)
+\begin{DoxyCompactList}\small\item\em Clears F\+I\+FO Buffer  This method clears the fifo buffer. It fills the F\+I\+FO buffer with Z\+E\+R\+O\+ES. The amount of zeroes are given as a parameter to the method. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a9d2c5ad7b977944e8bcbbcc9c1bb9b75}\label{classMFRC522_a9d2c5ad7b977944e8bcbbcc9c1bb9b75}} 
+void \hyperlink{classMFRC522_a9d2c5ad7b977944e8bcbbcc9c1bb9b75}{clear\+Internal\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Clears Internal Buffer  This method writes 25 bytes of zeroes from the F\+I\+FO to the internal buffer. It uses the cmd\+Mem command to push these bytes from F\+I\+FO to internal buffer/. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a09f08823fbb8368bf5a597f210d629c1}\label{classMFRC522_a09f08823fbb8368bf5a597f210d629c1}} 
+void \hyperlink{classMFRC522_a09f08823fbb8368bf5a597f210d629c1}{initialize} ()
+\begin{DoxyCompactList}\small\item\em Initialize  This method initialize\textquotesingle{}s the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It will hard reset the chip and initialize all the correct registers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a682e7232aee2470878fda4790cbceddd}\label{classMFRC522_a682e7232aee2470878fda4790cbceddd}} 
+bool \hyperlink{classMFRC522_a682e7232aee2470878fda4790cbceddd}{self\+Test} ()
+\begin{DoxyCompactList}\small\item\em Self Test  This method performs the self test of the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It return a boolean value if the test is passed or not. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a993001f188f0f068d59442d1a8934dec}\label{classMFRC522_a993001f188f0f068d59442d1a8934dec}} 
+uint8\+\_\+t \hyperlink{classMFRC522_a993001f188f0f068d59442d1a8934dec}{communicate} (uint8\+\_\+t cmd, uint8\+\_\+t send\+Data\mbox{[}$\,$\mbox{]}, int send\+Data\+Length, uint8\+\_\+t received\+Data\mbox{[}$\,$\mbox{]}, int received\+Data\+Length)
+\begin{DoxyCompactList}\small\item\em Communication  This method is used to communicate with cards/tags and the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It returns a status of the communcation if it succeeded or not. If it didnt succeed it wil return the error code. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_af0780a36061b7ebc5dad0acda081985e}\label{classMFRC522_af0780a36061b7ebc5dad0acda081985e}} 
+bool \hyperlink{classMFRC522_af0780a36061b7ebc5dad0acda081985e}{is\+Card\+Presented} ()
+\begin{DoxyCompactList}\small\item\em Is card presented.  This function checks if there is a card presented to the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It can only be called once or there needs to be antoher command in between. It returns an boolean value if the card is presented or not. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ae9cfc4503cd73fcc900554b7f2fab263}\label{classMFRC522_ae9cfc4503cd73fcc900554b7f2fab263}} 
+bool {\bfseries card\+Check} ()
+\item 
+\mbox{\Hypertarget{classMFRC522_a1aa02a67f5ae52359b00f671a9f01917}\label{classMFRC522_a1aa02a67f5ae52359b00f671a9f01917}} 
+uint8\+\_\+t {\bfseries get\+Card\+U\+ID} (uint8\+\_\+t U\+ID\mbox{[}5\mbox{]})
+\item 
+\mbox{\Hypertarget{classMFRC522_a83fd02f159c77b1f6003ae9816337a1b}\label{classMFRC522_a83fd02f159c77b1f6003ae9816337a1b}} 
+void {\bfseries test} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}\label{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}} 
+const uint8\+\_\+t \hyperlink{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}{F\+I\+F\+O\+Amount\+Of\+Bytes} = 64
+\begin{DoxyCompactList}\small\item\em The maximal amount of fifo bytes able to store. \end{DoxyCompactList}\item 
+const uint8\+\_\+t \hyperlink{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}{self\+Test\+F\+I\+F\+O\+Buffer\+V1} \mbox{[}64\mbox{]}
+\begin{DoxyCompactList}\small\item\em Self test result out of datasheet for version 1. After running the self test this will be in the F\+I\+FO Buffer. \end{DoxyCompactList}\item 
+const uint8\+\_\+t \hyperlink{classMFRC522_a6973b73a8a922ac09b9d89489bdbc333}{self\+Test\+F\+I\+F\+O\+Buffer\+V2} \mbox{[}64\mbox{]}
+\begin{DoxyCompactList}\small\item\em Self test result out of datasheet for version 2. After running the self test this will be in the F\+I\+FO Buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}{Command\+Reg} = 0x01
+\begin{DoxyCompactList}\small\item\em All the registers of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a76de8291c84f20fe04af16463faffdac}\label{classMFRC522_a76de8291c84f20fe04af16463faffdac}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a76de8291c84f20fe04af16463faffdac}{Com\+I\+En\+Reg} = 0x02
+\begin{DoxyCompactList}\small\item\em Start and stops commands. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_abe05fe9fcedbb34cde4ef0f09c7373db}\label{classMFRC522_abe05fe9fcedbb34cde4ef0f09c7373db}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_abe05fe9fcedbb34cde4ef0f09c7373db}{Div\+I\+En\+Reg} = 0x03
+\begin{DoxyCompactList}\small\item\em Enable and disable interrupt request control bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a5bb072accfc1422669f46aec2daddc08}\label{classMFRC522_a5bb072accfc1422669f46aec2daddc08}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a5bb072accfc1422669f46aec2daddc08}{Com\+Irq\+Reg} = 0x04
+\begin{DoxyCompactList}\small\item\em Enable and disable interrupt request control bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ae83309384b82b6f274b5775cd76b0510}\label{classMFRC522_ae83309384b82b6f274b5775cd76b0510}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ae83309384b82b6f274b5775cd76b0510}{Div\+Irq\+Reg} = 0x05
+\begin{DoxyCompactList}\small\item\em Interrupt request bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_abd929db950e038f6b964d0620dc4a606}\label{classMFRC522_abd929db950e038f6b964d0620dc4a606}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_abd929db950e038f6b964d0620dc4a606}{Error\+Reg} = 0x06
+\begin{DoxyCompactList}\small\item\em Interrupt request bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aa08149e9d55faba97505fff8f089df6a}\label{classMFRC522_aa08149e9d55faba97505fff8f089df6a}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_aa08149e9d55faba97505fff8f089df6a}{Status1\+Reg} = 0x07
+\begin{DoxyCompactList}\small\item\em Error bits showing the error status of the last command executed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a559ef7dfe0c245735642111734067580}\label{classMFRC522_a559ef7dfe0c245735642111734067580}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a559ef7dfe0c245735642111734067580}{Status2\+Reg} = 0x08
+\begin{DoxyCompactList}\small\item\em Communication status bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a83b5946c82d3ea0efbeb433fc7883819}\label{classMFRC522_a83b5946c82d3ea0efbeb433fc7883819}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a83b5946c82d3ea0efbeb433fc7883819}{F\+I\+F\+O\+Data\+Reg} = 0x09
+\begin{DoxyCompactList}\small\item\em Receiver and transmitter status bits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_add57d42bb2de0e5d860b103f62c08a9d}\label{classMFRC522_add57d42bb2de0e5d860b103f62c08a9d}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_add57d42bb2de0e5d860b103f62c08a9d}{F\+I\+F\+O\+Level\+Reg} = 0x0A
+\begin{DoxyCompactList}\small\item\em Input and output of 64 byte F\+I\+FO buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ad7b977a0fecf852e1a564a0339b470b4}\label{classMFRC522_ad7b977a0fecf852e1a564a0339b470b4}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ad7b977a0fecf852e1a564a0339b470b4}{Water\+Level\+Reg} = 0x0B
+\begin{DoxyCompactList}\small\item\em Number of bytes stored in the F\+I\+FO buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a18ecd5d31d1892b81c7fba4d86cfe509}\label{classMFRC522_a18ecd5d31d1892b81c7fba4d86cfe509}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a18ecd5d31d1892b81c7fba4d86cfe509}{Control\+Reg} = 0x0C
+\begin{DoxyCompactList}\small\item\em Level for F\+I\+FO underflow and overflow warning. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ae03b342f943f3cba80fd98c9db921b1b}\label{classMFRC522_ae03b342f943f3cba80fd98c9db921b1b}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ae03b342f943f3cba80fd98c9db921b1b}{Bit\+Framing\+Reg} = 0x0D
+\begin{DoxyCompactList}\small\item\em Miscellaneous control registers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a6bbad73e1fd964473610adf1f3eb8a77}\label{classMFRC522_a6bbad73e1fd964473610adf1f3eb8a77}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a6bbad73e1fd964473610adf1f3eb8a77}{Coll\+Reg} = 0x0E
+\begin{DoxyCompactList}\small\item\em Adjustments for bit-\/oriented frames. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a0509425924d23eb15b82fe70409e1afd}\label{classMFRC522_a0509425924d23eb15b82fe70409e1afd}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a0509425924d23eb15b82fe70409e1afd}{Mode\+Reg} = 0x11
+\begin{DoxyCompactList}\small\item\em Bit posistion of the first bit-\/collision detected on the RF interface. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a5f1ad3684cab8e35cb55c0ee88b1169e}\label{classMFRC522_a5f1ad3684cab8e35cb55c0ee88b1169e}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a5f1ad3684cab8e35cb55c0ee88b1169e}{Tx\+Mode\+Reg} = 0x12
+\begin{DoxyCompactList}\small\item\em Defines general modes for transmitting and receiving. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_afa09626edf95b29b5a0a2704163856c4}\label{classMFRC522_afa09626edf95b29b5a0a2704163856c4}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_afa09626edf95b29b5a0a2704163856c4}{Rx\+Mode\+Reg} = 0x13
+\begin{DoxyCompactList}\small\item\em Defines transmission data rate and framing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a31362c1d22f22ba49b0154cd91d9a1f8}\label{classMFRC522_a31362c1d22f22ba49b0154cd91d9a1f8}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a31362c1d22f22ba49b0154cd91d9a1f8}{Tx\+Control\+Reg} = 0x14
+\begin{DoxyCompactList}\small\item\em Defines reception data rate and framing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a6be33368376daa7fca206ef5847eae70}\label{classMFRC522_a6be33368376daa7fca206ef5847eae70}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a6be33368376daa7fca206ef5847eae70}{Tx\+A\+S\+K\+Reg} = 0x15
+\begin{DoxyCompactList}\small\item\em Controls the logical behavior of the antenna driver pins T\+X1 and T\+X2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aed95c578c94a3aebe377736621b80bda}\label{classMFRC522_aed95c578c94a3aebe377736621b80bda}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_aed95c578c94a3aebe377736621b80bda}{Tx\+Sel\+Reg} = 0x16
+\begin{DoxyCompactList}\small\item\em Controls the setting of the transmission modulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ac2c0cc7b2d5068c85074acc23a648304}\label{classMFRC522_ac2c0cc7b2d5068c85074acc23a648304}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ac2c0cc7b2d5068c85074acc23a648304}{Rx\+Sel\+Reg} = 0x17
+\begin{DoxyCompactList}\small\item\em Selects the internal sources for the antenna driver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a1b2198d0854741c169234c9d2739e504}\label{classMFRC522_a1b2198d0854741c169234c9d2739e504}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a1b2198d0854741c169234c9d2739e504}{Rx\+Threshold\+Reg} = 0x18
+\begin{DoxyCompactList}\small\item\em Selects internal receiver settings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a572ee6f622da471c04fb82775a3bc0e5}\label{classMFRC522_a572ee6f622da471c04fb82775a3bc0e5}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a572ee6f622da471c04fb82775a3bc0e5}{Demod\+Reg} = 0x19
+\begin{DoxyCompactList}\small\item\em Selects thresholds for the bit decoder. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aa976848be7b3270afec5207783cc2772}\label{classMFRC522_aa976848be7b3270afec5207783cc2772}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_aa976848be7b3270afec5207783cc2772}{Mf\+Tx\+Reg} = 0x1C
+\begin{DoxyCompactList}\small\item\em Defines demodlar settings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_acb62dc819b455ee6a404bdfe191a7132}\label{classMFRC522_acb62dc819b455ee6a404bdfe191a7132}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_acb62dc819b455ee6a404bdfe191a7132}{Mf\+Rx\+Reg} = 0x1D
+\begin{DoxyCompactList}\small\item\em Controls some M\+I\+F\+A\+RE communication transmit parameters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a277d829630c5c1fc131c71e286fc322a}\label{classMFRC522_a277d829630c5c1fc131c71e286fc322a}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a277d829630c5c1fc131c71e286fc322a}{Serial\+Speed\+Reg} = 0x1F
+\begin{DoxyCompactList}\small\item\em Controls some M\+I\+F\+A\+RE communication receive parameters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ac1d563b996ba0cdf5f94dee272454b4c}\label{classMFRC522_ac1d563b996ba0cdf5f94dee272454b4c}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ac1d563b996ba0cdf5f94dee272454b4c}{C\+R\+C\+Result\+RegH} = 0x21
+\begin{DoxyCompactList}\small\item\em Selects the speed of the serial U\+A\+RT interface. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aac4ba530ce3dc672d22e1840022c8dbf}\label{classMFRC522_aac4ba530ce3dc672d22e1840022c8dbf}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_aac4ba530ce3dc672d22e1840022c8dbf}{C\+R\+C\+Result\+RegL} = 0x22
+\begin{DoxyCompactList}\small\item\em Shows the M\+SB and L\+SB values of the C\+RC calculation(\+High). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a8f8491e3696a212253204e0a4d50b460}\label{classMFRC522_a8f8491e3696a212253204e0a4d50b460}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a8f8491e3696a212253204e0a4d50b460}{Mod\+Width\+Reg} = 0x24
+\begin{DoxyCompactList}\small\item\em Shows the M\+SB and L\+SB values of the C\+RC calculation(\+Low). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a6247cc38cc52524eb30d94a9e745811e}\label{classMFRC522_a6247cc38cc52524eb30d94a9e745811e}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a6247cc38cc52524eb30d94a9e745811e}{R\+F\+Cfg\+Reg} = 0x26
+\begin{DoxyCompactList}\small\item\em Controls the Mod\+Width setting. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a91ddbaf4e4bc33dd43a7599238e9f9a1}\label{classMFRC522_a91ddbaf4e4bc33dd43a7599238e9f9a1}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a91ddbaf4e4bc33dd43a7599238e9f9a1}{Gs\+N\+Reg} = 0x27
+\begin{DoxyCompactList}\small\item\em Configures the receiver gain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ae9dab4aef1658240f8ea032496311c69}\label{classMFRC522_ae9dab4aef1658240f8ea032496311c69}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ae9dab4aef1658240f8ea032496311c69}{C\+W\+Gs\+P\+Reg} = 0x28
+\begin{DoxyCompactList}\small\item\em Selects the conductance of the antenna driver pins T\+X1 and T\+X2 for modulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a94e96f5d58f9f52756235366a0c8a53a}\label{classMFRC522_a94e96f5d58f9f52756235366a0c8a53a}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a94e96f5d58f9f52756235366a0c8a53a}{Mod\+Gs\+P\+Reg} = 0x29
+\begin{DoxyCompactList}\small\item\em Defines the conductance of the p-\/driver output during periods of no modulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a3caf3862116749118e52431d31048f68}\label{classMFRC522_a3caf3862116749118e52431d31048f68}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a3caf3862116749118e52431d31048f68}{T\+Mode\+Reg} = 0x2A
+\begin{DoxyCompactList}\small\item\em Defines the conductance of the p-\/driver output during periods of modulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a748558ee5f116ea8c16488dc42a9009e}\label{classMFRC522_a748558ee5f116ea8c16488dc42a9009e}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a748558ee5f116ea8c16488dc42a9009e}{T\+Prescaler\+Reg} = 0x2B
+\begin{DoxyCompactList}\small\item\em Defines settings for the internal timer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_adb9c85f5225d44862e74223efaea249d}\label{classMFRC522_adb9c85f5225d44862e74223efaea249d}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_adb9c85f5225d44862e74223efaea249d}{T\+Reload\+RegH} = 0x2C
+\begin{DoxyCompactList}\small\item\em Defines settings for the internal timer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ab8ee05c49c5895b521f35b413c8832c5}\label{classMFRC522_ab8ee05c49c5895b521f35b413c8832c5}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ab8ee05c49c5895b521f35b413c8832c5}{T\+Reload\+RegL} = 0x2D
+\begin{DoxyCompactList}\small\item\em Defines the 16-\/bit timer reload value(\+High). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a457f1df041869fe30a5c01b9a628edd8}\label{classMFRC522_a457f1df041869fe30a5c01b9a628edd8}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a457f1df041869fe30a5c01b9a628edd8}{T\+Counter\+Value\+RegH} = 0x2E
+\begin{DoxyCompactList}\small\item\em Defines the 16-\/bit timer reload value(\+Low). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_addf045e6b7636472c27caec39eeb902b}\label{classMFRC522_addf045e6b7636472c27caec39eeb902b}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_addf045e6b7636472c27caec39eeb902b}{T\+Counter\+Value\+RegL} = 0x2F
+\begin{DoxyCompactList}\small\item\em Shows the 16-\/bit timer value(\+High). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a82581733220799c91c85268e5e453519}\label{classMFRC522_a82581733220799c91c85268e5e453519}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a82581733220799c91c85268e5e453519}{Test\+Sel1\+Reg} = 0x31
+\begin{DoxyCompactList}\small\item\em Shows the 16-\/bit timer value(\+Low). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a2254d965da14ff4d6de9fd7f3b214eab}\label{classMFRC522_a2254d965da14ff4d6de9fd7f3b214eab}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a2254d965da14ff4d6de9fd7f3b214eab}{Test\+Sel2\+Reg} = 0x32
+\begin{DoxyCompactList}\small\item\em General test signal configuration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a0b73879826d5984c9ce1c9b8eb7403b2}\label{classMFRC522_a0b73879826d5984c9ce1c9b8eb7403b2}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a0b73879826d5984c9ce1c9b8eb7403b2}{Test\+Pin\+En\+Reg} = 0x33
+\begin{DoxyCompactList}\small\item\em General test signal configuration and P\+R\+BS control. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ad5b177065c774237eb2756a7209ebaac}\label{classMFRC522_ad5b177065c774237eb2756a7209ebaac}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ad5b177065c774237eb2756a7209ebaac}{Test\+Pin\+Value\+Reg} = 0x34
+\begin{DoxyCompactList}\small\item\em Enables pin output driver on pins D1 to D7. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_acced8d7ea05d430a8f48ee5d30c63443}\label{classMFRC522_acced8d7ea05d430a8f48ee5d30c63443}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_acced8d7ea05d430a8f48ee5d30c63443}{Test\+Bus\+Reg} = 0x35
+\begin{DoxyCompactList}\small\item\em Defines the values for D1 to D7 when it is used as an I/O bus. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a763839e9e665049bc5ea0c754aaa47a4}\label{classMFRC522_a763839e9e665049bc5ea0c754aaa47a4}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a763839e9e665049bc5ea0c754aaa47a4}{Auto\+Test\+Reg} = 0x36
+\begin{DoxyCompactList}\small\item\em Shows the status of the internal test bus. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a87c131b5dc310dd451ed2339bc2acf04}\label{classMFRC522_a87c131b5dc310dd451ed2339bc2acf04}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a87c131b5dc310dd451ed2339bc2acf04}{Version\+Reg} = 0x37
+\begin{DoxyCompactList}\small\item\em Controls the digital self test. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ad05c5ce439020bd080a2102804e3ad96}\label{classMFRC522_ad05c5ce439020bd080a2102804e3ad96}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ad05c5ce439020bd080a2102804e3ad96}{Analog\+Test\+Reg} = 0x38
+\begin{DoxyCompactList}\small\item\em Shows the software version. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a58755b48e8eed115aa5650e8bfb8986f}\label{classMFRC522_a58755b48e8eed115aa5650e8bfb8986f}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a58755b48e8eed115aa5650e8bfb8986f}{Test\+D\+A\+C1\+Reg} = 0x39
+\begin{DoxyCompactList}\small\item\em Controls the pins A\+U\+X1 and A\+U\+X2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aff5ac0eb39afa116dfd2a8a390b91d25}\label{classMFRC522_aff5ac0eb39afa116dfd2a8a390b91d25}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_aff5ac0eb39afa116dfd2a8a390b91d25}{Test\+D\+A\+C2\+Reg} = 0x3A
+\begin{DoxyCompactList}\small\item\em Defines the test value for Test\+D\+A\+C1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_addbdc1d2d79dc48b5dc8b05757c89d82}\label{classMFRC522_addbdc1d2d79dc48b5dc8b05757c89d82}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_addbdc1d2d79dc48b5dc8b05757c89d82}{Test\+A\+D\+C\+Reg} = 0x3B
+\begin{DoxyCompactList}\small\item\em Defines the test value for Test\+D\+A\+C2. \end{DoxyCompactList}\item 
+static const uint8\+\_\+t \hyperlink{classMFRC522_aa0a33c3059b58a75fc8c1ff8201601bb}{cmd\+Idle} = 0x00
+\begin{DoxyCompactList}\small\item\em Shows the value of A\+DC I and Q channels. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a3a33c02b0ee2699dc7fd1e0d9522e599}\label{classMFRC522_a3a33c02b0ee2699dc7fd1e0d9522e599}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a3a33c02b0ee2699dc7fd1e0d9522e599}{cmd\+Mem} = 0x01
+\begin{DoxyCompactList}\small\item\em No action, cancels the current command execution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a5db2970d46d7b445af997cf42c036e27}\label{classMFRC522_a5db2970d46d7b445af997cf42c036e27}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a5db2970d46d7b445af997cf42c036e27}{cmd\+Gen\+Random\+ID} = 0x02
+\begin{DoxyCompactList}\small\item\em Stores 25 bytes into the internal buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ac846a3bc11884b6ef2727b08bfa1597f}\label{classMFRC522_ac846a3bc11884b6ef2727b08bfa1597f}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ac846a3bc11884b6ef2727b08bfa1597f}{cmd\+Calc\+C\+RC} = 0x03
+\begin{DoxyCompactList}\small\item\em Generates a 10-\/byte random ID number. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a583d65bc8e373170a37502a3db46ccee}\label{classMFRC522_a583d65bc8e373170a37502a3db46ccee}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a583d65bc8e373170a37502a3db46ccee}{cmd\+Transmit} = 0x04
+\begin{DoxyCompactList}\small\item\em Activates the C\+RC coprocessor or performs a self test. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a9da4cae4ffc7a4ee4704660d1a63c78d}\label{classMFRC522_a9da4cae4ffc7a4ee4704660d1a63c78d}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a9da4cae4ffc7a4ee4704660d1a63c78d}{cmd\+No\+Cmd\+Change} = 0x07
+\begin{DoxyCompactList}\small\item\em Transmits data from the F\+I\+FO buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a45174d03bf2ae78cffed9e2d94b78343}\label{classMFRC522_a45174d03bf2ae78cffed9e2d94b78343}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a45174d03bf2ae78cffed9e2d94b78343}{cmd\+Receive} = 0x08
+\begin{DoxyCompactList}\small\item\em No command change. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_afecac251dc4b33d217f9c606d1e72b6d}\label{classMFRC522_afecac251dc4b33d217f9c606d1e72b6d}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_afecac251dc4b33d217f9c606d1e72b6d}{cmd\+Transceive} = 0x0C
+\begin{DoxyCompactList}\small\item\em Activates the receiver circuits. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_afae620bc8a05c0dc01b87673ac2b2f02}\label{classMFRC522_afae620bc8a05c0dc01b87673ac2b2f02}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_afae620bc8a05c0dc01b87673ac2b2f02}{cmd\+M\+F\+Authent} = 0x0E
+\begin{DoxyCompactList}\small\item\em Transmits data from F\+I\+FO buffer to antenna and automatically activates the receiver after transmission. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_ac17ff69d49cd5965d8f91bf8df93c39a}\label{classMFRC522_ac17ff69d49cd5965d8f91bf8df93c39a}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_ac17ff69d49cd5965d8f91bf8df93c39a}{cmd\+Soft\+Reset} = 0x0F
+\begin{DoxyCompactList}\small\item\em Performs a M\+I\+F\+A\+RE standard authentication as a reader. \end{DoxyCompactList}\item 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}{mifare\+Reqa} = 0x26
+\begin{DoxyCompactList}\small\item\em resets the \hyperlink{classMFRC522}{M\+F\+R\+C522} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a14b20b90165d697b464cc8fbcabdd472}\label{classMFRC522_a14b20b90165d697b464cc8fbcabdd472}} 
+static const uint8\+\_\+t {\bfseries mifare\+Wupa} = 0x52
+\item 
+\mbox{\Hypertarget{classMFRC522_af5419000d91fe4b40d7d7539c0221ac4}\label{classMFRC522_af5419000d91fe4b40d7d7539c0221ac4}} 
+static const uint8\+\_\+t {\bfseries mifare\+Halt} = 0x50
+\item 
+\mbox{\Hypertarget{classMFRC522_a54e44da7a00e2c1ef5bd51d1e00200f0}\label{classMFRC522_a54e44da7a00e2c1ef5bd51d1e00200f0}} 
+static const uint8\+\_\+t {\bfseries mifare\+Auth\+KeyA} = 0x60
+\item 
+\mbox{\Hypertarget{classMFRC522_a23d0083f34efe15fd2c91137cad39cbc}\label{classMFRC522_a23d0083f34efe15fd2c91137cad39cbc}} 
+static const uint8\+\_\+t {\bfseries mifare\+Auth\+KeyB} = 0x61
+\item 
+\mbox{\Hypertarget{classMFRC522_af75c37517407aafc7dca828c40bf76bd}\label{classMFRC522_af75c37517407aafc7dca828c40bf76bd}} 
+static const uint8\+\_\+t {\bfseries mifare\+Cl1} = 0x93
+\item 
+\mbox{\Hypertarget{classMFRC522_ab42d4cb6434ffbdb49e06beed6d3607a}\label{classMFRC522_ab42d4cb6434ffbdb49e06beed6d3607a}} 
+static const uint8\+\_\+t {\bfseries mifare\+Read} = 0x30
+\item 
+\mbox{\Hypertarget{classMFRC522_a6f995a94e4dfea2658f40fb7f3e6411d}\label{classMFRC522_a6f995a94e4dfea2658f40fb7f3e6411d}} 
+static const uint8\+\_\+t {\bfseries mifare\+Write} = 0x\+A0
+\item 
+\mbox{\Hypertarget{classMFRC522_a95810162f58dc2b2eda8053da4cb5dba}\label{classMFRC522_a95810162f58dc2b2eda8053da4cb5dba}} 
+static const uint8\+\_\+t {\bfseries mifare\+Decrement} = 0x\+C0
+\item 
+\mbox{\Hypertarget{classMFRC522_aaa8dadd82433ee9a49d219c83a3ec7e2}\label{classMFRC522_aaa8dadd82433ee9a49d219c83a3ec7e2}} 
+static const uint8\+\_\+t {\bfseries mifare\+Increment} = 0x\+C1
+\item 
+\mbox{\Hypertarget{classMFRC522_a760f0c1337aae2febb6e9fa041ccb982}\label{classMFRC522_a760f0c1337aae2febb6e9fa041ccb982}} 
+static const uint8\+\_\+t {\bfseries mifare\+Restore} = 0x\+C2
+\item 
+\mbox{\Hypertarget{classMFRC522_a83d79879810f8dc2a6bac2120a56b2af}\label{classMFRC522_a83d79879810f8dc2a6bac2120a56b2af}} 
+static const uint8\+\_\+t {\bfseries mifare\+Transfer} = 0x\+B0
+\item 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}{Ok\+Status} = 0x00
+\begin{DoxyCompactList}\small\item\em All the errors with a value and Ok\+Status;. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a6c50a079169f7765026e54b94a6a97a8}\label{classMFRC522_a6c50a079169f7765026e54b94a6a97a8}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a6c50a079169f7765026e54b94a6a97a8}{Protocol\+Err} = 0x01
+\begin{DoxyCompactList}\small\item\em Everything went Ok. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_a6e6c56ee1d07e961a1dea963fea4df99}\label{classMFRC522_a6e6c56ee1d07e961a1dea963fea4df99}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a6e6c56ee1d07e961a1dea963fea4df99}{Parity\+Err} = 0x02
+\begin{DoxyCompactList}\small\item\em Protocol. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aa711e6b2b73c4f42262678bd7b551a12}\label{classMFRC522_aa711e6b2b73c4f42262678bd7b551a12}} 
+static const uint8\+\_\+t {\bfseries C\+R\+C\+Err} = 0x03
+\item 
+\mbox{\Hypertarget{classMFRC522_afebf0772f64954ce203b4140b5db09fd}\label{classMFRC522_afebf0772f64954ce203b4140b5db09fd}} 
+static const uint8\+\_\+t {\bfseries Coll\+Err} = 0x04
+\item 
+\mbox{\Hypertarget{classMFRC522_a3ff93285d827a9d20914470bf6c284ab}\label{classMFRC522_a3ff93285d827a9d20914470bf6c284ab}} 
+static const uint8\+\_\+t {\bfseries Buffer\+Ovrl\+Err} = 0x05
+\item 
+\mbox{\Hypertarget{classMFRC522_a8ba339caf47ffbfef993542df5109023}\label{classMFRC522_a8ba339caf47ffbfef993542df5109023}} 
+static const uint8\+\_\+t {\bfseries Temp\+Err} = 0x06
+\item 
+\mbox{\Hypertarget{classMFRC522_a2b9f725730e12abdf9f50f78b297a0ff}\label{classMFRC522_a2b9f725730e12abdf9f50f78b297a0ff}} 
+static const uint8\+\_\+t {\bfseries Wr\+Err} = 0x07
+\item 
+\mbox{\Hypertarget{classMFRC522_a64932294752fa585ccce83f181a32422}\label{classMFRC522_a64932294752fa585ccce83f181a32422}} 
+static const uint8\+\_\+t {\bfseries Time\+Out} = 0x08
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}. 
+
+This is a simple library for the \hyperlink{classMFRC522}{M\+F\+R\+C522} chip. It can read the U\+U\+ID of a given card. This library uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib}) 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMFRC522_a941f62373024077506c43cc67e73f6ae}\label{classMFRC522_a941f62373024077506c43cc67e73f6ae}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{M\+F\+R\+C522()}{MFRC522()}}
+{\footnotesize\ttfamily M\+F\+R\+C522\+::\+M\+F\+R\+C522 (\begin{DoxyParamCaption}\item[{\hyperlink{classspiSetup}{spi\+Setup} \&}]{bus,  }\item[{hwlib\+::pin\+\_\+out \&}]{slave\+Sel,  }\item[{hwlib\+::pin\+\_\+out \&}]{reset }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \hyperlink{classMFRC522}{M\+F\+R\+C522} Class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bus} & this is the S\+PI bus the \hyperlink{classMFRC522}{M\+F\+R\+C522} uses to communicate. \\
+\hline
+{\em slave\+Sel} & the pin used to select which \hyperlink{classMFRC522}{M\+F\+R\+C522} you want to communicate with. \\
+\hline
+{\em reset} & the pin that is used for a hard\+Reset of the \hyperlink{classMFRC522}{M\+F\+R\+C522}. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classMFRC522_aa0a33c3059b58a75fc8c1ff8201601bb}\label{classMFRC522_aa0a33c3059b58a75fc8c1ff8201601bb}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!cmd\+Idle@{cmd\+Idle}}
+\index{cmd\+Idle@{cmd\+Idle}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{cmd\+Idle}{cmdIdle}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::cmd\+Idle = 0x00\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Shows the value of A\+DC I and Q channels. 
+
+All the commands of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip
+
+All the commands have there right value, reserved commands are commented. If you want to see the commands in more detail take a look in the datasheet table 149\+: \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}\label{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!Command\+Reg@{Command\+Reg}}
+\index{Command\+Reg@{Command\+Reg}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{Command\+Reg}{CommandReg}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::\+Command\+Reg = 0x01\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+All the registers of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip. 
+
+All the registers have there right address, reserved addresses are commented. If you want to see the registers in more detail take a look in the datasheet\+: \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}\label{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!mifare\+Reqa@{mifare\+Reqa}}
+\index{mifare\+Reqa@{mifare\+Reqa}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{mifare\+Reqa}{mifareReqa}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::mifare\+Reqa = 0x26\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+resets the \hyperlink{classMFRC522}{M\+F\+R\+C522} 
+
+All the commands of the M\+I\+F\+A\+RE Cards
+
+All the command have there right value, reserved commands are commented. If you want to see the commands in more detail take a look in the datasheet table 9\+: \href{https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F1\+S50\+Y\+Y\+X\+\_\+\+V1.\+pdf} \mbox{\Hypertarget{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}\label{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!Ok\+Status@{Ok\+Status}}
+\index{Ok\+Status@{Ok\+Status}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{Ok\+Status}{OkStatus}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::\+Ok\+Status = 0x00\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+All the errors with a value and Ok\+Status;. 
+
+This are all the errors that can happen and are checked in certain functions. Ok\+Status is used when everything went well with for example a communcation. In the datasheet is more in detail what all errors do and how they get triggerd. \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}\label{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!self\+Test\+F\+I\+F\+O\+Buffer\+V1@{self\+Test\+F\+I\+F\+O\+Buffer\+V1}}
+\index{self\+Test\+F\+I\+F\+O\+Buffer\+V1@{self\+Test\+F\+I\+F\+O\+Buffer\+V1}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{self\+Test\+F\+I\+F\+O\+Buffer\+V1}{selfTestFIFOBufferV1}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::self\+Test\+F\+I\+F\+O\+Buffer\+V1\mbox{[}64\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+\{
+        0x00, 0xC6, 0x37, 0xD5, 0x32, 0xB7, 0x57, 0x5C,
+        0xC2, 0xD8, 0x7C, 0x4D, 0xD9, 0x70, 0xC7, 0x73,
+        0x10, 0xE6, 0xD2, 0xAA, 0x5E, 0xA1, 0x3E, 0x5A,
+        0x14, 0xAF, 0x30, 0x61, 0xC9, 0x70, 0xDB, 0x2E,
+        0x64, 0x22, 0x72, 0xB5, 0xBD, 0x65, 0xF4, 0xEC,
+        0x22, 0xBC, 0xD3, 0x72, 0x35, 0xCD, 0xAA, 0x41,
+        0x1F, 0xA7, 0xF3, 0x53, 0x14, 0xDE, 0x7E, 0x02,
+        0xD9, 0x0F, 0xB5, 0x5E, 0x25, 0x1D, 0x29, 0x79
+    \}
+\end{DoxyCode}
+
+
+Self test result out of datasheet for version 1. After running the self test this will be in the F\+I\+FO Buffer. 
+
+\mbox{\Hypertarget{classMFRC522_a6973b73a8a922ac09b9d89489bdbc333}\label{classMFRC522_a6973b73a8a922ac09b9d89489bdbc333}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!self\+Test\+F\+I\+F\+O\+Buffer\+V2@{self\+Test\+F\+I\+F\+O\+Buffer\+V2}}
+\index{self\+Test\+F\+I\+F\+O\+Buffer\+V2@{self\+Test\+F\+I\+F\+O\+Buffer\+V2}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{self\+Test\+F\+I\+F\+O\+Buffer\+V2}{selfTestFIFOBufferV2}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::self\+Test\+F\+I\+F\+O\+Buffer\+V2\mbox{[}64\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+\{
+        0x00, 0xEB, 0x66, 0xBA, 0x57, 0xBF, 0x23, 0x95,
+        0xD0, 0xE3, 0x0D, 0x3D, 0x27, 0x89, 0x5C, 0xDE,
+        0x9D, 0x3B, 0xA7, 0x00, 0x21, 0x5B, 0x89, 0x82,
+        0x51, 0x3A, 0xEB, 0x02, 0x0C, 0xA5, 0x00, 0x49,
+        0x7C, 0x84, 0x4D, 0xB3, 0xCC, 0xD2, 0x1B, 0x81,
+        0x5D, 0x48, 0x76, 0xD5, 0x71, 0x61, 0x21, 0xA9,
+        0x86, 0x96, 0x83, 0x38, 0xCF, 0x9D, 0x5B, 0x6D,
+        0xDC, 0x15, 0xBA, 0x3E, 0x7D, 0x95, 0x3B, 0x2F
+    \}
+\end{DoxyCode}
+
+
+Self test result out of datasheet for version 2. After running the self test this will be in the F\+I\+FO Buffer. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{MFRC522_8hpp}{M\+F\+R\+C522.\+hpp}\item 
+M\+F\+R\+C522.\+cpp\end{DoxyCompactItemize}

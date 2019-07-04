@@ -8,14 +8,6 @@
 #include "MFRC522.hpp"
 
 
-void printByte2(uint8_t &byte){     //a function to printbytes in the develop process
-    hwlib::cout<<"Byte: ";
-    for(int i = 7; i >= 0; i--){
-        hwlib::cout<<((byte & (1<<i)) !=0);
-    }
-    hwlib::cout<<'\n';
-}
-
 MFRC522::MFRC522(spiSetup& bus, hwlib::pin_out& slaveSel, hwlib::pin_out& reset):   //constructor for the class
     bus( bus ),
     slaveSel( slaveSel),
@@ -78,6 +70,15 @@ void MFRC522::hardReset(){  //function to hardReset the MFRC522 by making the RS
     waitForBootUp();
 }
 
+
+
+void printByte2(uint8_t &byte){     //a function to printbytes in the develop process
+    hwlib::cout<<"Byte: ";
+    for(int i = 7; i >= 0; i--){
+        hwlib::cout<<((byte & (1<<i)) !=0);
+    }
+    hwlib::cout<<'\n';
+}
 
 void MFRC522::softReset(){  //function to softReset the MFRC522 with a command
     writeRegister(CommandReg, cmdSoftReset);
@@ -270,22 +271,23 @@ bool MFRC522::cardCheck(){
 //https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf
 //UID HANDLING
 //https://www.nxp.com/docs/en/application-note/AN10927.pdf
-uint8_t MFRC522::getCardUID(uint8_t UID[5]){
-    uint8_t cmdCode[2] = {0x93, 0x20};  //anti coll command 
+uint8_t MFRC522::getCardUID(uint8_t serial[]){            //Cascade level 1 check that returns the UID.
+    serial[0] = 0x93;  //anti coll command 
+    serial[1] = 0x20;
 
     //no REQA or WUPA so 111b can be turned off
-    writeRegister(BitFramingReg, 0x07);
+    writeRegister(BitFramingReg, 0x00);
     clearBitMask(CollReg, 0x80);
 
     int lenght = 5;
     hwlib::cout<<"Start communcation\n";
-    uint8_t status = communicate(cmdTransceive, cmdCode, 2, UID, lenght);
+    uint8_t status = communicate(cmdTransceive, serial, 2, serial, lenght);
     if(status != OkStatus){
         if(status == TimeOut){
             hwlib::cout<<"timeout\n";
         }
         printByte2(status);
-        printByte2(UID[0]);
+        printByte2(serial[2]);
         return status;
     }
     return OkStatus;
@@ -308,11 +310,10 @@ void MFRC522::test() {
 		if(cardCheck()) {
 			break;
 		}
-		hwlib::wait_ms(50);
+		hwlib::wait_ms(100);
 	}
 	hwlib::wait_ms(100);
 
-    hwlib::cout<<cardCheck();
 	// get card UID
 	uint8_t UID[5] = {0};
 	getCardUID(UID);

@@ -13,9 +13,9 @@
 
 /// @file
 
-/// \brief
+/// @brief
 /// Class to communicate with MFRC522
-/// \details
+/// @details
 /// This is a simple library for the MFRC522 chip.
 /// It can read the UUID of a given card.
 /// This library uses hwlib (https://github.com/wovo/hwlib)
