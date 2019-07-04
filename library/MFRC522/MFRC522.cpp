@@ -1,3 +1,10 @@
+// -----------------------------------------------------------
+// (C) Copyright Bas van der Geer 2019.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+// -----------------------------------------------------------
+
 #include "MFRC522.hpp"
 
 
@@ -31,16 +38,20 @@ void MFRC522::writeRegister(uint8_t regAddress, uint8_t writeBytes[], int amount
     bus.writeBytesinRegister(regAddress, writeBytes, amountOfBytes, slaveSel);
 }
 
-void MFRC522::setBitMask(uint8_t regAddress, uint8_t mask){         //turn certain bits on
+//################################################################################################################
+
+void MFRC522::setBitMask(uint8_t regAddress, uint8_t mask){         //turn certain bits on in the given register address
     uint8_t byteNow = readRegister(regAddress);
     writeRegister(regAddress, byteNow | mask);
 }
 
-void MFRC522::clearBitMask(uint8_t regAddress, uint8_t mask){       //turn certain bits off
+void MFRC522::clearBitMask(uint8_t regAddress, uint8_t mask){       //turn certain bits off in the given register address
     uint8_t byteNow = readRegister(regAddress);
     byteNow = byteNow & ~mask;
     writeRegister(regAddress, byteNow);
 }
+
+//################################################################################################################
 
 void MFRC522::stateAntennas(bool state){    //turn the antenna's off or on with a boolean value
     if(state){
@@ -61,7 +72,7 @@ void MFRC522::waitForBootUp(){
 void MFRC522::hardReset(){  //function to hardReset the MFRC522 by making the RST pin low for 105ns
     reset.write(0);
     reset.flush();
-    hwlib::wait_ns(105); //105 to make sure its low long enough;
+    hwlib::wait_ns(105); //105 to make sure its low long enough, 8.8.6 says it must be 100ns.
     reset.write(1);
     reset.flush();
     waitForBootUp();
@@ -74,24 +85,29 @@ void MFRC522::softReset(){  //function to softReset the MFRC522 with a command
     waitForBootUp();
 }
 
-
-void MFRC522::initialize(){    //initialize the chip when you start it up 
-    hardReset();
-
-    writeRegister(TModeReg, 0x80); //start the auto time
-    writeRegister(TxModeReg, 0x00); //set tx and rx to 106kb transfer and receive speed.
-    writeRegister(RxModeReg, 0x00);
-
-    writeRegister(TPrescalerReg, 0xA9); //169 for a 30khz timer = 25us
-    writeRegister(TReloadRegH, 0x03);   //169 in bits (0x03E8)
-    writeRegister(TReloadRegL, 0xE8);   //169 in bits (0x03E8)
-
-    writeRegister(TxASKReg, 0x40); //100%ask becuase we use mifare card and that is rfid and not nfc
-    writeRegister(ModeReg, 0x3D);   //crc init value 0x6363
-    //turn antennas on(true is on)
-    stateAntennas(true);
-
+uint8_t MFRC522::checkError(){          //fucntion to check the error register per bit. Each bit has his own error value
+    uint8_t errorReg = readRegister(ErrorReg);
+    if(errorReg & 0b00000001){
+        return ProtocolErr;
+    }else if(errorReg & 0b00000010){
+        return ParityErr;
+    }else if(errorReg & 0b00000100){
+        return CRCErr;
+    }else if(errorReg & 0b00001000){
+        return CollErr;
+    }else if(errorReg & 0b00010000){
+        return BufferOvrlErr;
+    }else if(errorReg & 0b01000000){
+        return TempErr;
+    }else if(errorReg & 0b10000000){
+        return WrErr;
+    }else{
+        return OkStatus;
+    }
 }
+
+//################################################################################################################
+
 //clears the fifo buffer with amntOfbytes of zeroes
 void MFRC522::clearFIFOBuffer(const uint8_t amntOfBytes){
     writeRegister(FIFOLevelReg, 0x80);  //clears internal fifo buffer read and write pointer.
@@ -160,26 +176,24 @@ bool MFRC522::selfTest(){
     }
 }
 
-uint8_t MFRC522::checkError(){          //fucntion to check the error register per bit. Each bit has his own error value
-    uint8_t errorReg = readRegister(ErrorReg);
-    if(errorReg & 0b00000001){
-        return ProtocolErr;
-    }else if(errorReg & 0b00000010){
-        return ParityErr;
-    }else if(errorReg & 0b00000100){
-        return CRCErr;
-    }else if(errorReg & 0b00001000){
-        return CollErr;
-    }else if(errorReg & 0b00010000){
-        return BufferOvrlErr;
-    }else if(errorReg & 0b01000000){
-        return TempErr;
-    }else if(errorReg & 0b10000000){
-        return WrErr;
-    }else{
-        return OkStatus;
-    }
+void MFRC522::initialize(){    //initialize the chip when you start it up 
+    hardReset();
+
+    writeRegister(TModeReg, 0x80); //start the auto time
+    writeRegister(TxModeReg, 0x00); //set tx and rx to 106kb transfer and receive speed.
+    writeRegister(RxModeReg, 0x00);
+
+    writeRegister(TPrescalerReg, 0xA9); //169 for a 30khz timer = 25us
+    writeRegister(TReloadRegH, 0x03);   //169 in bits (0x03E8)
+    writeRegister(TReloadRegL, 0xE8);   //169 in bits (0x03E8)
+
+    writeRegister(TxASKReg, 0x40); //100%ask becuase we use mifare card and that is rfid and not nfc
+    writeRegister(ModeReg, 0x3D);   //crc init value 0x6363
+    //turn antennas on(true is on)
+    stateAntennas(true);
+
 }
+
 
 uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength){
     uint8_t irqEnable = 0x00; //bits to set the right interrupts
@@ -189,18 +203,12 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
         finishedIrq = 0x30;
     }
     writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
-    uint8_t y = readRegister(ComIEnReg);
-    hwlib::cout<<"com\n";
-    printByte2(y);
     clearBitMask(ComIrqReg, 0x80); // clears the interupt request bits
     setBitMask(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
 
     writeRegister(CommandReg, cmdIdle); //stop any active command
     //write data to the fifo
     writeRegister(FIFODataReg, sendData, sendDataLength);
-    // for(int i = 0; i < sendDataLength; i++){        //maybe use other function in further development
-    //     writeRegister(FIFODataReg, sendData[i]);
-    // }
     //execute command
     writeRegister(CommandReg, cmd); //executes the given command as parameter
     if(cmd == cmdTransceive){
@@ -226,22 +234,21 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
     return OkStatus;    //if everything went well return okstatus
 }
 
-uint8_t MFRC522::isCardPresented(){
+bool MFRC522::isCardPresented(){     //function does not work yet completly, can only see once if a card is presented.
     //REQA = 26h       both 7 bits 
     //WUPA = 52h
     writeRegister(BitFramingReg, 0x07); //0x07 00000111 indicates 7 bits of REQA and WUPA
 
-    const uint8_t sendDataLength = 1;   //one byte of data is send
-	uint8_t sendData[sendDataLength] = {0x26}; //send the request command
+    const uint8_t sendDataLength = 1;   //one byte of data is send, the command
+	uint8_t sendData[sendDataLength] = {0x26}; //send the mifare request command
 
-	int receivedLength = 2;
-	uint8_t receivedData[receivedLength] = {0};
+	int receivedLength = 2; //returns 2 bytes of data
+	uint8_t receivedData[receivedLength] = {0}; //array to be filled with the received data
 
-    uint8_t status = communicate(cmdTransceive, sendData, sendDataLength, receivedData, receivedLength);
+    uint8_t status = communicate(cmdTransceive, sendData, sendDataLength, receivedData, receivedLength); //get the communication status of the chip and card
 
-    if(status != OkStatus){
+    if(status != OkStatus){ //checks if the status is OK, if not there is no card presented.
         return false;
     }
-    return true;
-
+    return true;    //if card is presented
 }

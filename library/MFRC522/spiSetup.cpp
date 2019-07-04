@@ -1,3 +1,10 @@
+// -----------------------------------------------------------
+// (C) Copyright Bas van der Geer 2019.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+// -----------------------------------------------------------
+
 #include "spiSetup.hpp"
 
 spiSetup::spiSetup(hwlib::pin_out& scl, hwlib::pin_out& mosi, hwlib::pin_in& miso): //constructor for a spibus using hwlib
@@ -55,7 +62,6 @@ void spiSetup::writeBytesinRegister(const uint8_t regAddress, uint8_t writeBytes
         if(i + 1 < arraySize){
             write[i+1] = writeBytes[i];
         }
-
     }
     transaction(slaveSel).write_and_read(arraySize, write, nullptr);
 }
