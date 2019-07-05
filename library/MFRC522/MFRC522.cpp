@@ -72,7 +72,7 @@ void MFRC522::hardReset(){  //function to hardReset the MFRC522 by making the RS
 
 
 
-void printByte2(uint8_t &byte){     //a function to printbytes in the develop process
+void printByte2(uint8_t &byte){     //a function to print bytes
     hwlib::cout<<"Byte: ";
     for(int i = 7; i >= 0; i--){
         hwlib::cout<<((byte & (1<<i)) !=0);
@@ -147,7 +147,7 @@ bool MFRC522::selfTest(){
             break;
         }
     }
-    writeRegister(CommandReg, cmdIdle); //stop all cmd' s
+    writeRegister(CommandReg, cmdIdle); //stop all cmd's
     uint8_t result[64] = {0};
     readRegister(FIFODataReg, 64, result);
     //control fifo bytes with the given bytes in datasheet
@@ -208,10 +208,6 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
     setBitMask(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
 
     writeRegister(CommandReg, cmdIdle); //stop any active command
-    //write data to the fifo
-    // for(int i = 0; i < sendDataLength; i++){
-    //     writeRegister(FIFODataReg, sendData[i]);
-    // }
     writeRegister(FIFODataReg, sendData, sendDataLength);
     //execute command
     writeRegister(CommandReg, cmd); //executes the given command as parameter
@@ -235,7 +231,6 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
     receivedDataLength = readRegister(FIFOLevelReg); //get the lenght of the received data in the FIFO buffer
     readRegister(FIFODataReg, receivedDataLength, receivedData); //reads the received data out of the fifo buffer into the array
     writeRegister(CommandReg, cmdIdle); //stop any commands
-    hwlib::cout<<"Everything went OK\n";
     return OkStatus;    //if everything went well return okstatus
 }
 
@@ -272,7 +267,7 @@ bool MFRC522::cardCheck(){
 //UID HANDLING
 //https://www.nxp.com/docs/en/application-note/AN10927.pdf
 uint8_t MFRC522::getCardUID(uint8_t serial[]){            //Cascade level 1 check that returns the UID.
-    serial[0] = 0x93;  //anti coll command 
+    serial[0] = 0x93;  //anti collision command 
     serial[1] = 0x20;
 
     //no REQA or WUPA so 111b can be turned off
@@ -315,7 +310,7 @@ void MFRC522::test() {
 	hwlib::wait_ms(100);
 
 	// get card UID
-	uint8_t UID[5] = {0};
+	uint8_t UID[5] = {0x00};
 	getCardUID(UID);
 }
 

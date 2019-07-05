@@ -23,6 +23,8 @@ int main(){
     auto ss = hwlib::target::pin_out(hwlib::target::pins::d49);
     auto mosi = hwlib::target::pin_out(hwlib::target::pins::d51);
     auto reset = hwlib::target::pin_out(hwlib::target::pins::d52);
+    auto greenLed = hwlib::target::pin_out(hwlib::target::pins::d46);
+    auto redLed = hwlib::target::pin_out(hwlib::target::pins::d47);
    
     spiSetup bus(sclk, mosi, miso);
 
@@ -30,6 +32,22 @@ int main(){
 
     
     rfid.test();
+
+    
+    while(true){
+        bool card = rfid.cardCheck();
+        if(card){
+            greenLed.write(1);
+            greenLed.flush();
+            redLed.write(0);
+            redLed.flush();
+        }else{
+            greenLed.write(0);
+            greenLed.flush();
+            redLed.write(1);
+            redLed.flush();
+        }
+    }
 
 return 0;
 

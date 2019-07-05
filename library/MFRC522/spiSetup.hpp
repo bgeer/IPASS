@@ -34,13 +34,13 @@ private:
     /// \detail
     /// This functions transfers the register address to the right byte.
     /// So this byte can be send with spi to the chip.
-    uint8_t getReadByte(const uint8_t chipRegAddress);
+    uint8_t getReadByte(const uint8_t regAddress);
 
     /// \brief Get the write byte.
     /// \detail
     /// This function transfers the register address to the right byte.
     /// So this byte can be send with spi to the chip.
-    uint8_t getWriteByte(const uint8_t chipRegAdress);
+    uint8_t getWriteByte(const uint8_t regAdress);
     void printByte(uint8_t &byte);
 public:
     /// \brief Constructor for spiSetup class
@@ -52,24 +52,23 @@ public:
     /// \brief Get byte from register.
     /// \detail
     /// This method return one byte from the register that given as parameter.
-    uint8_t getByteFromRegister(const uint8_t chipRegAddress, hwlib::pin_out& slaveSelect);
+    uint8_t getByteFromRegister(const uint8_t regAddress, hwlib::pin_out& slaveSel);
 
     /// \brief get bytes from register.
     /// \detail
     /// This method returns multiple bytes from a register.
     /// It will put the bytes fro  the register in the given data array.
-    void getBytesFromRegister(const uint8_t chipRegAddress, uint8_t data[], uint8_t amountOfBytes, hwlib::pin_out& slaveSelect);
+    void getBytesFromRegister(const uint8_t regAddress, uint8_t data[], uint8_t amountOfBytes, hwlib::pin_out& slaveSel);
 
     /// \brief Write byte into register.
     /// \detail
     /// This method will write one single byte in to a register.
-    /// 
-    void writeByteInRegister(const uint8_t chipRegAddress, uint8_t writeByte, hwlib::pin_out& slaveSelect);
+    void writeByteInRegister(const uint8_t regAddress, uint8_t writeByte, hwlib::pin_out& slaveSel);
 
     /// \brief  Write bytes into register.
     /// \detail
     /// This method writes several bytes into a register. You can give an array of the data you want to write to a certain register.
-    void writeBytesinRegister(const uint8_t chipRegAddress, uint8_t writeBytes[], int amountOfBytes, hwlib::pin_out& slaveSel);
+    void writeBytesinRegister(const uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes, hwlib::pin_out& slaveSel);
 };
 
 #endif //SPISETUP_HPP

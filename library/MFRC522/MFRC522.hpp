@@ -293,11 +293,17 @@ public:
     /// \detail
     /// This method initialize's the MFRC522.
     /// It will hard reset the chip and initialize all the correct registers.
+    /// It starts the auto timer
+    /// It sets the transfer rate to 106kb
+    /// It will start the 30khz timer for 25us
+    /// Sets 100% ask because MIFARE cards are used
+    /// Turns the antennas on
     void initialize();
 
     /// \brief Self Test
     /// \detail
     /// This method performs the self test of the MFRC522.
+    /// The self test is explained in the datasheet at 16.1.1
     /// It return a boolean value if the test is passed or not.
     bool selfTest();
 
@@ -315,8 +321,15 @@ public:
     /// It returns an boolean value if the card is presented or not.
     bool isCardPresented();
 
+    /// \biref Card Check
+    /// \detail
+    /// This method checks if there is a card in range of the MFRC522.
+    /// This method can be called multiple times after each other insteal of the isCardPresented function.
     bool cardCheck();
 
+    /// \brief Get card UID
+    /// \detail
+    /// This method will return the card UID in the array that is given as parameter.
     uint8_t getCardUID(uint8_t UID[5]);
 
     void test();
