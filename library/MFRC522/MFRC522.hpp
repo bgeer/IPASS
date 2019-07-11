@@ -330,7 +330,14 @@ public:
     /// \brief Get card UID
     /// \detail
     /// This method will return the card UID in the array that is given as parameter.
-    uint8_t getCardUID(uint8_t UID[5]);
+    uint8_t getUID(uint8_t uid[5]);
+
+    void waitForUID(uint8_t UID[5]);
+
+    bool checkBCC(uint8_t UID[5]);
+
+    void printUID(uint8_t UID[5]);
+
 
     void test();
 

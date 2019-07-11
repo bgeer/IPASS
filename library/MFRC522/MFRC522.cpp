@@ -183,6 +183,7 @@ void MFRC522::initialize(){    //initialize the chip when you start it up
     writeRegister(TModeReg, 0x80); //start the auto time
     writeRegister(TxModeReg, 0x00); //set tx and rx to 106kb transfer and receive speed.
     writeRegister(RxModeReg, 0x00);
+    writeRegister(ModWidthReg, 0x80); //reset ModWidthReg 
 
     writeRegister(TPrescalerReg, 0xA9); //169 for a 30khz timer = 25us
     writeRegister(TReloadRegH, 0x03);   //169 in bits (0x03E8)
@@ -190,6 +191,8 @@ void MFRC522::initialize(){    //initialize the chip when you start it up
 
     writeRegister(TxASKReg, 0x40); //100%ask becuase we use mifare card and that is rfid and not nfc
     writeRegister(ModeReg, 0x3D);   //crc init value 0x6363
+
+    writeRegister(RFCfgReg, (0x07<<4));
     //turn antennas on(true is on)
     stateAntennas(true);
 
@@ -203,30 +206,38 @@ uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength
         irqEnable = 0x77;
         finishedIrq = 0x30;
     }
-    writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
-    clearBitMask(ComIrqReg, 0x80); // clears the interupt request bits
-    setBitMask(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
-
     writeRegister(CommandReg, cmdIdle); //stop any active command
-    writeRegister(FIFODataReg, sendData, sendDataLength);
+
+    writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
+    writeRegister(ComIrqReg, 0x7F);
+    writeRegister(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
+
+
+    for(int i = 0; i < sendDataLength; i++){
+        writeRegister(FIFODataReg, sendData[i]);
+    }
     //execute command
     writeRegister(CommandReg, cmd); //executes the given command as parameter
+
     if(cmd == cmdTransceive){
         setBitMask(BitFramingReg, 0x80); //StartSend = 1, transmission starts
     }
-    int timeOutMS = 30; //maximum timeout time in ms
+
+    int timeOutMS = 25; //maximum timeout time in ms
     uint8_t curInterupt = readRegister(ComIrqReg);  //get the currentinterupt status
-    for(int i = 0;!(curInterupt & finishedIrq); i++){   //loops until the time out is reached or triggered by the bit. Or the curInterupt is not equal
+    for(int i = 0; !(curInterupt & finishedIrq); i++){   //loops until the time out is reached or triggered by the bit. Or the curInterupt is not equal
         curInterupt = readRegister(ComIrqReg);  //to the finishedIRq anymore
-        if((i > timeOutMS) || (curInterupt & 0x01)){    //0x01 is interrupt
+        if((i > timeOutMS) || (curInterupt & 0x01)){    //0x01 is interrupt for timeout
             return TimeOut; //returns there is a timeout can be the interrupt or the ms timeout
         }
         hwlib::wait_ms(1);
     }
+
     uint8_t error = checkError();   //check for errors in the register and returns this else continue's
     if(error){
         return error;   //returns the error given
     }
+
     //reading the result of the fifo
     receivedDataLength = readRegister(FIFOLevelReg); //get the lenght of the received data in the FIFO buffer
     readRegister(FIFODataReg, receivedDataLength, receivedData); //reads the received data out of the fifo buffer into the array
@@ -240,16 +251,17 @@ bool MFRC522::isCardPresented(){     //function does not work yet completly, can
     writeRegister(BitFramingReg, 0x07); //0x07 00000111 indicates 7 bits of REQA and WUPA
 
     const uint8_t sendDataLength = 1;   //one byte of data is send, the command
-	uint8_t sendData[sendDataLength] = {0x26}; //send the mifare request command
+	uint8_t sendData[sendDataLength] = {mifareReqa}; //send the mifare request command
 
 	int receivedLength = 2; //returns 2 bytes of data
-	uint8_t receivedData[receivedLength] = {0}; //array to be filled with the received data
+	uint8_t receivedData[receivedLength] = {0x00}; //array to be filled with the received data
 
     uint8_t status = communicate(cmdTransceive, sendData, sendDataLength, receivedData, receivedLength); //get the communication status of the chip and card
 
     if(status != OkStatus){ //checks if the status is OK, if not there is no card presented.
         return false;
     }
+
     return true;    //if card is presented
 }
 
@@ -257,35 +269,51 @@ bool MFRC522::cardCheck(){
     if(isCardPresented()){
         stateAntennas(false);   //mfrc522 needs short pauses between transmitting so turning off antenna's and on again does this
         stateAntennas(true);    //8.5 in https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf specifies it
-
         return true;
     }
     return false;
 }
-//MIFARE DATA
-//https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf
-//UID HANDLING
-//https://www.nxp.com/docs/en/application-note/AN10927.pdf
-uint8_t MFRC522::getCardUID(uint8_t serial[]){            //Cascade level 1 check that returns the UID.
-    serial[0] = 0x93;  //anti collision command 
-    serial[1] = 0x20;
 
-    //no REQA or WUPA so 111b can be turned off
-    writeRegister(BitFramingReg, 0x00);
+uint8_t MFRC522::getUID(uint8_t uid[5]){            //Cascade level 1 check that returns the UI
+    uint8_t comm[2] = {0x93, 0x20};
+
+    //no REQA or WUPA so 111bit framing can be turned off
     clearBitMask(CollReg, 0x80);
+    writeRegister(BitFramingReg, 0x00);
 
-    int lenght = 5;
-    hwlib::cout<<"Start communcation\n";
-    uint8_t status = communicate(cmdTransceive, serial, 2, serial, lenght);
+    uint8_t status = communicate(cmdTransceive, comm, 2, uid, 5);
     if(status != OkStatus){
-        if(status == TimeOut){
-            hwlib::cout<<"timeout\n";
-        }
-        printByte2(status);
-        printByte2(serial[2]);
         return status;
     }
     return OkStatus;
+}
+
+
+void MFRC522::waitForUID(uint8_t UID[5]){
+    while(true){
+        if(isCardPresented()){
+            if(getUID(UID)== OkStatus){
+                return;
+            }
+        }
+    }
+}
+
+bool MFRC522::checkBCC(uint8_t UID[5]){     //functios that calculates the BCC to check if the UID is valid
+    uint8_t BCC = 0;                        //datasheet says is generated by xor the 4 UID bytes so its unique for each UID
+    const uint8_t sizeUID = 4;
+    for(int i = 0; i < sizeUID; i++){
+        BCC ^= UID[i];
+    }
+    return (BCC == UID[4]);
+}
+
+void MFRC522::printUID(uint8_t UID[5]){
+    hwlib::cout<<
+        hwlib::hex << UID[0] << " " <<
+        hwlib::hex << UID[1] << " " <<
+        hwlib::hex << UID[2] << " " <<
+        hwlib::hex << UID[3] << hwlib::endl;
 }
 
 
@@ -299,18 +327,13 @@ void MFRC522::test() {
 	// Self test uses soft reset so need to initialize again
 	initialize();
 
-	// check card for a card.
-	hwlib::cout << "Waiting for card!\n";
-	for(int i = 0; i < 1000; i++) {
-		if(cardCheck()) {
-			break;
-		}
-		hwlib::wait_ms(100);
-	}
-	hwlib::wait_ms(100);
-
-	// get card UID
-	uint8_t UID[5] = {0x00};
-	getCardUID(UID);
+    //get card uid
+	uint8_t uid[5] = {0x00};
+    waitForUID(uid);
+    printUID(uid);
+    bool x = checkBCC(uid);
+    if(x){
+        hwlib::cout<<"UID is valid\n";
+    }
 }
 
