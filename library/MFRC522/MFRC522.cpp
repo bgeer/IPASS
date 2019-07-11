@@ -288,11 +288,10 @@ uint8_t MFRC522::getUID(uint8_t uid[5]){            //Cascade level 1 check that
     return OkStatus;
 }
 
-
-void MFRC522::waitForUID(uint8_t UID[5]){
+void MFRC522::waitForUID(uint8_t UID[5]){       //wait for the cards UID and puts this into the array.
     while(true){
-        if(isCardPresented()){
-            if(getUID(UID)== OkStatus){
+        if(isCardPresented()){                  //wait for a card to be presented
+            if(getUID(UID)== OkStatus){         //communicates with the card to ge the UID
                 return;
             }
         }
@@ -305,10 +304,20 @@ bool MFRC522::checkBCC(uint8_t UID[5]){     //functios that calculates the BCC t
     for(int i = 0; i < sizeUID; i++){
         BCC ^= UID[i];
     }
-    return (BCC == UID[4]);
+    return (BCC == UID[4]);         //returns if the BCC is the same as the calculated BCC
 }
 
-void MFRC522::printUID(uint8_t UID[5]){
+bool MFRC522::isUIDEqual(const uint8_t cardUID[5], const uint8_t checkUID[5]){      //check if two UID's are equal
+    for(int i = 0; i < 4; i++){
+        if(cardUID[i] != checkUID[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void MFRC522::printUID(uint8_t UID[5]){         //print an UID without the BCC
     hwlib::cout<<
         hwlib::hex << UID[0] << " " <<
         hwlib::hex << UID[1] << " " <<
@@ -329,11 +338,18 @@ void MFRC522::test() {
 
     //get card uid
 	uint8_t uid[5] = {0x00};
+    uint8_t authenticatedUID[4] = {0xD0, 0x3F, 0x76, 0xA6};
     waitForUID(uid);
     printUID(uid);
-    bool x = checkBCC(uid);
-    if(x){
+    //checks if the UID is valid with BCC
+    if(checkBCC(uid)){
         hwlib::cout<<"UID is valid\n";
+    }
+    //check if the UID is equal to a given UID
+    if(isUIDEqual(uid, authenticatedUID)){
+        hwlib::cout<<"UID is equal\n";
+    }else{
+        hwlib::cout<<"UID is not equal\n";
     }
 }
 

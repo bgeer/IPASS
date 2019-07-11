@@ -28,9 +28,7 @@ int main(){
 
     MFRC522 rfid(bus, ss, reset);
 
-    
     rfid.test();
-
 
 
 
