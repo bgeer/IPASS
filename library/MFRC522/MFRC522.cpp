@@ -199,16 +199,15 @@ void MFRC522::initialize(){    //initialize the chip when you start it up
 }
 
 
-uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength){
-    uint8_t irqEnable = 0x00; //bits to set the right interrupts
+uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[] = {0}, int receivedDataLength = 0){
     uint8_t finishedIrq = 0x00; //value of interupts when finished or triggered
     if(cmd == cmdTransceive){   //the right value's for the transceive command
-        irqEnable = 0x77;
         finishedIrq = 0x30;
     }
+    if(cmd == cmdMFAuthent){
+        finishedIrq = 0x10;
+    }
     writeRegister(CommandReg, cmdIdle); //stop any active command
-
-    writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
     writeRegister(ComIrqReg, 0x7F);
     writeRegister(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
 
@@ -402,6 +401,29 @@ bool MFRC522::selectCard(uint8_t UID[5]){
     //     hwlib::cout<<hwlib::hex<<buffer[i]<<hwlib::endl;
     // }
     return OkStatus;
+}
+
+bool MFRC522::authenticateCard(uint8_t cmd, uint8_t blockAddress, uint8_t sectorKey[6], uint8_t uid[4]){
+    uint8_t buffer[12] = {0};
+    int bufLenght = 12;
+    //fill the buffer that is used to communicate with the correct bytes.
+    buffer[0] = cmd;
+    buffer[1] = blockAddress;
+    for(int i = 0; i < 6; i++){
+        buffer[2+i] = sectorKey[i];
+    }
+    for(int i = 0; i < 4; i++){
+        buffer[8+i] = uid[i];
+    }
+    uint8_t status = communicate(cmdMFAuthent, buffer, bufLenght);
+    if(status != OkStatus){
+        hwlib::cout<<"Not authenticated....\n";
+        return status;
+    }else{
+        hwlib::cout<<"Authenticated...\n";
+        return true;
+    }
+
 }
 
 

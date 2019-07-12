@@ -44,6 +44,7 @@ int main(){
 
     MFRC522 rfid(bus, ss, reset);
 
+    uint8_t sectorKey[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};        //standard auth key for new mifare cards.
     uint8_t UID[5] = {0x00};
     // rfid.test();
 
@@ -56,8 +57,9 @@ int main(){
     rfid.waitForUID(UID);
 
     if(!rfid.selectCard(UID)){
-        hwlib::cout<<"select working";
+        hwlib::cout<<"Selected....\n";
     }
+    rfid.authenticateCard(0x60, 4, sectorKey, UID);
 
 
 

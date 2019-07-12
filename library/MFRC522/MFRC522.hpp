@@ -386,6 +386,9 @@ public:
 
     bool selectCard(uint8_t UID[4]);
 
+    bool authenticateCard(uint8_t cmd, uint8_t blockAddress, uint8_t sectorKey[6], uint8_t uid[4]);
+
+
     /// @brief Test Function
     /// @detail
     /// This method tests certain function used in this library.
