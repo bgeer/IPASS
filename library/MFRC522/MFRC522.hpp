@@ -157,6 +157,8 @@ public:
     const static uint8_t TempErr            = 0x06;     /// @brief
     const static uint8_t WrErr              = 0x07;     /// @brief
     const static uint8_t TimeOut            = 0x08;     /// @brief
+    const static uint8_t BCCErr             = 0x09;     /// @brief
+    const static uint8_t Statuserr          = 0x10;     /// @brief
 
 
     /// @brief The maximal amount of fifo bytes able to store.
@@ -379,6 +381,10 @@ public:
     /// @param cardUID The UID of the card.
     /// @param checkUID The UID you want to check.
     bool isUIDEqual(const uint8_t cardUID[5], const uint8_t checkUID[4]);
+
+    uint8_t calculateCRC(uint8_t data[], int length, uint8_t result[]);
+
+    bool selectCard(uint8_t UID[4]);
 
     /// @brief Test Function
     /// @detail

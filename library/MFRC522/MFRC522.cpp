@@ -325,6 +325,85 @@ void MFRC522::printUID(uint8_t UID[5]){         //print an UID without the BCC
         hwlib::hex << UID[3] << hwlib::endl;
 }
 
+uint8_t MFRC522::calculateCRC(uint8_t data[], int lenght, uint8_t result[]){
+    writeRegister(CommandReg, cmdIdle); //stop any active commands
+    writeRegister(DivIrqReg, 0x04);     //enable crc interrupt
+    setBitMask(FIFOLevelReg, 0x80);     //flush the FIFO buffer
+    writeRegister(FIFODataReg, data, lenght); //write data to the fifo
+    writeRegister(CommandReg, cmdCalcCRC);  //start the CRC command
+    int count = 0;
+    for(int i = 0; i < 100; i++){   //wait max 100ms
+        uint8_t curDivIrq = readRegister(DivIrqReg);
+        if(curDivIrq & 0x04){   //CRCirq is triggered so caclucation is done
+            break;
+        }
+        count++;
+        hwlib::wait_ms(1);
+    }
+    if(count >= 100){
+        return TimeOut;
+    }
+
+    writeRegister(CommandReg, cmdIdle);     //stop any active commands to get the result
+
+    result[0] = readRegister(CRCResultRegL);    //the low bits part of the CRC result
+    result[1] = readRegister(CRCResultRegH);    //the high bits part of the CRC result
+    return OkStatus;
+
+}
+
+bool MFRC522::selectCard(uint8_t UID[5]){
+    int uidIndex = 2;
+    uint8_t *receivedBuffer;
+    int receivedBufLength;
+    uint8_t buffer[9] = {0x00};
+
+    clearBitMask(CollReg, 0x80);
+
+    buffer[0] = 0x93;   //select card command
+    buffer[1] = 0x70;
+
+    for(int i = 0; i < 5; i++){         //put the UID with BCC in the buffer
+        buffer[uidIndex+i] = UID[i];
+    }
+    uint8_t BCC = buffer[2] ^ buffer[3] ^ buffer[4] ^ buffer[5]; //calculate BCC
+    if(BCC != buffer[6]){   //checks if the BCC is correct with the received one from the card
+        return BCCErr;
+    }
+    uint8_t calcCRCStatus = calculateCRC(buffer, 7, &buffer[7]);    //calculate CRC
+    if(calcCRCStatus != OkStatus){                                  //check if the crc is calculated correct.
+        hwlib::cout<<"CRCerr\n";
+        hwlib::cout<<hwlib::hex<<calcCRCStatus;
+        return CRCErr;
+    }
+    // for(int i = 0; i < 9; i++){                //prints the buffer to test
+    //     hwlib::cout<<hwlib::hex<<buffer[i]<<hwlib::endl;
+    // }
+    // hwlib::cout<<"-----------------\n";
+    receivedBuffer = &buffer[6];
+    receivedBufLength = 3;
+    uint8_t comStatus = communicate(cmdTransceive, buffer, 9, receivedBuffer, receivedBufLength);
+    if(comStatus != OkStatus){
+        hwlib::cout<<"NOT OK"<<hwlib::endl;
+        printByte2(comStatus);
+        return comStatus;
+    }
+    //calculate your own CRC_A to check if its correct.
+    calcCRCStatus = calculateCRC(receivedBuffer, 1, &buffer[2]);
+    if(calcCRCStatus != OkStatus){
+        hwlib::cout<<hwlib::hex<<calcCRCStatus;
+        return CRCErr;
+    }
+    if(buffer[2] != receivedBuffer[1] || buffer[3] != receivedBuffer[2]){   //check the CRC calculated bytes
+        hwlib::cout<<"CRC is wrong\n";
+        return CRCErr;
+    }
+    // for(int i = 0; i < 9; i++){                //prints the buffer to test
+    //     hwlib::cout<<hwlib::hex<<buffer[i]<<hwlib::endl;
+    // }
+    return OkStatus;
+}
+
 
 void MFRC522::test() {
 	initialize();
@@ -338,7 +417,7 @@ void MFRC522::test() {
 
     //get card uid
 	uint8_t uid[5] = {0x00};
-    uint8_t authenticatedUID[4] = {0xD0, 0x3F, 0x76, 0xA6};
+    uint8_t authenticatedUID[4] = {0xD0, 0x3F, 0x7B, 0xA6};
     waitForUID(uid);
     printUID(uid);
     //checks if the UID is valid with BCC
