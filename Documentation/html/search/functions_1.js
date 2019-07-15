@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['getbytefromregister',['getByteFromRegister',['../classspiSetup.html#afa9946c86604d9a95eceddae9ee5a925',1,'spiSetup']]],
-  ['getbytesfromregister',['getBytesFromRegister',['../classspiSetup.html#a48b98f5bd3fc4e9027bffae2c4f138b9',1,'spiSetup']]],
-  ['getversion',['getVersion',['../classMFRC522.html#a2854a3633ef04780f268f8c1030ac4b5',1,'MFRC522']]]
+  ['calculatecrc',['calculateCRC',['../classMFRC522.html#af63a4a15c8752ca8d032ffe2a1120370',1,'MFRC522']]],
+  ['cardcheck',['cardCheck',['../classMFRC522.html#ae9cfc4503cd73fcc900554b7f2fab263',1,'MFRC522']]],
+  ['checkbcc',['checkBCC',['../classMFRC522.html#a05f0135bd98472284a996a71b74eaa3d',1,'MFRC522']]],
+  ['checkerror',['checkError',['../classMFRC522.html#aa45277248a32ce30e7ded5fd305f2a15',1,'MFRC522']]],
+  ['clearbitmask',['clearBitMask',['../classMFRC522.html#ab3127828649757df8bdf34b3f329ee8a',1,'MFRC522']]],
+  ['clearfifobuffer',['clearFIFOBuffer',['../classMFRC522.html#a0a4fb373d6adcfa08c2f274be1a3c0e5',1,'MFRC522']]],
+  ['clearinternalbuffer',['clearInternalBuffer',['../classMFRC522.html#a9d2c5ad7b977944e8bcbbcc9c1bb9b75',1,'MFRC522']]],
+  ['communicate',['communicate',['../classMFRC522.html#a993001f188f0f068d59442d1a8934dec',1,'MFRC522']]]
 ];

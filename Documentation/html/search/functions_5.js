@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readregister',['readRegister',['../classMFRC522.html#acf84c1c99926ebeffb31480c12492b31',1,'MFRC522::readRegister(uint8_t regAddress)'],['../classMFRC522.html#a8c8646d903f327c46f544f65e873f2eb',1,'MFRC522::readRegister(uint8_t regAddress, int amountOfBytes, uint8_t data[])']]]
+  ['mfrc522',['MFRC522',['../classMFRC522.html#a941f62373024077506c43cc67e73f6ae',1,'MFRC522']]]
 ];

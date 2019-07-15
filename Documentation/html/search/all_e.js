@@ -2,6 +2,7 @@ var searchData=
 [
   ['tcountervalueregh',['TCounterValueRegH',['../classMFRC522.html#a457f1df041869fe30a5c01b9a628edd8',1,'MFRC522']]],
   ['tcountervalueregl',['TCounterValueRegL',['../classMFRC522.html#addf045e6b7636472c27caec39eeb902b',1,'MFRC522']]],
+  ['test',['test',['../classMFRC522.html#a83fd02f159c77b1f6003ae9816337a1b',1,'MFRC522']]],
   ['testadcreg',['TestADCReg',['../classMFRC522.html#addbdc1d2d79dc48b5dc8b05757c89d82',1,'MFRC522']]],
   ['testbusreg',['TestBusReg',['../classMFRC522.html#acced8d7ea05d430a8f48ee5d30c63443',1,'MFRC522']]],
   ['testdac1reg',['TestDAC1Reg',['../classMFRC522.html#a58755b48e8eed115aa5650e8bfb8986f',1,'MFRC522']]],

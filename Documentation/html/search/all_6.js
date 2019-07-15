@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['getbytefromregister',['getByteFromRegister',['../classspiSetup.html#afa9946c86604d9a95eceddae9ee5a925',1,'spiSetup']]],
-  ['getbytesfromregister',['getBytesFromRegister',['../classspiSetup.html#a48b98f5bd3fc4e9027bffae2c4f138b9',1,'spiSetup']]],
+  ['getbytefromregister',['getByteFromRegister',['../classspiSetup.html#a8c4709981af56eb9886f57a58fc15349',1,'spiSetup']]],
+  ['getbytesfromregister',['getBytesFromRegister',['../classspiSetup.html#a2dd360ed8351469fe8dbb78d25a73e1b',1,'spiSetup']]],
+  ['getuid',['getUID',['../classMFRC522.html#af40b5faa180cbcd5a41ef31d41a2332e',1,'MFRC522']]],
   ['getversion',['getVersion',['../classMFRC522.html#a2854a3633ef04780f268f8c1030ac4b5',1,'MFRC522']]],
   ['gsnreg',['GsNReg',['../classMFRC522.html#a91ddbaf4e4bc33dd43a7599238e9f9a1',1,'MFRC522']]]
 ];

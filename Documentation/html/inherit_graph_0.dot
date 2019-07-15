@@ -3,5 +3,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="MFRC522",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMFRC522.html",tooltip="Class to communicate with MFRC522. "];
+  Node0 [label="MFRC522",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classMFRC522.html",tooltip="Class to communicate with MFRC522  This is a simple library for the MFRC522 chip. It can read the UUI..."];
 }

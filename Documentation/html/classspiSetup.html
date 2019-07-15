@@ -66,7 +66,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Class to make a spiBus.  
+<p>Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (<a href="https://github.com/wovo/hwlib">https://github.com/wovo/hwlib</a>)  
  <a href="classspiSetup.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="spiSetup_8hpp_source.html">spiSetup.hpp</a>&gt;</code></p>
@@ -85,31 +85,253 @@ Collaboration diagram for spiSetup:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4acc1a08e4a3ce57cb145b2fec525325"><td class="memItemLeft" align="right" valign="top"><a id="a4acc1a08e4a3ce57cb145b2fec525325"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a4acc1a08e4a3ce57cb145b2fec525325">spiSetup</a> (hwlib::pin_out &amp;scl, hwlib::pin_out &amp;mosi, hwlib::pin_in &amp;miso)</td></tr>
-<tr class="memdesc:a4acc1a08e4a3ce57cb145b2fec525325"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classspiSetup.html" title="Class to make a spiBus. ">spiSetup</a> class  This is the constructor of the <a class="el" href="classspiSetup.html" title="Class to make a spiBus. ">spiSetup</a>. It uses pin_out and pin_in from hwlib. This <a class="el" href="classspiSetup.html" title="Class to make a spiBus. ">spiSetup</a> can be used for other chips also. <br /></td></tr>
+<tr class="memitem:a4acc1a08e4a3ce57cb145b2fec525325"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a4acc1a08e4a3ce57cb145b2fec525325">spiSetup</a> (hwlib::pin_out &amp;scl, hwlib::pin_out &amp;mosi, hwlib::pin_in &amp;miso)</td></tr>
+<tr class="memdesc:a4acc1a08e4a3ce57cb145b2fec525325"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classspiSetup.html" title="Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (https://github.com/wovo/hwlib) ">spiSetup</a> class  This is the constructor of the <a class="el" href="classspiSetup.html" title="Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (https://github.com/wovo/hwlib) ">spiSetup</a>. It uses pin_out and pin_in from hwlib. This <a class="el" href="classspiSetup.html" title="Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (https://github.com/wovo/hwlib) ">spiSetup</a> can be used for other chips also.  <a href="#a4acc1a08e4a3ce57cb145b2fec525325">More...</a><br /></td></tr>
 <tr class="separator:a4acc1a08e4a3ce57cb145b2fec525325"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa9946c86604d9a95eceddae9ee5a925"><td class="memItemLeft" align="right" valign="top"><a id="afa9946c86604d9a95eceddae9ee5a925"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#afa9946c86604d9a95eceddae9ee5a925">getByteFromRegister</a> (const uint8_t chipRegAddress, hwlib::pin_out &amp;slaveSelect)</td></tr>
-<tr class="memdesc:afa9946c86604d9a95eceddae9ee5a925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get byte from register.  This method return one byte from the register that given as parameter. <br /></td></tr>
-<tr class="separator:afa9946c86604d9a95eceddae9ee5a925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48b98f5bd3fc4e9027bffae2c4f138b9"><td class="memItemLeft" align="right" valign="top"><a id="a48b98f5bd3fc4e9027bffae2c4f138b9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a48b98f5bd3fc4e9027bffae2c4f138b9">getBytesFromRegister</a> (const uint8_t chipRegAddress, uint8_t data[], uint8_t amountOfBytes, hwlib::pin_out &amp;slaveSelect)</td></tr>
-<tr class="memdesc:a48b98f5bd3fc4e9027bffae2c4f138b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get bytes from register.  This method returns multiple bytes from a register. It will put the bytes fro the register in the given data array. <br /></td></tr>
-<tr class="separator:a48b98f5bd3fc4e9027bffae2c4f138b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb8e42b2a067b674f3d280a3ed108fe2"><td class="memItemLeft" align="right" valign="top"><a id="adb8e42b2a067b674f3d280a3ed108fe2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#adb8e42b2a067b674f3d280a3ed108fe2">writeByteInRegister</a> (const uint8_t chipRegAddress, uint8_t writeByte, hwlib::pin_out &amp;slaveSelect)</td></tr>
-<tr class="memdesc:adb8e42b2a067b674f3d280a3ed108fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write byte into register.  This method will write one single byte in to a register. <br /></td></tr>
-<tr class="separator:adb8e42b2a067b674f3d280a3ed108fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a6778d3c9ec9c6707ed1fc351978cd3"><td class="memItemLeft" align="right" valign="top"><a id="a5a6778d3c9ec9c6707ed1fc351978cd3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a5a6778d3c9ec9c6707ed1fc351978cd3">writeBytesinRegister</a> (const uint8_t chipRegAddress, uint8_t writeBytes[], int amountOfBytes, hwlib::pin_out &amp;slaveSel)</td></tr>
-<tr class="memdesc:a5a6778d3c9ec9c6707ed1fc351978cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write bytes into register.  This method writes several bytes into a register. You can give an array of the data you want to write to a certain register. <br /></td></tr>
-<tr class="separator:a5a6778d3c9ec9c6707ed1fc351978cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c4709981af56eb9886f57a58fc15349"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a8c4709981af56eb9886f57a58fc15349">getByteFromRegister</a> (const uint8_t regAddress, hwlib::pin_out &amp;slaveSel)</td></tr>
+<tr class="memdesc:a8c4709981af56eb9886f57a58fc15349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get byte from register.  This method return one byte from the register that given as parameter.  <a href="#a8c4709981af56eb9886f57a58fc15349">More...</a><br /></td></tr>
+<tr class="separator:a8c4709981af56eb9886f57a58fc15349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd360ed8351469fe8dbb78d25a73e1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a2dd360ed8351469fe8dbb78d25a73e1b">getBytesFromRegister</a> (const uint8_t regAddress, uint8_t data[], uint8_t amountOfBytes, hwlib::pin_out &amp;slaveSel)</td></tr>
+<tr class="memdesc:a2dd360ed8351469fe8dbb78d25a73e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get bytes from register.  This method returns multiple bytes from a register. It will put the bytes fro the register in the given data array.  <a href="#a2dd360ed8351469fe8dbb78d25a73e1b">More...</a><br /></td></tr>
+<tr class="separator:a2dd360ed8351469fe8dbb78d25a73e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b745f869799cc7f6aacaef8f6f74f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#a5b745f869799cc7f6aacaef8f6f74f8d">writeByteInRegister</a> (const uint8_t regAddress, uint8_t writeByte, hwlib::pin_out &amp;slaveSel)</td></tr>
+<tr class="memdesc:a5b745f869799cc7f6aacaef8f6f74f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write byte into register.  This method will write one single byte in to a register.  <a href="#a5b745f869799cc7f6aacaef8f6f74f8d">More...</a><br /></td></tr>
+<tr class="separator:a5b745f869799cc7f6aacaef8f6f74f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95cbedeebaf5d86bd7a927226bb67e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classspiSetup.html#ab95cbedeebaf5d86bd7a927226bb67e6">writeBytesinRegister</a> (const uint8_t regAddress, uint8_t writeBytes[], int amountOfBytes, hwlib::pin_out &amp;slaveSel)</td></tr>
+<tr class="memdesc:ab95cbedeebaf5d86bd7a927226bb67e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write bytes into register.  This method writes several bytes into a register. You can give an array of the data you want to write to a certain register.  <a href="#ab95cbedeebaf5d86bd7a927226bb67e6">More...</a><br /></td></tr>
+<tr class="separator:ab95cbedeebaf5d86bd7a927226bb67e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class to make a spiBus. </p>
-<p>This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (<a href="https://github.com/wovo/hwlib">https://github.com/wovo/hwlib</a>) </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (<a href="https://github.com/wovo/hwlib">https://github.com/wovo/hwlib</a>) </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4acc1a08e4a3ce57cb145b2fec525325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4acc1a08e4a3ce57cb145b2fec525325">&#9670;&nbsp;</a></span>spiSetup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spiSetup::spiSetup </td>
+          <td>(</td>
+          <td class="paramtype">hwlib::pin_out &amp;&#160;</td>
+          <td class="paramname"><em>scl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">hwlib::pin_out &amp;&#160;</td>
+          <td class="paramname"><em>mosi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">hwlib::pin_in &amp;&#160;</td>
+          <td class="paramname"><em>miso</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor for <a class="el" href="classspiSetup.html" title="Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (https://github.com/wovo/hwlib) ">spiSetup</a> class  This is the constructor of the <a class="el" href="classspiSetup.html" title="Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (https://github.com/wovo/hwlib) ">spiSetup</a>. It uses pin_out and pin_in from hwlib. This <a class="el" href="classspiSetup.html" title="Class to make a spiBus  This class make a spiBus with hwlib::spi_bus_bit_banged_sclk_mosi_miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (https://github.com/wovo/hwlib) ">spiSetup</a> can be used for other chips also. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scl</td><td>This is the slave select pin. </td></tr>
+    <tr><td class="paramname">mosi</td><td>This is the mosi pin for the spibus.  miso This is the miso pin for the spibus. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8c4709981af56eb9886f57a58fc15349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c4709981af56eb9886f57a58fc15349">&#9670;&nbsp;</a></span>getByteFromRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t spiSetup::getByteFromRegister </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>regAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">hwlib::pin_out &amp;&#160;</td>
+          <td class="paramname"><em>slaveSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get byte from register.  This method return one byte from the register that given as parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regAddress</td><td>The adress you want to get the byte from. </td></tr>
+    <tr><td class="paramname">slaveSel</td><td>The chip you want to communicate with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2dd360ed8351469fe8dbb78d25a73e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd360ed8351469fe8dbb78d25a73e1b">&#9670;&nbsp;</a></span>getBytesFromRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void spiSetup::getBytesFromRegister </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>regAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>data</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>amountOfBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">hwlib::pin_out &amp;&#160;</td>
+          <td class="paramname"><em>slaveSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get bytes from register.  This method returns multiple bytes from a register. It will put the bytes fro the register in the given data array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regAddress</td><td>The address you want to get multiple bytes from. </td></tr>
+    <tr><td class="paramname">data</td><td>The array where the bytes from the address are stored in. </td></tr>
+    <tr><td class="paramname">amountOfBytes</td><td>The amount of bytes you want to read from the given address. </td></tr>
+    <tr><td class="paramname">The</td><td>chip you want to communicate with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5b745f869799cc7f6aacaef8f6f74f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b745f869799cc7f6aacaef8f6f74f8d">&#9670;&nbsp;</a></span>writeByteInRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void spiSetup::writeByteInRegister </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>regAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>writeByte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">hwlib::pin_out &amp;&#160;</td>
+          <td class="paramname"><em>slaveSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write byte into register.  This method will write one single byte in to a register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regAddress</td><td>The address you want to write a byte to. </td></tr>
+    <tr><td class="paramname">writeByte</td><td>The byte you want to write to the given address. </td></tr>
+    <tr><td class="paramname">slaveSel</td><td>The chip you want to communicate with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab95cbedeebaf5d86bd7a927226bb67e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab95cbedeebaf5d86bd7a927226bb67e6">&#9670;&nbsp;</a></span>writeBytesinRegister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void spiSetup::writeBytesinRegister </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramname"><em>regAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>writeBytes</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>amountOfBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">hwlib::pin_out &amp;&#160;</td>
+          <td class="paramname"><em>slaveSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write bytes into register.  This method writes several bytes into a register. You can give an array of the data you want to write to a certain register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regAddress</td><td>The address you want to write multiple bytes into. </td></tr>
+    <tr><td class="paramname">writeBytes</td><td>The bytes you want to write to the address. </td></tr>
+    <tr><td class="paramname">amountOfBytes</td><td>The amount of bytes you want to write to the address. </td></tr>
+    <tr><td class="paramname">slaveSel</td><td>The chip you want to communicate with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="spiSetup_8hpp_source.html">spiSetup.hpp</a></li>
 <li>spiSetup.cpp</li>
 </ul>

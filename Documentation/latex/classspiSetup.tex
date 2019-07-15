@@ -2,7 +2,7 @@
 \label{classspiSetup}\index{spi\+Setup@{spi\+Setup}}
 
 
-Class to make a spi\+Bus.  
+Class to make a spi\+Bus  This class make a spi\+Bus with hwlib\+::spi\+\_\+bus\+\_\+bit\+\_\+banged\+\_\+sclk\+\_\+mosi\+\_\+miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib})  
 
 
 
@@ -20,27 +20,121 @@ Collaboration diagram for spi\+Setup\+:
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classspiSetup_a4acc1a08e4a3ce57cb145b2fec525325}\label{classspiSetup_a4acc1a08e4a3ce57cb145b2fec525325}} 
 \hyperlink{classspiSetup_a4acc1a08e4a3ce57cb145b2fec525325}{spi\+Setup} (hwlib\+::pin\+\_\+out \&scl, hwlib\+::pin\+\_\+out \&mosi, hwlib\+::pin\+\_\+in \&miso)
 \begin{DoxyCompactList}\small\item\em Constructor for \hyperlink{classspiSetup}{spi\+Setup} class  This is the constructor of the \hyperlink{classspiSetup}{spi\+Setup}. It uses pin\+\_\+out and pin\+\_\+in from hwlib. This \hyperlink{classspiSetup}{spi\+Setup} can be used for other chips also. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classspiSetup_afa9946c86604d9a95eceddae9ee5a925}\label{classspiSetup_afa9946c86604d9a95eceddae9ee5a925}} 
-uint8\+\_\+t \hyperlink{classspiSetup_afa9946c86604d9a95eceddae9ee5a925}{get\+Byte\+From\+Register} (const uint8\+\_\+t chip\+Reg\+Address, hwlib\+::pin\+\_\+out \&slave\+Select)
+uint8\+\_\+t \hyperlink{classspiSetup_a8c4709981af56eb9886f57a58fc15349}{get\+Byte\+From\+Register} (const uint8\+\_\+t reg\+Address, hwlib\+::pin\+\_\+out \&slave\+Sel)
 \begin{DoxyCompactList}\small\item\em Get byte from register.  This method return one byte from the register that given as parameter. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classspiSetup_a48b98f5bd3fc4e9027bffae2c4f138b9}\label{classspiSetup_a48b98f5bd3fc4e9027bffae2c4f138b9}} 
-void \hyperlink{classspiSetup_a48b98f5bd3fc4e9027bffae2c4f138b9}{get\+Bytes\+From\+Register} (const uint8\+\_\+t chip\+Reg\+Address, uint8\+\_\+t data\mbox{[}$\,$\mbox{]}, uint8\+\_\+t amount\+Of\+Bytes, hwlib\+::pin\+\_\+out \&slave\+Select)
+void \hyperlink{classspiSetup_a2dd360ed8351469fe8dbb78d25a73e1b}{get\+Bytes\+From\+Register} (const uint8\+\_\+t reg\+Address, uint8\+\_\+t data\mbox{[}$\,$\mbox{]}, uint8\+\_\+t amount\+Of\+Bytes, hwlib\+::pin\+\_\+out \&slave\+Sel)
 \begin{DoxyCompactList}\small\item\em get bytes from register.  This method returns multiple bytes from a register. It will put the bytes fro the register in the given data array. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classspiSetup_adb8e42b2a067b674f3d280a3ed108fe2}\label{classspiSetup_adb8e42b2a067b674f3d280a3ed108fe2}} 
-void \hyperlink{classspiSetup_adb8e42b2a067b674f3d280a3ed108fe2}{write\+Byte\+In\+Register} (const uint8\+\_\+t chip\+Reg\+Address, uint8\+\_\+t write\+Byte, hwlib\+::pin\+\_\+out \&slave\+Select)
+void \hyperlink{classspiSetup_a5b745f869799cc7f6aacaef8f6f74f8d}{write\+Byte\+In\+Register} (const uint8\+\_\+t reg\+Address, uint8\+\_\+t write\+Byte, hwlib\+::pin\+\_\+out \&slave\+Sel)
 \begin{DoxyCompactList}\small\item\em Write byte into register.  This method will write one single byte in to a register. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classspiSetup_a5a6778d3c9ec9c6707ed1fc351978cd3}\label{classspiSetup_a5a6778d3c9ec9c6707ed1fc351978cd3}} 
-void \hyperlink{classspiSetup_a5a6778d3c9ec9c6707ed1fc351978cd3}{write\+Bytesin\+Register} (const uint8\+\_\+t chip\+Reg\+Address, uint8\+\_\+t write\+Bytes\mbox{[}$\,$\mbox{]}, int amount\+Of\+Bytes, hwlib\+::pin\+\_\+out \&slave\+Sel)
+void \hyperlink{classspiSetup_ab95cbedeebaf5d86bd7a927226bb67e6}{write\+Bytesin\+Register} (const uint8\+\_\+t reg\+Address, uint8\+\_\+t write\+Bytes\mbox{[}$\,$\mbox{]}, int amount\+Of\+Bytes, hwlib\+::pin\+\_\+out \&slave\+Sel)
 \begin{DoxyCompactList}\small\item\em Write bytes into register.  This method writes several bytes into a register. You can give an array of the data you want to write to a certain register. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Class to make a spi\+Bus. 
+Class to make a spi\+Bus  This class make a spi\+Bus with hwlib\+::spi\+\_\+bus\+\_\+bit\+\_\+banged\+\_\+sclk\+\_\+mosi\+\_\+miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib}) 
 
-This class make a spi\+Bus with hwlib\+::spi\+\_\+bus\+\_\+bit\+\_\+banged\+\_\+sclk\+\_\+mosi\+\_\+miso. There are some basic Spi methods so you can easily communicate with the chip. This class uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib}) 
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classspiSetup_a4acc1a08e4a3ce57cb145b2fec525325}\label{classspiSetup_a4acc1a08e4a3ce57cb145b2fec525325}} 
+\index{spi\+Setup@{spi\+Setup}!spi\+Setup@{spi\+Setup}}
+\index{spi\+Setup@{spi\+Setup}!spi\+Setup@{spi\+Setup}}
+\subsubsection{\texorpdfstring{spi\+Setup()}{spiSetup()}}
+{\footnotesize\ttfamily spi\+Setup\+::spi\+Setup (\begin{DoxyParamCaption}\item[{hwlib\+::pin\+\_\+out \&}]{scl,  }\item[{hwlib\+::pin\+\_\+out \&}]{mosi,  }\item[{hwlib\+::pin\+\_\+in \&}]{miso }\end{DoxyParamCaption})}
+
+
+
+Constructor for \hyperlink{classspiSetup}{spi\+Setup} class  This is the constructor of the \hyperlink{classspiSetup}{spi\+Setup}. It uses pin\+\_\+out and pin\+\_\+in from hwlib. This \hyperlink{classspiSetup}{spi\+Setup} can be used for other chips also. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scl} & This is the slave select pin. \\
+\hline
+{\em mosi} & This is the mosi pin for the spibus.  miso This is the miso pin for the spibus. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classspiSetup_a8c4709981af56eb9886f57a58fc15349}\label{classspiSetup_a8c4709981af56eb9886f57a58fc15349}} 
+\index{spi\+Setup@{spi\+Setup}!get\+Byte\+From\+Register@{get\+Byte\+From\+Register}}
+\index{get\+Byte\+From\+Register@{get\+Byte\+From\+Register}!spi\+Setup@{spi\+Setup}}
+\subsubsection{\texorpdfstring{get\+Byte\+From\+Register()}{getByteFromRegister()}}
+{\footnotesize\ttfamily uint8\+\_\+t spi\+Setup\+::get\+Byte\+From\+Register (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{reg\+Address,  }\item[{hwlib\+::pin\+\_\+out \&}]{slave\+Sel }\end{DoxyParamCaption})}
+
+
+
+Get byte from register.  This method return one byte from the register that given as parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The adress you want to get the byte from. \\
+\hline
+{\em slave\+Sel} & The chip you want to communicate with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classspiSetup_a2dd360ed8351469fe8dbb78d25a73e1b}\label{classspiSetup_a2dd360ed8351469fe8dbb78d25a73e1b}} 
+\index{spi\+Setup@{spi\+Setup}!get\+Bytes\+From\+Register@{get\+Bytes\+From\+Register}}
+\index{get\+Bytes\+From\+Register@{get\+Bytes\+From\+Register}!spi\+Setup@{spi\+Setup}}
+\subsubsection{\texorpdfstring{get\+Bytes\+From\+Register()}{getBytesFromRegister()}}
+{\footnotesize\ttfamily void spi\+Setup\+::get\+Bytes\+From\+Register (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{reg\+Address,  }\item[{uint8\+\_\+t}]{data\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t}]{amount\+Of\+Bytes,  }\item[{hwlib\+::pin\+\_\+out \&}]{slave\+Sel }\end{DoxyParamCaption})}
+
+
+
+get bytes from register.  This method returns multiple bytes from a register. It will put the bytes fro the register in the given data array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The address you want to get multiple bytes from. \\
+\hline
+{\em data} & The array where the bytes from the address are stored in. \\
+\hline
+{\em amount\+Of\+Bytes} & The amount of bytes you want to read from the given address. \\
+\hline
+{\em The} & chip you want to communicate with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classspiSetup_a5b745f869799cc7f6aacaef8f6f74f8d}\label{classspiSetup_a5b745f869799cc7f6aacaef8f6f74f8d}} 
+\index{spi\+Setup@{spi\+Setup}!write\+Byte\+In\+Register@{write\+Byte\+In\+Register}}
+\index{write\+Byte\+In\+Register@{write\+Byte\+In\+Register}!spi\+Setup@{spi\+Setup}}
+\subsubsection{\texorpdfstring{write\+Byte\+In\+Register()}{writeByteInRegister()}}
+{\footnotesize\ttfamily void spi\+Setup\+::write\+Byte\+In\+Register (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{reg\+Address,  }\item[{uint8\+\_\+t}]{write\+Byte,  }\item[{hwlib\+::pin\+\_\+out \&}]{slave\+Sel }\end{DoxyParamCaption})}
+
+
+
+Write byte into register.  This method will write one single byte in to a register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The address you want to write a byte to. \\
+\hline
+{\em write\+Byte} & The byte you want to write to the given address. \\
+\hline
+{\em slave\+Sel} & The chip you want to communicate with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classspiSetup_ab95cbedeebaf5d86bd7a927226bb67e6}\label{classspiSetup_ab95cbedeebaf5d86bd7a927226bb67e6}} 
+\index{spi\+Setup@{spi\+Setup}!write\+Bytesin\+Register@{write\+Bytesin\+Register}}
+\index{write\+Bytesin\+Register@{write\+Bytesin\+Register}!spi\+Setup@{spi\+Setup}}
+\subsubsection{\texorpdfstring{write\+Bytesin\+Register()}{writeBytesinRegister()}}
+{\footnotesize\ttfamily void spi\+Setup\+::write\+Bytesin\+Register (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{reg\+Address,  }\item[{uint8\+\_\+t}]{write\+Bytes\mbox{[}$\,$\mbox{]},  }\item[{int}]{amount\+Of\+Bytes,  }\item[{hwlib\+::pin\+\_\+out \&}]{slave\+Sel }\end{DoxyParamCaption})}
+
+
+
+Write bytes into register.  This method writes several bytes into a register. You can give an array of the data you want to write to a certain register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The address you want to write multiple bytes into. \\
+\hline
+{\em write\+Bytes} & The bytes you want to write to the address. \\
+\hline
+{\em amount\+Of\+Bytes} & The amount of bytes you want to write to the address. \\
+\hline
+{\em slave\+Sel} & The chip you want to communicate with. \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

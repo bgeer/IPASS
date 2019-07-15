@@ -8,4 +8,4 @@ Include dependency graph for M\+F\+R\+C522.\+hpp\+:
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classMFRC522}{M\+F\+R\+C522}
-\begin{DoxyCompactList}\small\item\em Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}  This is a simple library for the \hyperlink{classMFRC522}{M\+F\+R\+C522} chip. It can read the U\+U\+ID of a given card. This library uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib}) \end{DoxyCompactList}\end{DoxyCompactItemize}

@@ -2,7 +2,7 @@
 \label{classMFRC522}\index{M\+F\+R\+C522@{M\+F\+R\+C522}}
 
 
-Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}.  
+Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}  This is a simple library for the \hyperlink{classMFRC522}{M\+F\+R\+C522} chip. It can read the U\+U\+ID of a given card. This library uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib})  
 
 
 
@@ -14,27 +14,22 @@ Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}.
 \item 
 \hyperlink{classMFRC522_a941f62373024077506c43cc67e73f6ae}{M\+F\+R\+C522} (\hyperlink{classspiSetup}{spi\+Setup} \&bus, hwlib\+::pin\+\_\+out \&slave\+Sel, hwlib\+::pin\+\_\+out \&reset)
 \begin{DoxyCompactList}\small\item\em Constructor for the \hyperlink{classMFRC522}{M\+F\+R\+C522} Class. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_acf84c1c99926ebeffb31480c12492b31}\label{classMFRC522_acf84c1c99926ebeffb31480c12492b31}} 
 uint8\+\_\+t \hyperlink{classMFRC522_acf84c1c99926ebeffb31480c12492b31}{read\+Register} (uint8\+\_\+t reg\+Address)
 \begin{DoxyCompactList}\small\item\em Read one byte from register.  This method returns one byte fro the requested register in an uint8\+\_\+t type. This method uses spi\+Bus\+::get\+Byte\+From\+Register. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}\label{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}} 
 void \hyperlink{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}{read\+Register} (uint8\+\_\+t reg\+Address, int amount\+Of\+Bytes, uint8\+\_\+t data\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em Read multiple bytes from register.  This method returns a filled array that is given as parameter to the function with the reveived data. This method uses spi\+Bus\+::get\+Bytes\+From\+Register. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_a4998d808c32388f57089b5b1f6affea5}\label{classMFRC522_a4998d808c32388f57089b5b1f6affea5}} 
 void \hyperlink{classMFRC522_a4998d808c32388f57089b5b1f6affea5}{write\+Register} (uint8\+\_\+t reg\+Address, uint8\+\_\+t new\+Byte)
 \begin{DoxyCompactList}\small\item\em Write one byte to a register.  This method writes one byte to the specific register. It uses spi\+Bus\+::write\+Byte\+In\+Register. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a302848dc6302753cf8a188b1f3c28ce1}\label{classMFRC522_a302848dc6302753cf8a188b1f3c28ce1}} 
 void \hyperlink{classMFRC522_a302848dc6302753cf8a188b1f3c28ce1}{write\+Register} (uint8\+\_\+t reg\+Address, uint8\+\_\+t write\+Bytes\mbox{[}$\,$\mbox{]}, int amount\+Of\+Bytes)
-\begin{DoxyCompactList}\small\item\em Write multiple bytes to a register.  This method writes multiple bytes given in an array as parameter of the method. It uses spi\+Bus\+::write\+Bytes\+In\+Register. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}\label{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}} 
+\begin{DoxyCompactList}\small\item\em Write multiple bytes to a register.  This method writes multiple bytes given in an array as parameter of the method. It uses spi\+Bus\+::write\+Bytes\+In\+Register.  The address you want to write multiple bytes to.  The array where the bytes are in that you want to write to the register.  The amount of bytes you want to write to the address. \end{DoxyCompactList}\item 
 void \hyperlink{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}{set\+Bit\+Mask} (uint8\+\_\+t reg\+Address, uint8\+\_\+t mask)
 \begin{DoxyCompactList}\small\item\em Set a bit mask.  This method set certain bits on in a registers. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}\label{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}} 
 void \hyperlink{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}{clear\+Bit\+Mask} (uint8\+\_\+t reg\+Address, uint8\+\_\+t mask)
 \begin{DoxyCompactList}\small\item\em Clear a bit mask.  This method clears certain bits in a register. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a7a9e65b7320721d0e823fd610cb22a84}\label{classMFRC522_a7a9e65b7320721d0e823fd610cb22a84}} 
 void \hyperlink{classMFRC522_a7a9e65b7320721d0e823fd610cb22a84}{state\+Antennas} (bool state)
-\begin{DoxyCompactList}\small\item\em State of Antennas  This method can turn the antennas of the \hyperlink{classMFRC522}{M\+F\+R\+C522} on or off. Bool value true is for on and false is for off. In the datasheet in chapter 8.\+6.\+3 is explained how. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em State of Antennas  This method can turn the antennas of the \hyperlink{classMFRC522}{M\+F\+R\+C522} on or off. Bool value true is for on and false is for off. In the datasheet in chapter 8.\+6.\+3 is explained how.  The state to turn the antenna\textquotesingle{}s on or off. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a2854a3633ef04780f268f8c1030ac4b5}\label{classMFRC522_a2854a3633ef04780f268f8c1030ac4b5}} 
 uint8\+\_\+t \hyperlink{classMFRC522_a2854a3633ef04780f268f8c1030ac4b5}{get\+Version} ()
 \begin{DoxyCompactList}\small\item\em Firware version  This method return the firware version of the M\+R\+F\+C522. It returns an uint8\+\_\+t value. \end{DoxyCompactList}\item 
@@ -50,7 +45,6 @@ void \hyperlink{classMFRC522_acb40bb9c1436570578bccee641b24aec}{soft\+Reset} ()
 \mbox{\Hypertarget{classMFRC522_aa45277248a32ce30e7ded5fd305f2a15}\label{classMFRC522_aa45277248a32ce30e7ded5fd305f2a15}} 
 uint8\+\_\+t \hyperlink{classMFRC522_aa45277248a32ce30e7ded5fd305f2a15}{check\+Error} ()
 \begin{DoxyCompactList}\small\item\em Check for Errors  This method checks the Error\+Reg for certain errors. If there is an error in the register this error will be returned. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}\label{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}} 
 void \hyperlink{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}{clear\+F\+I\+F\+O\+Buffer} (const uint8\+\_\+t amnt\+Of\+Bytes=64)
 \begin{DoxyCompactList}\small\item\em Clears F\+I\+FO Buffer  This method clears the fifo buffer. It fills the F\+I\+FO buffer with Z\+E\+R\+O\+ES. The amount of zeroes are given as a parameter to the method. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a9d2c5ad7b977944e8bcbbcc9c1bb9b75}\label{classMFRC522_a9d2c5ad7b977944e8bcbbcc9c1bb9b75}} 
@@ -58,31 +52,48 @@ void \hyperlink{classMFRC522_a9d2c5ad7b977944e8bcbbcc9c1bb9b75}{clear\+Internal\
 \begin{DoxyCompactList}\small\item\em Clears Internal Buffer  This method writes 25 bytes of zeroes from the F\+I\+FO to the internal buffer. It uses the cmd\+Mem command to push these bytes from F\+I\+FO to internal buffer/. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a09f08823fbb8368bf5a597f210d629c1}\label{classMFRC522_a09f08823fbb8368bf5a597f210d629c1}} 
 void \hyperlink{classMFRC522_a09f08823fbb8368bf5a597f210d629c1}{initialize} ()
-\begin{DoxyCompactList}\small\item\em Initialize  This method initialize\textquotesingle{}s the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It will hard reset the chip and initialize all the correct registers. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Initialize  This method initialize\textquotesingle{}s the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It will hard reset the chip and initialize all the correct registers. It starts the auto timer It sets the transfer rate to 106kb It will start the 30khz timer for 25us Sets 100\% ask because M\+I\+F\+A\+RE cards are used Turns the antennas on. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a682e7232aee2470878fda4790cbceddd}\label{classMFRC522_a682e7232aee2470878fda4790cbceddd}} 
 bool \hyperlink{classMFRC522_a682e7232aee2470878fda4790cbceddd}{self\+Test} ()
-\begin{DoxyCompactList}\small\item\em Self Test  This method performs the self test of the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It return a boolean value if the test is passed or not. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classMFRC522_a993001f188f0f068d59442d1a8934dec}\label{classMFRC522_a993001f188f0f068d59442d1a8934dec}} 
+\begin{DoxyCompactList}\small\item\em Self Test  This method performs the self test of the \hyperlink{classMFRC522}{M\+F\+R\+C522}. The self test is explained in the datasheet at 16.\+1.\+1 It return a boolean value if the test is passed or not. \end{DoxyCompactList}\item 
 uint8\+\_\+t \hyperlink{classMFRC522_a993001f188f0f068d59442d1a8934dec}{communicate} (uint8\+\_\+t cmd, uint8\+\_\+t send\+Data\mbox{[}$\,$\mbox{]}, int send\+Data\+Length, uint8\+\_\+t received\+Data\mbox{[}$\,$\mbox{]}, int received\+Data\+Length)
 \begin{DoxyCompactList}\small\item\em Communication  This method is used to communicate with cards/tags and the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It returns a status of the communcation if it succeeded or not. If it didnt succeed it wil return the error code. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_af0780a36061b7ebc5dad0acda081985e}\label{classMFRC522_af0780a36061b7ebc5dad0acda081985e}} 
 bool \hyperlink{classMFRC522_af0780a36061b7ebc5dad0acda081985e}{is\+Card\+Presented} ()
 \begin{DoxyCompactList}\small\item\em Is card presented.  This function checks if there is a card presented to the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It can only be called once or there needs to be antoher command in between. It returns an boolean value if the card is presented or not. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_ae9cfc4503cd73fcc900554b7f2fab263}\label{classMFRC522_ae9cfc4503cd73fcc900554b7f2fab263}} 
-bool {\bfseries card\+Check} ()
-\item 
-\mbox{\Hypertarget{classMFRC522_a1aa02a67f5ae52359b00f671a9f01917}\label{classMFRC522_a1aa02a67f5ae52359b00f671a9f01917}} 
-uint8\+\_\+t {\bfseries get\+Card\+U\+ID} (uint8\+\_\+t U\+ID\mbox{[}5\mbox{]})
-\item 
+bool \hyperlink{classMFRC522_ae9cfc4503cd73fcc900554b7f2fab263}{card\+Check} ()
+\begin{DoxyCompactList}\small\item\em Card Check  This method checks if there is a card in range of the \hyperlink{classMFRC522}{M\+F\+R\+C522}. This method can be called multiple times after each other insteal of the is\+Card\+Presented function. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classMFRC522_af40b5faa180cbcd5a41ef31d41a2332e}{get\+U\+ID} (uint8\+\_\+t uid\mbox{[}5\mbox{]})
+\begin{DoxyCompactList}\small\item\em Get card U\+ID  This method will return the card U\+ID in the array that is given as parameter. \end{DoxyCompactList}\item 
+void \hyperlink{classMFRC522_a160ec18695ac578905ad9bcd033e1514}{wait\+For\+U\+ID} (uint8\+\_\+t U\+ID\mbox{[}5\mbox{]})
+\begin{DoxyCompactList}\small\item\em Wait For U\+ID  This method wait for the card U\+ID, If a card is presented it will communicate with the card to get the U\+ID of it. \end{DoxyCompactList}\item 
+bool \hyperlink{classMFRC522_a05f0135bd98472284a996a71b74eaa3d}{check\+B\+CC} (uint8\+\_\+t U\+ID\mbox{[}5\mbox{]})
+\begin{DoxyCompactList}\small\item\em Check B\+CC  This method check if the received B\+CC is correct to validate if the U\+ID is valid. This function xor the 4 U\+ID bytes with each other, this results in the B\+CC if its correct. \end{DoxyCompactList}\item 
+void \hyperlink{classMFRC522_af640b9f28937dc630a7482fc2aaf505f}{print\+U\+ID} (uint8\+\_\+t U\+ID\mbox{[}5\mbox{]})
+\begin{DoxyCompactList}\small\item\em Print U\+ID  This method prints the U\+ID in hex. \end{DoxyCompactList}\item 
+bool \hyperlink{classMFRC522_a9d4c7050d285c1fd45cc088d1cb53093}{is\+U\+I\+D\+Equal} (const uint8\+\_\+t card\+U\+ID\mbox{[}5\mbox{]}, const uint8\+\_\+t check\+U\+ID\mbox{[}4\mbox{]})
+\begin{DoxyCompactList}\small\item\em U\+ID Equal  This method is to check if an U\+ID is equal with an other U\+ID. This method does not change the given U\+ID\textquotesingle{}s. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classMFRC522_af63a4a15c8752ca8d032ffe2a1120370}{calculate\+C\+RC} (uint8\+\_\+t data\mbox{[}$\,$\mbox{]}, int length, uint8\+\_\+t result\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Calculates the C\+RC Value;  This method calculates the C\+R\+C(\+Cyclic redundancy check). \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classMFRC522_a56c6f916603d82af034eb13362925670}{select\+Card} (uint8\+\_\+t U\+ID\mbox{[}4\mbox{]})
+\begin{DoxyCompactList}\small\item\em Selects a card.  This method selects a card to perfrom mifare commands on such as read/write. \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classMFRC522_ab7fae1cf241dd6c71589e42ebf4e7c9b}{authenticate\+Card} (uint8\+\_\+t cmd, uint8\+\_\+t block\+Address, uint8\+\_\+t sector\+Key\mbox{[}6\mbox{]}, uint8\+\_\+t uid\mbox{[}4\mbox{]})
+\begin{DoxyCompactList}\small\item\em Authenticates a card.  This method authenticates a card to be able to perfrom mifare commands on it. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aca224c0db02bf77eee41999b5eba4d34}\label{classMFRC522_aca224c0db02bf77eee41999b5eba4d34}} 
+uint8\+\_\+t \hyperlink{classMFRC522_aca224c0db02bf77eee41999b5eba4d34}{read\+Block\+From\+Card} ()
+\begin{DoxyCompactList}\small\item\em Reads a block from the card.  This method reads bytes from a certain block/. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMFRC522_aa68abd0ac2fed0cd35e33da3d3bdefb6}\label{classMFRC522_aa68abd0ac2fed0cd35e33da3d3bdefb6}} 
+uint8\+\_\+t \hyperlink{classMFRC522_aa68abd0ac2fed0cd35e33da3d3bdefb6}{write\+To\+Block\+On\+Card} ()
+\begin{DoxyCompactList}\small\item\em Writes to a block on the card.  This method writes certain bytes on a block. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a83fd02f159c77b1f6003ae9816337a1b}\label{classMFRC522_a83fd02f159c77b1f6003ae9816337a1b}} 
-void {\bfseries test} ()
-\end{DoxyCompactItemize}
+void \hyperlink{classMFRC522_a83fd02f159c77b1f6003ae9816337a1b}{test} ()
+\begin{DoxyCompactList}\small\item\em Test Function  This method tests certain function used in this library. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}\label{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}} 
 const uint8\+\_\+t \hyperlink{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}{F\+I\+F\+O\+Amount\+Of\+Bytes} = 64
-\begin{DoxyCompactList}\small\item\em The maximal amount of fifo bytes able to store. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em General status error. \end{DoxyCompactList}\item 
 const uint8\+\_\+t \hyperlink{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}{self\+Test\+F\+I\+F\+O\+Buffer\+V1} \mbox{[}64\mbox{]}
 \begin{DoxyCompactList}\small\item\em Self test result out of datasheet for version 1. After running the self test this will be in the F\+I\+FO Buffer. \end{DoxyCompactList}\item 
 const uint8\+\_\+t \hyperlink{classMFRC522_a6973b73a8a922ac09b9d89489bdbc333}{self\+Test\+F\+I\+F\+O\+Buffer\+V2} \mbox{[}64\mbox{]}
@@ -90,8 +101,9 @@ const uint8\+\_\+t \hyperlink{classMFRC522_a6973b73a8a922ac09b9d89489bdbc333}{se
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}\label{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}} 
 static const uint8\+\_\+t \hyperlink{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}{Command\+Reg} = 0x01
-\begin{DoxyCompactList}\small\item\em All the registers of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em All the registers of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip  All the registers have there right address, reserved addresses are commented. If you want to see the registers in more detail take a look in the datasheet\+: \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a76de8291c84f20fe04af16463faffdac}\label{classMFRC522_a76de8291c84f20fe04af16463faffdac}} 
 static const uint8\+\_\+t \hyperlink{classMFRC522_a76de8291c84f20fe04af16463faffdac}{Com\+I\+En\+Reg} = 0x02
 \begin{DoxyCompactList}\small\item\em Start and stops commands. \end{DoxyCompactList}\item 
@@ -303,14 +315,15 @@ static const uint8\+\_\+t {\bfseries mifare\+Restore} = 0x\+C2
 \mbox{\Hypertarget{classMFRC522_a83d79879810f8dc2a6bac2120a56b2af}\label{classMFRC522_a83d79879810f8dc2a6bac2120a56b2af}} 
 static const uint8\+\_\+t {\bfseries mifare\+Transfer} = 0x\+B0
 \item 
+\mbox{\Hypertarget{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}\label{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}} 
 static const uint8\+\_\+t \hyperlink{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}{Ok\+Status} = 0x00
-\begin{DoxyCompactList}\small\item\em All the errors with a value and Ok\+Status;. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em All the errors with a value and Ok\+Status;  This are all the errors that can happen and are checked in certain functions. Ok\+Status is used when everything went well with for example a communcation. In the datasheet is more in detail what all errors do and how they get triggerd. \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a6c50a079169f7765026e54b94a6a97a8}\label{classMFRC522_a6c50a079169f7765026e54b94a6a97a8}} 
 static const uint8\+\_\+t \hyperlink{classMFRC522_a6c50a079169f7765026e54b94a6a97a8}{Protocol\+Err} = 0x01
 \begin{DoxyCompactList}\small\item\em Everything went Ok. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_a6e6c56ee1d07e961a1dea963fea4df99}\label{classMFRC522_a6e6c56ee1d07e961a1dea963fea4df99}} 
 static const uint8\+\_\+t \hyperlink{classMFRC522_a6e6c56ee1d07e961a1dea963fea4df99}{Parity\+Err} = 0x02
-\begin{DoxyCompactList}\small\item\em Protocol. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Protocol error. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMFRC522_aa711e6b2b73c4f42262678bd7b551a12}\label{classMFRC522_aa711e6b2b73c4f42262678bd7b551a12}} 
 static const uint8\+\_\+t {\bfseries C\+R\+C\+Err} = 0x03
 \item 
@@ -328,13 +341,17 @@ static const uint8\+\_\+t {\bfseries Wr\+Err} = 0x07
 \item 
 \mbox{\Hypertarget{classMFRC522_a64932294752fa585ccce83f181a32422}\label{classMFRC522_a64932294752fa585ccce83f181a32422}} 
 static const uint8\+\_\+t {\bfseries Time\+Out} = 0x08
-\end{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMFRC522_ac055e977aabadd176e9feaa96ffcf700}\label{classMFRC522_ac055e977aabadd176e9feaa96ffcf700}} 
+static const uint8\+\_\+t {\bfseries B\+C\+C\+Err} = 0x09
+\item 
+\mbox{\Hypertarget{classMFRC522_a60ea9e92461662d294c83cf2e156f5ad}\label{classMFRC522_a60ea9e92461662d294c83cf2e156f5ad}} 
+static const uint8\+\_\+t \hyperlink{classMFRC522_a60ea9e92461662d294c83cf2e156f5ad}{Statuserr} = 0x10
+\begin{DoxyCompactList}\small\item\em B\+CC calculation error. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}. 
-
-This is a simple library for the \hyperlink{classMFRC522}{M\+F\+R\+C522} chip. It can read the U\+U\+ID of a given card. This library uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib}) 
+Class to communicate with \hyperlink{classMFRC522}{M\+F\+R\+C522}  This is a simple library for the \hyperlink{classMFRC522}{M\+F\+R\+C522} chip. It can read the U\+U\+ID of a given card. This library uses hwlib (\href{https://github.com/wovo/hwlib}{\tt https\+://github.\+com/wovo/hwlib}) 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classMFRC522_a941f62373024077506c43cc67e73f6ae}\label{classMFRC522_a941f62373024077506c43cc67e73f6ae}} 
@@ -358,6 +375,260 @@ Constructor for the \hyperlink{classMFRC522}{M\+F\+R\+C522} Class.
 \end{DoxyParams}
 
 
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMFRC522_ab7fae1cf241dd6c71589e42ebf4e7c9b}\label{classMFRC522_ab7fae1cf241dd6c71589e42ebf4e7c9b}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!authenticate\+Card@{authenticate\+Card}}
+\index{authenticate\+Card@{authenticate\+Card}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{authenticate\+Card()}{authenticateCard()}}
+{\footnotesize\ttfamily uint8\+\_\+t M\+F\+R\+C522\+::authenticate\+Card (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{cmd,  }\item[{uint8\+\_\+t}]{block\+Address,  }\item[{uint8\+\_\+t}]{sector\+Key\mbox{[}6\mbox{]},  }\item[{uint8\+\_\+t}]{uid\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Authenticates a card.  This method authenticates a card to be able to perfrom mifare commands on it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & The command to authenticate a card. \\
+\hline
+{\em block\+Address} & The block you want to authenticate with.  The key to access the block so you want perform commands on it.  The card U\+ID you want to authenticate. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_af63a4a15c8752ca8d032ffe2a1120370}\label{classMFRC522_af63a4a15c8752ca8d032ffe2a1120370}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!calculate\+C\+RC@{calculate\+C\+RC}}
+\index{calculate\+C\+RC@{calculate\+C\+RC}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{calculate\+C\+R\+C()}{calculateCRC()}}
+{\footnotesize\ttfamily uint8\+\_\+t M\+F\+R\+C522\+::calculate\+C\+RC (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data\mbox{[}$\,$\mbox{]},  }\item[{int}]{length,  }\item[{uint8\+\_\+t}]{result\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Calculates the C\+RC Value;  This method calculates the C\+R\+C(\+Cyclic redundancy check). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The data that needs to be checked. \\
+\hline
+{\em length} & The length of the data that needs to be checked. \\
+\hline
+{\em result} & The result of the check stored in an array. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a05f0135bd98472284a996a71b74eaa3d}\label{classMFRC522_a05f0135bd98472284a996a71b74eaa3d}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!check\+B\+CC@{check\+B\+CC}}
+\index{check\+B\+CC@{check\+B\+CC}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{check\+B\+C\+C()}{checkBCC()}}
+{\footnotesize\ttfamily bool M\+F\+R\+C522\+::check\+B\+CC (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{U\+ID\mbox{[}5\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Check B\+CC  This method check if the received B\+CC is correct to validate if the U\+ID is valid. This function xor the 4 U\+ID bytes with each other, this results in the B\+CC if its correct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em U\+ID} & The U\+ID of the card. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}\label{classMFRC522_ab3127828649757df8bdf34b3f329ee8a}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!clear\+Bit\+Mask@{clear\+Bit\+Mask}}
+\index{clear\+Bit\+Mask@{clear\+Bit\+Mask}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{clear\+Bit\+Mask()}{clearBitMask()}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::clear\+Bit\+Mask (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+Address,  }\item[{uint8\+\_\+t}]{mask }\end{DoxyParamCaption})}
+
+
+
+Clear a bit mask.  This method clears certain bits in a register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The address you want to clear a bit mask on. \\
+\hline
+{\em mask} & The mask you want to set on the given address. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}\label{classMFRC522_a0a4fb373d6adcfa08c2f274be1a3c0e5}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!clear\+F\+I\+F\+O\+Buffer@{clear\+F\+I\+F\+O\+Buffer}}
+\index{clear\+F\+I\+F\+O\+Buffer@{clear\+F\+I\+F\+O\+Buffer}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{clear\+F\+I\+F\+O\+Buffer()}{clearFIFOBuffer()}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::clear\+F\+I\+F\+O\+Buffer (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{amnt\+Of\+Bytes = {\ttfamily 64} }\end{DoxyParamCaption})}
+
+
+
+Clears F\+I\+FO Buffer  This method clears the fifo buffer. It fills the F\+I\+FO buffer with Z\+E\+R\+O\+ES. The amount of zeroes are given as a parameter to the method. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amnt\+Of\+Bytes} & The amount of bytes you want to clear in the F\+I\+FO buffer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a993001f188f0f068d59442d1a8934dec}\label{classMFRC522_a993001f188f0f068d59442d1a8934dec}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!communicate@{communicate}}
+\index{communicate@{communicate}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{communicate()}{communicate()}}
+{\footnotesize\ttfamily uint8\+\_\+t M\+F\+R\+C522\+::communicate (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{cmd,  }\item[{uint8\+\_\+t}]{send\+Data\mbox{[}$\,$\mbox{]},  }\item[{int}]{send\+Data\+Length,  }\item[{uint8\+\_\+t}]{received\+Data\mbox{[}$\,$\mbox{]} = {\ttfamily \{0\}},  }\item[{int}]{received\+Data\+Length = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Communication  This method is used to communicate with cards/tags and the \hyperlink{classMFRC522}{M\+F\+R\+C522}. It returns a status of the communcation if it succeeded or not. If it didnt succeed it wil return the error code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & The command you send to the card. \\
+\hline
+{\em send\+Data} & The array with the bytes you want to send. \\
+\hline
+{\em send\+Data\+Lenght} & The lenght of the data you want to send. \\
+\hline
+{\em received\+Data} & The received data from the card stored in an array. \\
+\hline
+{\em received\+Data\+Length} & The length of the received data. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_af40b5faa180cbcd5a41ef31d41a2332e}\label{classMFRC522_af40b5faa180cbcd5a41ef31d41a2332e}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!get\+U\+ID@{get\+U\+ID}}
+\index{get\+U\+ID@{get\+U\+ID}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{get\+U\+I\+D()}{getUID()}}
+{\footnotesize\ttfamily uint8\+\_\+t M\+F\+R\+C522\+::get\+U\+ID (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{uid\mbox{[}5\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Get card U\+ID  This method will return the card U\+ID in the array that is given as parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em U\+ID} & The U\+ID of the card. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a9d4c7050d285c1fd45cc088d1cb53093}\label{classMFRC522_a9d4c7050d285c1fd45cc088d1cb53093}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!is\+U\+I\+D\+Equal@{is\+U\+I\+D\+Equal}}
+\index{is\+U\+I\+D\+Equal@{is\+U\+I\+D\+Equal}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{is\+U\+I\+D\+Equal()}{isUIDEqual()}}
+{\footnotesize\ttfamily bool M\+F\+R\+C522\+::is\+U\+I\+D\+Equal (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{card\+U\+ID\mbox{[}5\mbox{]},  }\item[{const uint8\+\_\+t}]{check\+U\+ID\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+U\+ID Equal  This method is to check if an U\+ID is equal with an other U\+ID. This method does not change the given U\+ID\textquotesingle{}s. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em card\+U\+ID} & The U\+ID of the card. \\
+\hline
+{\em check\+U\+ID} & The U\+ID you want to check. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_af640b9f28937dc630a7482fc2aaf505f}\label{classMFRC522_af640b9f28937dc630a7482fc2aaf505f}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!print\+U\+ID@{print\+U\+ID}}
+\index{print\+U\+ID@{print\+U\+ID}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{print\+U\+I\+D()}{printUID()}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::print\+U\+ID (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{U\+ID\mbox{[}5\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Print U\+ID  This method prints the U\+ID in hex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em U\+ID} & The U\+ID of the card. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_acf84c1c99926ebeffb31480c12492b31}\label{classMFRC522_acf84c1c99926ebeffb31480c12492b31}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!read\+Register@{read\+Register}}
+\index{read\+Register@{read\+Register}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{read\+Register()}{readRegister()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint8\+\_\+t M\+F\+R\+C522\+::read\+Register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+Address }\end{DoxyParamCaption})}
+
+
+
+Read one byte from register.  This method returns one byte fro the requested register in an uint8\+\_\+t type. This method uses spi\+Bus\+::get\+Byte\+From\+Register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The register address you want to read a byte from. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}\label{classMFRC522_a8c8646d903f327c46f544f65e873f2eb}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!read\+Register@{read\+Register}}
+\index{read\+Register@{read\+Register}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{read\+Register()}{readRegister()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::read\+Register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+Address,  }\item[{int}]{amount\+Of\+Bytes,  }\item[{uint8\+\_\+t}]{data\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Read multiple bytes from register.  This method returns a filled array that is given as parameter to the function with the reveived data. This method uses spi\+Bus\+::get\+Bytes\+From\+Register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The register address you want to read multiple bytes from. \\
+\hline
+{\em amount\+Of\+Bytes} & The amount of bytes you want to read from the given address. \\
+\hline
+{\em data} & The array where the bytes are put in from the address you read from. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a56c6f916603d82af034eb13362925670}\label{classMFRC522_a56c6f916603d82af034eb13362925670}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!select\+Card@{select\+Card}}
+\index{select\+Card@{select\+Card}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{select\+Card()}{selectCard()}}
+{\footnotesize\ttfamily uint8\+\_\+t M\+F\+R\+C522\+::select\+Card (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{U\+ID\mbox{[}4\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Selects a card.  This method selects a card to perfrom mifare commands on such as read/write. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em U\+ID} & this is the card U\+ID that you want to select. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}\label{classMFRC522_a398266ee566ff9a51e6d814dd19cf3fd}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!set\+Bit\+Mask@{set\+Bit\+Mask}}
+\index{set\+Bit\+Mask@{set\+Bit\+Mask}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{set\+Bit\+Mask()}{setBitMask()}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::set\+Bit\+Mask (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+Address,  }\item[{uint8\+\_\+t}]{mask }\end{DoxyParamCaption})}
+
+
+
+Set a bit mask.  This method set certain bits on in a registers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The address you want to set a bit mask on. \\
+\hline
+{\em mask} & The mask you want to set on the given address. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a160ec18695ac578905ad9bcd033e1514}\label{classMFRC522_a160ec18695ac578905ad9bcd033e1514}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!wait\+For\+U\+ID@{wait\+For\+U\+ID}}
+\index{wait\+For\+U\+ID@{wait\+For\+U\+ID}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{wait\+For\+U\+I\+D()}{waitForUID()}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::wait\+For\+U\+ID (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{U\+ID\mbox{[}5\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Wait For U\+ID  This method wait for the card U\+ID, If a card is presented it will communicate with the card to get the U\+ID of it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em U\+ID} & The U\+ID of the card. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMFRC522_a4998d808c32388f57089b5b1f6affea5}\label{classMFRC522_a4998d808c32388f57089b5b1f6affea5}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!write\+Register@{write\+Register}}
+\index{write\+Register@{write\+Register}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{write\+Register()}{writeRegister()}}
+{\footnotesize\ttfamily void M\+F\+R\+C522\+::write\+Register (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+Address,  }\item[{uint8\+\_\+t}]{new\+Byte }\end{DoxyParamCaption})}
+
+
+
+Write one byte to a register.  This method writes one byte to the specific register. It uses spi\+Bus\+::write\+Byte\+In\+Register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+Address} & The address you want to write a single byte to. \\
+\hline
+{\em new\+Byte} & The byte you want to write to the given address. \\
+\hline
+\end{DoxyParams}
+
+
 \subsection{Member Data Documentation}
 \mbox{\Hypertarget{classMFRC522_aa0a33c3059b58a75fc8c1ff8201601bb}\label{classMFRC522_aa0a33c3059b58a75fc8c1ff8201601bb}} 
 \index{M\+F\+R\+C522@{M\+F\+R\+C522}!cmd\+Idle@{cmd\+Idle}}
@@ -369,19 +640,17 @@ Constructor for the \hyperlink{classMFRC522}{M\+F\+R\+C522} Class.
 
 Shows the value of A\+DC I and Q channels. 
 
-All the commands of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip
-
-All the commands have there right value, reserved commands are commented. If you want to see the commands in more detail take a look in the datasheet table 149\+: \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}\label{classMFRC522_a0b1c450a48fb3276a360c0a27bb93542}} 
-\index{M\+F\+R\+C522@{M\+F\+R\+C522}!Command\+Reg@{Command\+Reg}}
-\index{Command\+Reg@{Command\+Reg}!M\+F\+R\+C522@{M\+F\+R\+C522}}
-\subsubsection{\texorpdfstring{Command\+Reg}{CommandReg}}
-{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::\+Command\+Reg = 0x01\hspace{0.3cm}{\ttfamily [static]}}
+All the commands of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip  All the commands have there right value, reserved commands are commented. If you want to see the commands in more detail take a look in the datasheet table 149\+: \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}\label{classMFRC522_a56c8309a003cf1a5d8479c7783826f8e}} 
+\index{M\+F\+R\+C522@{M\+F\+R\+C522}!F\+I\+F\+O\+Amount\+Of\+Bytes@{F\+I\+F\+O\+Amount\+Of\+Bytes}}
+\index{F\+I\+F\+O\+Amount\+Of\+Bytes@{F\+I\+F\+O\+Amount\+Of\+Bytes}!M\+F\+R\+C522@{M\+F\+R\+C522}}
+\subsubsection{\texorpdfstring{F\+I\+F\+O\+Amount\+Of\+Bytes}{FIFOAmountOfBytes}}
+{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::\+F\+I\+F\+O\+Amount\+Of\+Bytes = 64}
 
 
 
-All the registers of the \hyperlink{classMFRC522}{M\+F\+R\+C522} Chip. 
+General status error. 
 
-All the registers have there right address, reserved addresses are commented. If you want to see the registers in more detail take a look in the datasheet\+: \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}\label{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}} 
+The maximal amount of fifo bytes able to store. \mbox{\Hypertarget{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}\label{classMFRC522_a8e438d50133c5a2a106e9bdbdeeb19ec}} 
 \index{M\+F\+R\+C522@{M\+F\+R\+C522}!mifare\+Reqa@{mifare\+Reqa}}
 \index{mifare\+Reqa@{mifare\+Reqa}!M\+F\+R\+C522@{M\+F\+R\+C522}}
 \subsubsection{\texorpdfstring{mifare\+Reqa}{mifareReqa}}
@@ -391,19 +660,7 @@ All the registers have there right address, reserved addresses are commented. If
 
 resets the \hyperlink{classMFRC522}{M\+F\+R\+C522} 
 
-All the commands of the M\+I\+F\+A\+RE Cards
-
-All the command have there right value, reserved commands are commented. If you want to see the commands in more detail take a look in the datasheet table 9\+: \href{https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F1\+S50\+Y\+Y\+X\+\_\+\+V1.\+pdf} \mbox{\Hypertarget{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}\label{classMFRC522_a571732f99802b33ac2a6695afa1ec7a4}} 
-\index{M\+F\+R\+C522@{M\+F\+R\+C522}!Ok\+Status@{Ok\+Status}}
-\index{Ok\+Status@{Ok\+Status}!M\+F\+R\+C522@{M\+F\+R\+C522}}
-\subsubsection{\texorpdfstring{Ok\+Status}{OkStatus}}
-{\footnotesize\ttfamily const uint8\+\_\+t M\+F\+R\+C522\+::\+Ok\+Status = 0x00\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-All the errors with a value and Ok\+Status;. 
-
-This are all the errors that can happen and are checked in certain functions. Ok\+Status is used when everything went well with for example a communcation. In the datasheet is more in detail what all errors do and how they get triggerd. \href{https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F\+R\+C522.\+pdf} \mbox{\Hypertarget{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}\label{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}} 
+All the commands of the M\+I\+F\+A\+RE Cards  All the command have there right value, reserved commands are commented. If you want to see the commands in more detail take a look in the datasheet table 9\+: \href{https://www.nxp.com/docs/en/data-sheet/MF1S50YYX_V1.pdf}{\tt https\+://www.\+nxp.\+com/docs/en/data-\/sheet/\+M\+F1\+S50\+Y\+Y\+X\+\_\+\+V1.\+pdf} \mbox{\Hypertarget{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}\label{classMFRC522_a7d19c9869a7fbbe0d9825d5653d6af7b}} 
 \index{M\+F\+R\+C522@{M\+F\+R\+C522}!self\+Test\+F\+I\+F\+O\+Buffer\+V1@{self\+Test\+F\+I\+F\+O\+Buffer\+V1}}
 \index{self\+Test\+F\+I\+F\+O\+Buffer\+V1@{self\+Test\+F\+I\+F\+O\+Buffer\+V1}!M\+F\+R\+C522@{M\+F\+R\+C522}}
 \subsubsection{\texorpdfstring{self\+Test\+F\+I\+F\+O\+Buffer\+V1}{selfTestFIFOBufferV1}}
