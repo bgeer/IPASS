@@ -32,6 +32,8 @@ int main(){
     auto mosi = hwlib::target::pin_out(hwlib::target::pins::d51);
     auto reset = hwlib::target::pin_out(hwlib::target::pins::d52);
     auto servoPWM = hwlib::target::pin_out(hwlib::target::pins::d53);
+    auto greenLed = hwlib::target::pin_out(hwlib::target::pins::d46);
+    auto redLed = hwlib::target::pin_out(hwlib::target::pins::d47); 
    
     spiSetup bus(sclk, mosi, miso);
 
@@ -47,11 +49,9 @@ int main(){
 
     while(true){
         rfid.waitForUID(cardUID);
-        hwlib::cout<<"inwhile\n";
-        rfid.printUID(cardUID);
-        rfid.printUID(allowedUID);
         if(rfid.isUIDEqual(cardUID, allowedUID)){
-            hwlib::cout<<"EQUAL\n";
+            greenLed.write(1);
+            greenLed.flush();
             if(stateLock){
                 lock(servoPWM, 2.0);
                 stateLock = 0;
@@ -61,6 +61,14 @@ int main(){
                 stateLock = 1;
                 hwlib::wait_ms(2500);
             }
+            greenLed.write(0);
+            greenLed.flush();
+        }else{
+            redLed.write(1);
+            redLed.flush();
+            hwlib::wait_ms(2500);
+            redLed.write(0);
+            redLed.flush();
         }
         hwlib::wait_ms(50);
     }
