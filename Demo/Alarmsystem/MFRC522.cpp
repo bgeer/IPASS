@@ -47,7 +47,7 @@ void MFRC522::clearBitMask(uint8_t regAddress, uint8_t mask){       //turn certa
 
 void MFRC522::stateAntennas(bool state){    //turn the antenna's off or on with a boolean value
     if(state){
-        setBitMask(TxControlReg, 0x03);     //8.6.3
+        setBitMask(TxControlReg, 0x03); //8.6.3
     }else{
         clearBitMask(TxControlReg, 0x03);
     }
@@ -172,7 +172,7 @@ bool MFRC522::selfTest(){
         hwlib::cout<<"Test for firwareVersion 2 passed\n";
         return true;
     }else{
-        hwlib::cout<<"No version detected, is the MFRC522 connected correctly?\n";
+        hwlib::cout<<"No version detected, is the MFRC522 connected correctly?";
         return false;
     }
 }
@@ -199,16 +199,17 @@ void MFRC522::initialize(){    //initialize the chip when you start it up
 }
 
 
-uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[] = {0}, int receivedDataLength = 0){
+uint8_t MFRC522::communicate(uint8_t cmd, uint8_t sendData[], int sendDataLength, uint8_t receivedData[], int receivedDataLength){
+    uint8_t irqEnable = 0x00; //bits to set the right interrupts
     uint8_t finishedIrq = 0x00; //value of interupts when finished or triggered
     if(cmd == cmdTransceive){   //the right value's for the transceive command
+        irqEnable = 0x77;
         finishedIrq = 0x30;
     }
-    if(cmd == cmdMFAuthent){
-        finishedIrq = 0x10;
-    }
     writeRegister(CommandReg, cmdIdle); //stop any active command
-    writeRegister(ComIrqReg, 0x7F); //the interrupt request bits.
+
+    writeRegister(ComIEnReg, irqEnable | 0x80); //generates an interupt request
+    writeRegister(ComIrqReg, 0x7F);
     writeRegister(FIFOLevelReg, 0x80); //Flush buffer = 1, Initalize the FIFO
 
 
@@ -280,7 +281,7 @@ uint8_t MFRC522::getUID(uint8_t uid[5]){            //Cascade level 1 check that
     clearBitMask(CollReg, 0x80);
     writeRegister(BitFramingReg, 0x00);
 
-    uint8_t status = communicate(cmdTransceive, comm, 2, uid, 5);   //communicate to get the UID of the card.
+    uint8_t status = communicate(cmdTransceive, comm, 2, uid, 5);
     if(status != OkStatus){
         return status;
     }
@@ -325,11 +326,11 @@ void MFRC522::printUID(uint8_t UID[5]){         //print an UID without the BCC
 }
 
 uint8_t MFRC522::calculateCRC(uint8_t data[], int lenght, uint8_t result[]){
-    writeRegister(CommandReg, cmdIdle); //stop any active commands
-    writeRegister(DivIrqReg, 0x04);     //enable crc interrupt
-    setBitMask(FIFOLevelReg, 0x80);     //flush the FIFO buffer
-    writeRegister(FIFODataReg, data, lenght); //write data to the fifo
-    writeRegister(CommandReg, cmdCalcCRC);  //start the CRC command
+    writeRegister(CommandReg, cmdIdle);
+    writeRegister(DivIrqReg, 0x04);
+    setBitMask(FIFOLevelReg, 0x80);
+    writeRegister(FIFODataReg, data, lenght);
+    writeRegister(CommandReg, cmdCalcCRC);
     int count = 0;
     for(int i = 0; i < 100; i++){   //wait max 100ms
         uint8_t curDivIrq = readRegister(DivIrqReg);
@@ -343,98 +344,12 @@ uint8_t MFRC522::calculateCRC(uint8_t data[], int lenght, uint8_t result[]){
         return TimeOut;
     }
 
-    writeRegister(CommandReg, cmdIdle);     //stop any active commands to get the result
+    writeRegister(CommandReg, cmdIdle);
 
-    result[0] = readRegister(CRCResultRegL);    //the low bits part of the CRC result
-    result[1] = readRegister(CRCResultRegH);    //the high bits part of the CRC result
+    result[0] = readRegister(CRCResultRegL); 
+    result[1] = readRegister(CRCResultRegH);
     return OkStatus;
 
-}
-
-uint8_t MFRC522::selectCard(uint8_t UID[5]){
-    int uidIndex = 2;   //index to fill the buffer correctly
-    uint8_t *receivedBuffer;
-    int receivedBufLength;
-    uint8_t buffer[9] = {0x00};
-
-    clearBitMask(CollReg, 0x80);
-
-    buffer[0] = 0x93;   //select card command
-    buffer[1] = 0x70;
-
-    for(int i = 0; i < 5; i++){         //put the UID with BCC in the buffer
-        buffer[uidIndex+i] = UID[i];
-    }
-    uint8_t BCC = buffer[2] ^ buffer[3] ^ buffer[4] ^ buffer[5]; //calculate BCC
-    if(BCC != buffer[6]){   //checks if the BCC is correct with the received one from the card
-        return BCCErr;
-    }
-    uint8_t calcCRCStatus = calculateCRC(buffer, 7, &buffer[7]);    //calculate CRC
-    if(calcCRCStatus != OkStatus){                                  //check if the crc is calculated correct.
-        hwlib::cout<<"CRCerr\n";
-        hwlib::cout<<hwlib::hex<<calcCRCStatus;
-        return CRCErr;
-    }
-    // for(int i = 0; i < 9; i++){                //prints the buffer to test
-    //     hwlib::cout<<hwlib::hex<<buffer[i]<<hwlib::endl;
-    // }
-    // hwlib::cout<<"-----------------\n";
-    receivedBuffer = &buffer[6];
-    receivedBufLength = 3;
-    uint8_t comStatus = communicate(cmdTransceive, buffer, 9, receivedBuffer, receivedBufLength);
-    if(comStatus != OkStatus){
-        hwlib::cout<<"NOT OK"<<hwlib::endl;
-        printByte2(comStatus);
-        return comStatus;
-    }
-    //check for SAK response buffer[6] == 8
-    if(buffer[6] != 0x08){
-        hwlib::cout<<"No SAK response...\n";
-    }
-    //calculate your own CRC_A to check if its correct.
-    calcCRCStatus = calculateCRC(receivedBuffer, 1, &buffer[2]);
-    if(calcCRCStatus != OkStatus){
-        hwlib::cout<<hwlib::hex<<calcCRCStatus;
-        return CRCErr;
-    }
-    if(buffer[2] != receivedBuffer[1] || buffer[3] != receivedBuffer[2]){   //check the CRC calculated bytes
-        hwlib::cout<<"CRC is wrong\n";
-        return CRCErr;
-    }
-    for(int i = 0; i < 9; i++){                //prints the buffer to test
-        hwlib::cout<<hwlib::hex<<buffer[i]<<hwlib::endl;
-    }
-    return OkStatus;
-}
-
-uint8_t MFRC522::authenticateCard(uint8_t cmd, uint8_t blockAddress, uint8_t sectorKey[6], uint8_t uid[4]){
-    uint8_t buffer[12] = {0};
-    int bufLenght = 12;
-    //fill the buffer that is used to communicate with the correct bytes.
-    buffer[0] = cmd;
-    buffer[1] = blockAddress;
-    for(int i = 0; i < 6; i++){
-        buffer[2+i] = sectorKey[i];
-    }
-    for(int i = 0; i < 4; i++){
-        buffer[8+i] = uid[i];
-    }
-    uint8_t status = communicate(cmdMFAuthent, buffer, bufLenght);
-    if(status != OkStatus){
-        hwlib::cout<<"Not authenticated....\n";
-        return status;
-    }else{
-        hwlib::cout<<"Authenticated...\n";
-        return OkStatus;
-    }
-}
-
-uint8_t MFRC522::readBlockFromCard(){
-    return OkStatus;
-}
-
-uint8_t MFRC522::writeToBlockOnCard(){
-    return OkStatus;
 }
 
 
@@ -450,7 +365,7 @@ void MFRC522::test() {
 
     //get card uid
 	uint8_t uid[5] = {0x00};
-    uint8_t authenticatedUID[4] = {0xD0, 0x3F, 0x7B, 0xA6};
+    uint8_t authenticatedUID[4] = {0xD0, 0x3F, 0x76, 0xA6};
     waitForUID(uid);
     printUID(uid);
     //checks if the UID is valid with BCC

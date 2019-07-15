@@ -11,6 +11,14 @@ spiSetup::spiSetup(hwlib::pin_out& scl, hwlib::pin_out& mosi, hwlib::pin_in& mis
 	hwlib::spi_bus_bit_banged_sclk_mosi_miso(scl, mosi, miso)
 {}
 
+void spiSetup::printByte(uint8_t &byte){        //function to printbytes in the develop process
+    hwlib::cout<<"Byte: ";
+    for(int i = 7; i >= 0; i--){
+        hwlib::cout<<((byte & (1<<i)) !=0);
+    }
+    hwlib::cout<<'\n';
+}
+
 uint8_t spiSetup::getReadByte(const uint8_t regAddress) {   //function to transfer a regAddress to the right byte so you can read it 
 	return (((regAddress << 1) & WRITE_MASK) | READ_MASK);
 }

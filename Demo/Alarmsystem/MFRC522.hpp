@@ -149,7 +149,7 @@ public:
     /// errors do and how they get triggerd.
     /// https://www.nxp.com/docs/en/data-sheet/MFRC522.pdf
     const static uint8_t OkStatus           = 0x00;     /// @brief Everything went Ok.
-    const static uint8_t ProtocolErr        = 0x01;     /// @brief Protocol error
+    const static uint8_t ProtocolErr        = 0x01;     /// @brief Protocol
     const static uint8_t ParityErr          = 0x02;     /// @brief
     const static uint8_t CRCErr             = 0x03;     /// @brief
     const static uint8_t CollErr            = 0x04;     /// @brief
@@ -157,8 +157,6 @@ public:
     const static uint8_t TempErr            = 0x06;     /// @brief
     const static uint8_t WrErr              = 0x07;     /// @brief
     const static uint8_t TimeOut            = 0x08;     /// @brief
-    const static uint8_t BCCErr             = 0x09;     /// @brief BCC calculation error.
-    const static uint8_t Statuserr          = 0x10;     /// @brief General status error.
 
 
     /// @brief The maximal amount of fifo bytes able to store.
@@ -382,38 +380,7 @@ public:
     /// @param checkUID The UID you want to check.
     bool isUIDEqual(const uint8_t cardUID[5], const uint8_t checkUID[4]);
 
-    /// @brief Calculates the CRC Value;
-    /// @detail
-    /// This method calculates the CRC(Cyclic redundancy check).
-    /// @param data The data that needs to be checked.
-    /// @param length The length of the data that needs to be checked.
-    /// @param result The result of the check stored in an array.
     uint8_t calculateCRC(uint8_t data[], int length, uint8_t result[]);
-
-    /// @brief Selects a card. 
-    /// @detail
-    /// This method selects a card to perfrom mifare commands on such as read/write.
-    /// @param UID this is the card UID that you want to select.
-    uint8_t selectCard(uint8_t UID[4]);
-
-    /// @brief Authenticates a card.
-    /// @detail
-    /// This method authenticates a card to be able to perfrom mifare commands on it.
-    /// @param cmd The command to authenticate a card.
-    /// @param blockAddress The block you want to authenticate with.
-    /// @sectorKey The key to access the block so you want perform commands on it.
-    /// @uid The card UID you want to authenticate.
-    uint8_t authenticateCard(uint8_t cmd, uint8_t blockAddress, uint8_t sectorKey[6], uint8_t uid[4]);
-
-    /// @brief Reads a block from the card.
-    /// @detail
-    /// This method reads bytes from a certain block/
-    uint8_t readBlockFromCard();
-
-    /// @brief Writes to a block on the card.
-    /// @detail
-    /// This method writes certain bytes on a block.
-    uint8_t writeToBlockOnCard();
 
 
     /// @brief Test Function
@@ -422,4 +389,6 @@ public:
     void test();
 
 };
+
+
 #endif      //MFRC522_HPP

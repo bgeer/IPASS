@@ -41,6 +41,7 @@ private:
     /// This function transfers the register address to the right byte.
     /// So this byte can be send with spi to the chip.
     uint8_t getWriteByte(const uint8_t regAdress);
+    void printByte(uint8_t &byte);
 public:
     /// @brief Constructor for spiSetup class
     /// @detail
